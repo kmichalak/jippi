@@ -17,12 +17,12 @@
 
 #include "include/restclient.h"
 
-restclient::restclient()
+RestClient::restclient()
 {
 
 }
 
-restclient::~restclient()
+RestClient::~restclient()
 {
 
 }

@@ -18,11 +18,11 @@
 #ifndef RESTCLIENT_H
 #define RESTCLIENT_H
 
-class Restclient
+class RestClient
 {
 public:
-    Restclient();
-    ~Restclient();
+    RestClient();
+    ~RestClient();
 };
 
 #endif // RESTCLIENT_H
