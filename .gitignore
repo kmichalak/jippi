@@ -18,3 +18,9 @@
 # Temporary files
 *swp
 
+# Develop files 
+*.kdev4
+
+# Temporary files #
+*swp
+
