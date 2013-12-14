@@ -48,16 +48,17 @@ rest_response RestClient::get(const std::string& url)
 
 		if (curl_response == CURLE_OK) {
 			long http_code = 0;
-         	curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-         	response->code = http_code;
-        } else {
-         	response->body = "FAIL";
-         	response->code = -1;    // have to introduce some constant for query failure
-        }
-    }
+			curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+			response->code = http_code;
+			
+		} else {
+			response->body = "FAIL";
+			response->code = -1;    // have to introduce some constant for query failure
+		}
+	}
 
 	curl_easy_cleanup(curl);
-		
+	
 	return response;
 }
 
