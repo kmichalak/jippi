@@ -32,8 +32,8 @@ typedef struct
 class RestClient
 {
 public:
-    RestClient();
-    ~RestClient();
+	RestClient();
+	~RestClient();
 	
 	rest_response get(const std::string& url);
 };
