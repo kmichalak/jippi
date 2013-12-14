@@ -20,11 +20,14 @@
 
 #include <string>
 
+const char* USER_AGENT = "JIPPI v0.1";
+
 typedef struct 
 {
   int code;
-  std::string body
+  std::string body;
 } rest_response;
+
 
 class RestClient
 {
@@ -36,3 +39,4 @@ public:
 };
 
 #endif // RESTCLIENT_H
+
