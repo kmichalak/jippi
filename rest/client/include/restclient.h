@@ -18,11 +18,21 @@
 #ifndef RESTCLIENT_H
 #define RESTCLIENT_H
 
+#include <string>
+
+typedef struct 
+{
+  int code;
+  std::string body
+} rest_response;
+
 class RestClient
 {
 public:
     RestClient();
     ~RestClient();
+	
+	rest_response get(const std::string& url);
 };
 
 #endif // RESTCLIENT_H

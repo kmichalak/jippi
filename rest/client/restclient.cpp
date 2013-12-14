@@ -26,3 +26,9 @@ RestClient::~restclient()
 {
 
 }
+
+rest_response RestClient::get(const std::string& url)
+{
+	rest_response* response = new rest_response;
+	return response;
+}
