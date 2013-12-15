@@ -32,8 +32,13 @@ class RestClient
 public:
 	RestClient();
 	~RestClient();
-	
+
 	rest_response get(const std::string& url);
+	rest_response* create_empty_response();
+private:
+	static size_t write_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* inputdata);
+	size_t write_callback(void* outputdata, size_t block_size, size_t block_count, void* inputdata);
+	
 };
 
 #endif // RESTCLIENT_H
