@@ -18,12 +18,14 @@
 #include "include/restclient.h"
 #include <curl/curl.h>
 
-RestClient::restclient()
+const char* USER_AGENT = "JIPPI v0.1";
+
+RestClient::RestClient()
 {
 
 }
 
-RestClient::~restclient()
+RestClient::~RestClient()
 {
 
 }
@@ -59,6 +61,6 @@ rest_response RestClient::get(const std::string& url)
 
 	curl_easy_cleanup(curl);
 	
-	return response;
+	return *response;
 }
 

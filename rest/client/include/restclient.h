@@ -20,8 +20,6 @@
 
 #include <string>
 
-const char* USER_AGENT = "JIPPI v0.1";
-
 typedef struct 
 {
 	int code;
