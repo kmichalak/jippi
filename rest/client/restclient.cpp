@@ -16,8 +16,11 @@
  */
 
 #include "include/restclient.h"
+#include "../../utils/string/include/stringutils.h"
 #include <curl/curl.h>
 #include <tr1/functional>
+#include <stdio.h>
+#include <cstring>
 
 const char* USER_AGENT = "JIPPI v0.1";
 
@@ -72,21 +75,6 @@ rest_response RestClient::get(const std::string& url)
 }
 
 /**
- * The solution suggested by CURL documentation available at 
- * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
- * I know this is ugly, but I hate static methods... If it has to be static
- * let it do the least as it's possible.
- */
-size_t RestClient::write_callback_wrapper(void* outputdata, 
-					  size_t block_size, 
-					  size_t block_count, 
-					  void* rest_client)
-{
-	RestClient* client = static_cast<RestClient*>(rest_client);
-	return client->write_callback(outputdata, block_size, block_count, client->create_empty_response());
-}
-
-/**
  * @brief Callback for CURL write function. 
  * As it's mentioned in CURL documentation callback should 
  * use a fwrite() syntax.
@@ -104,6 +92,46 @@ size_t RestClient::write_callback(void* outputdata, size_t block_size, size_t bl
  	rest_response* response = reinterpret_cast<rest_response*>(inputdata);
 	response->body.append(reinterpret_cast<char*>(outputdata), output_size);
 	return output_size;
+}
+
+/**
+ * The solution suggested by CURL documentation available at 
+ * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
+ * I know this is ugly, but I hate static methods... If it has to be static
+ * let it do the least as it's possible.
+ */
+size_t RestClient::write_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+{
+	RestClient* client = static_cast<RestClient*>(rest_client);
+	return client->write_callback(outputdata, block_size, block_count, client->create_empty_response());
+}
+
+size_t RestClient::header_callback(void* output_data, size_t block_size, size_t block_count, void* inputd_ata)
+{
+	size_t output_size = block_size * block_count;
+	rest_response* response = reinterpret_cast<rest_response*>(inputd_ata);
+	std::string header_content(reinterpret_cast<char*>(output_data), output_size);
+	size_t separator_pos = header_content.find_first_of(":");
+	
+	if (std::string::npos == separator_pos) {
+ 		header_content = StringUtils::trim(header_content);
+		if (StringUtils::is_empty(header_content)) {
+			return output_size;
+		}
+		response->header[header_content] = "present";
+	} else {
+		std::string key = StringUtils::trim(header_content.substr(0, separator_pos));
+		std::string value = StringUtils::trim(header_content.substr(separator_pos + 1));
+		response->header[key] = value;
+	}
+	
+	return output_size;
+}
+
+size_t RestClient::header_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+{
+	RestClient* client = static_cast<RestClient*>(rest_client);
+	return client->header_callback(outputdata, block_size, block_count, client->create_empty_response());
 }
 
 rest_response* RestClient::create_empty_response() 
