@@ -51,9 +51,9 @@ rest_response RestClient::get(const std::string& url)
 	if (curl) {
 		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT);
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback_wrapper);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::write_callback_wrapper);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
-		curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, NULL);	// have to add some header callback
+		curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::header_callback_wrapper);	// have to add some header callback
 		curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);	
 
 		curl_response = curl_easy_perform(curl);
@@ -94,18 +94,6 @@ size_t RestClient::write_callback(void* outputdata, size_t block_size, size_t bl
 	return output_size;
 }
 
-/**
- * The solution suggested by CURL documentation available at 
- * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
- * I know this is ugly, but I hate static methods... If it has to be static
- * let it do the least as it's possible.
- */
-size_t RestClient::write_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
-{
-	RestClient* client = static_cast<RestClient*>(rest_client);
-	return client->write_callback(outputdata, block_size, block_count, client->create_empty_response());
-}
-
 size_t RestClient::header_callback(void* output_data, size_t block_size, size_t block_count, void* inputd_ata)
 {
 	size_t output_size = block_size * block_count;
@@ -126,16 +114,6 @@ size_t RestClient::header_callback(void* output_data, size_t block_size, size_t 
 	}
 	
 	return output_size;
-}
-
-/**
- * The same solution as write_callback_wrapper. For more details look at 
- * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f.
- */
-size_t RestClient::header_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
-{
-	RestClient* client = static_cast<RestClient*>(rest_client);
-	return client->header_callback(outputdata, block_size, block_count, client->create_empty_response());
 }
 
 rest_response* RestClient::create_empty_response() 

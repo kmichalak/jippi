@@ -40,10 +40,32 @@ public:
 	rest_response get(const std::string& url);
 	rest_response* create_empty_response();
 private:
-	static size_t write_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client);
+// 	static size_t write_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client);
 	size_t write_callback(void* outputdata, size_t block_size, size_t block_count, void* inputdata);
-	static size_t header_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* inputdata);
+// 	static size_t header_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* inputdata);
 	size_t header_callback(void* outputdata, size_t block_size, size_t block_count, void* rest_client);
+	
+	/**
+	 * The solution suggested by CURL documentation available at 
+	 * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
+	 * I know this is ugly, but I hate static methods... If it has to be static
+	 * let it do the least as it's possible.
+	 */
+	static size_t write_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+	{
+		RestClient* client = static_cast<RestClient*>(rest_client);
+		return client->write_callback(outputdata, block_size, block_count, client->create_empty_response());
+	}
+	
+	/**
+	 * The same solution as write_callback_wrapper. For more details look at 
+	 * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f.
+	 */
+	static size_t header_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+	{
+		RestClient* client = static_cast<RestClient*>(rest_client);
+		return client->header_callback(outputdata, block_size, block_count, client->create_empty_response());
+	}
 };
 
 #endif // RESTCLIENT_H
