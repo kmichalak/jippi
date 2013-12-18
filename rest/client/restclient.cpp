@@ -128,6 +128,10 @@ size_t RestClient::header_callback(void* output_data, size_t block_size, size_t 
 	return output_size;
 }
 
+/**
+ * The same solution as write_callback_wrapper. For more details look at 
+ * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f.
+ */
 size_t RestClient::header_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
 {
 	RestClient* client = static_cast<RestClient*>(rest_client);
