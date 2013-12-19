@@ -21,8 +21,6 @@
 #include <string>
 #include <map>
 
-const char* USER_AGENT = "JIPPI v0.1";
-
 typedef std::map<std::string, std::string> response_header;
 
 typedef struct 
@@ -39,9 +37,14 @@ public:
 	RestClient();
 	~RestClient();
 
+	void set_authorization_data(const std::string& user, const std::string& password);
+	
 	rest_response get(const std::string& url);
 	rest_response* create_empty_response();
 private:
+	rest_response* response;
+	std::string auth_data;
+	
 	size_t write_callback(void* outputdata, size_t block_size, size_t block_count, void* inputdata);
 	size_t header_callback(void* outputdata, size_t block_size, size_t block_count, void* rest_client);
 	

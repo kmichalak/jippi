@@ -32,6 +32,12 @@ RestClient::~RestClient()
 
 }
 
+void RestClient::set_authorization_data(const std::string& user, const std::string& password)
+{
+	this->auth_data.clear();
+	this->auth_data = user + ":" + password;
+}
+
 /**
  * @brief HTTP GET method.
  * 
@@ -40,13 +46,18 @@ RestClient::~RestClient()
  */
 rest_response RestClient::get(const std::string& url)
 {
+	const char* USER_AGENT = "JIPPI v0.1";
+	
 	CURL *curl;
 	CURLcode curl_response;
 
-	rest_response* response = new rest_response;
+ 	this->response = new rest_response;
 
 	curl = curl_easy_init();
 	if (curl) {
+		curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_easy_setopt(curl, CURLOPT_USERPWD, this->auth_data.c_str());
+		
 		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT);
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::write_callback_wrapper);
@@ -59,17 +70,16 @@ rest_response RestClient::get(const std::string& url)
 		if (curl_response == CURLE_OK) {
 			long http_code = 0;
 			curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-			response->code = http_code;
-			
+			this->response->code = http_code;
 		} else {
-			response->body = "FAIL";
-			response->code = -1;    // have to introduce some constant for query failure
+			this->response->body = "FAIL";
+			this->response->code = -1;    // have to introduce some constant for query failure
 		}
 	}
 
 	curl_easy_cleanup(curl);
 	
-	return *response;
+	return *(this->response);
 }
 
 /**
@@ -116,5 +126,5 @@ size_t RestClient::header_callback(void* output_data, size_t block_size, size_t 
 
 rest_response* RestClient::create_empty_response() 
 {
-	return new rest_response;
+	return this->response;
 }
