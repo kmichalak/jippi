@@ -102,6 +102,7 @@ size_t RestClient::write_callback(void* outputdata, size_t block_size, size_t bl
 	return output_size;
 }
 
+
 size_t RestClient::header_callback(void* output_data, size_t block_size, size_t block_count, void* inputd_ata)
 {
 	size_t output_size = block_size * block_count;
@@ -123,6 +124,7 @@ size_t RestClient::header_callback(void* output_data, size_t block_size, size_t 
 	
 	return output_size;
 }
+
 
 rest_response* RestClient::create_empty_response() 
 {
