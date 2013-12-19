@@ -22,8 +22,6 @@
 #include <stdio.h>
 #include <cstring>
 
-const char* USER_AGENT = "JIPPI v0.1";
-
 RestClient::RestClient()
 {
 

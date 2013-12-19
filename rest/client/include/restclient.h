@@ -21,6 +21,8 @@
 #include <string>
 #include <map>
 
+const char* USER_AGENT = "JIPPI v0.1";
+
 typedef std::map<std::string, std::string> response_header;
 
 typedef struct 
@@ -40,9 +42,7 @@ public:
 	rest_response get(const std::string& url);
 	rest_response* create_empty_response();
 private:
-// 	static size_t write_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client);
 	size_t write_callback(void* outputdata, size_t block_size, size_t block_count, void* inputdata);
-// 	static size_t header_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* inputdata);
 	size_t header_callback(void* outputdata, size_t block_size, size_t block_count, void* rest_client);
 	
 	/**
