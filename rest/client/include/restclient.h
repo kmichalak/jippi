@@ -21,16 +21,21 @@
 #include <string>
 #include <map>
 
+/** Reponse header container */
 typedef std::map<std::string, std::string> response_header;
+
 
 typedef struct 
 {
-	int code;
-	std::string body;
-	response_header header;
+	int code;					/* HTTP response code */
+	std::string body;			/* Response body content*/
+	response_header header;		/* Response header content*/
 } rest_response;
 
 
+/**
+ * REST client definition. 
+ */
 class RestClient
 {
 public:

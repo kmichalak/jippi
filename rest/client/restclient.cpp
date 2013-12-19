@@ -27,16 +27,25 @@ RestClient::RestClient()
 
 }
 
+
 RestClient::~RestClient()
 {
 
 }
 
+
+/**
+ * @brief Setups authorization data for REST request.
+ * 
+ * @param user - user name
+ * @param password - user password
+ */
 void RestClient::set_authorization_data(const std::string& user, const std::string& password)
 {
 	this->auth_data.clear();
 	this->auth_data = user + ":" + password;
 }
+
 
 /**
  * @brief HTTP GET method.
@@ -81,6 +90,7 @@ rest_response RestClient::get(const std::string& url)
 	
 	return *(this->response);
 }
+
 
 /**
  * @brief Callback for CURL write function. 
