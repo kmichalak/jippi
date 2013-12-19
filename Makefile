@@ -27,8 +27,8 @@ stringutils.o:
 	
 	
 	
-tests: runtests.o stringutilstest.o
-	$(CC) $(INCLUDE) $(CXXFLAGS) $(TEST_LDFLAGS) $(TEST_LDLIBS) runtests.o stringutilstest.o -o test-all 
+tests: runtests.o stringutilstest.o stringutils.o
+	$(CC) $(INCLUDE) $(CXXFLAGS) $(TEST_LDFLAGS) $(TEST_LDLIBS) runtests.o stringutilstest.o stringutils.o -o test-all 
 	
 runtests.o: test/runtests.cpp
 	$(CC) $(CFLAGS) $(CXXFLAGS) test/runtests.cpp

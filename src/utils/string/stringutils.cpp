@@ -1,5 +1,5 @@
 /*
-  * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  * 
  */
 
-#include "include/stringutils.h"
+#include "include/stringutils.hpp"
 #include <string>
 
 std::string StringUtils::trim(const std::string& str)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 <copyright holder> <email>
+ * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 
 #include <gtest/gtest.h>
 #include "include/stringutilstest.hpp"
-#include "../../../src/utils/string/stringutils.cpp"
+#include "../../../src/utils/string/include/stringutils.hpp"
 
 
 TEST(StringUtilsTest, TrimCutsLeadingSpaces)

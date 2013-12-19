@@ -17,12 +17,6 @@
 
 #include <gtest/gtest.h>
 #include "utils/string/include/stringutilstest.hpp"
-// TEST(SomeTest, shit)
-// {
-// 	
-// }
-	
-
 
 int main(int argc, char **argv)
 {

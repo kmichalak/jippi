@@ -15,8 +15,8 @@
  * 
  */
 
-#include "include/restclient.h"
-#include "../../utils/string/include/stringutils.h"
+#include "include/restclient.hpp"
+#include "../../utils/string/include/stringutils.hpp"
 #include <curl/curl.h>
 #include <tr1/functional>
 #include <stdio.h>
