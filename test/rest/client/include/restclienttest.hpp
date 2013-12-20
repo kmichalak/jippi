@@ -19,10 +19,15 @@
 #define RESTCLIENTTEST_H
 
 #include <gtest/gtest.h>
+#include "../../../../src/rest/client/include/restclient.hpp"
 
 class RestClientTest : public testing::Test
 {
-	virtual void SetUp() {}
+protected:	
+	std::string url;
+	RestClient* client;
+	
+	virtual void SetUp();
 	virtual void TearDown() {}
 };
 

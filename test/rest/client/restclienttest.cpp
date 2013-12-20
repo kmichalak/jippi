@@ -16,5 +16,36 @@
  */
 
 #include <gtest/gtest.h>
-#include "include/restclienttest.h"
+#include "include/restclienttest.hpp"
 #include "../../../src/rest/client/include/restclient.hpp"
+
+void RestClientTest::SetUp() 
+{
+	url = "http://echo.jsontest.com/value/get";	
+	client = new RestClient;
+}
+
+
+TEST_F(RestClientTest, GetReturns200WhenOk)
+{
+	// when
+	rest_response response = client->get(url);
+	// then	
+	EXPECT_EQ(200, response.code);
+}
+
+
+TEST_F(RestClientTest, GetReturnsValidResponseBody)
+{
+	// when
+	rest_response response = client->get(url);
+	// then
+	EXPECT_EQ("{\"value\": \"get\"}\n", response.body);
+}
+
+TEST_F(RestClientTest, ShouldReturnValidResponseCodeWhenFails)
+{
+	rest_response response = client->get("http://nonexisting.org");
+	EXPECT_EQ(-1, response.code);
+}
+
