@@ -24,6 +24,10 @@ jippi
 # Develop files 
 *.kdev4
 
-# Temporary files #
+# Temporary files
 *swp
 
+# CMake files
+CMakeFiles
+CMakeCache.txt
+*.cmake
