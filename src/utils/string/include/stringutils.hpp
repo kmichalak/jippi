@@ -15,7 +15,19 @@
  * 
  */
 
-int main(int argc, char **argv)
-{	
-    return 0;
-}
+#ifndef STRINGUTILS_H
+#define STRINGUTILS_H
+
+#include <string>
+
+class StringUtils
+{
+public:
+	static std::string trim(const std::string & str);
+	static bool is_empty(const std::string & str);
+private: 
+	static std::string right_trim(const std::string & str);
+	static std::string left_trim(const std::string & str);
+};
+
+#endif // STRINGUTILS_H

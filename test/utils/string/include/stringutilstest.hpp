@@ -15,7 +15,12 @@
  * 
  */
 
-int main(int argc, char **argv)
-{	
-    return 0;
-}
+#include <gtest/gtest.h>
+
+class StringUtilsTest : public testing::Test
+{
+	
+protected:	
+	virtual void SetUp() {}
+	virtual void TearDown() {}
+};

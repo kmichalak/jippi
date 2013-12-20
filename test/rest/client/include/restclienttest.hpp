@@ -15,7 +15,20 @@
  * 
  */
 
-int main(int argc, char **argv)
-{	
-    return 0;
-}
+#ifndef RESTCLIENTTEST_H
+#define RESTCLIENTTEST_H
+
+#include <gtest/gtest.h>
+#include "../../../../src/rest/client/include/restclient.hpp"
+
+class RestClientTest : public testing::Test
+{
+protected:	
+	std::string url;
+	RestClient* client;
+	
+	virtual void SetUp();
+	virtual void TearDown() {}
+};
+
+#endif // RESTCLIENTTEST_H
