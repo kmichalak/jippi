@@ -173,6 +173,10 @@ rest_response RestClient::put(const std::string& url, const std::string& content
 		
 		curl_easy_setopt(curl, CURLOPT_INFILESIZE, static_cast<long>(this->get_upload_data()->length));
 		
+		
+		curl_slist* header = curl_slist_append(NULL, content_type_header.c_str());
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header);
+		
 		curl_response = curl_easy_perform(curl);
 		
 		if (curl_response == CURLE_OK) {
