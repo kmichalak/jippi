@@ -33,6 +33,12 @@ typedef struct
 } rest_response;
 
 
+typedef struct
+{
+	const char* data;
+	size_t length;	
+} upload_object;
+
 /**
  * REST client definition. 
  */
@@ -45,13 +51,18 @@ public:
 	void set_authorization_data(const std::string& user, const std::string& password);
 	
 	rest_response get(const std::string& url);
+	rest_response put(const std::string& url, const std::string& content_type, const std::string& data);
 	rest_response* create_empty_response();
+	upload_object* get_upload_data();
+	
 private:
 	rest_response* response;
+	upload_object* upload_data;
 	std::string auth_data;
 	
-	size_t write_callback(void* outputdata, size_t block_size, size_t block_count, void* inputdata);
-	size_t header_callback(void* outputdata, size_t block_size, size_t block_count, void* rest_client);
+	size_t write_callback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
+	size_t header_callback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
+	size_t read_callback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
 	
 	/**
 	 * The solution suggested by CURL documentation available at 
@@ -73,6 +84,12 @@ private:
 	{
 		RestClient* client = static_cast<RestClient*>(rest_client);
 		return client->header_callback(outputdata, block_size, block_count, client->create_empty_response());
+	}
+	
+	static size_t read_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+	{
+		RestClient* client = static_cast<RestClient*>(rest_client);
+		return client->read_callback(outputdata, block_size, block_count, client->create_empty_response());
 	}
 };
 

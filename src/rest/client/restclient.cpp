@@ -136,7 +136,82 @@ size_t RestClient::header_callback(void* output_data, size_t block_size, size_t 
 }
 
 
+rest_response RestClient::put(const std::string& url, const std::string& content_type, const std::string& data)
+{
+	const char* USER_AGENT = "JIPPI v0.1";
+	
+	std::string content_type_header = "Content-Type: " + content_type;
+	
+	CURL *curl;
+	CURLcode curl_response;
+	
+	this->response = new rest_response;
+	this->upload_data = new upload_object;
+	
+	curl = curl_easy_init();
+	if (curl) {
+		// basic authentication
+		curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_easy_setopt(curl, CURLOPT_USERPWD, this->auth_data.c_str());
+		
+		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT);
+		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+		
+		// set request type to HTTP PUT
+		curl_easy_setopt(curl, CURLOPT_PUT, 1L);
+		curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
+		
+		// read callback
+		curl_easy_setopt(curl, CURLOPT_READFUNCTION, RestClient::read_callback_wrapper);
+		curl_easy_setopt(curl, CURLOPT_READDATA, this);
+		// write callback 
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::write_callback_wrapper);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
+		// header callback 
+		curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::header_callback_wrapper);	// have to add some header callback
+		curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);	
+		
+		curl_easy_setopt(curl, CURLOPT_INFILESIZE, static_cast<long>(this->get_upload_data()->length));
+		
+		curl_response = curl_easy_perform(curl);
+		
+		if (curl_response == CURLE_OK) {
+			long http_code = 0;
+			curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+			this->response->code = http_code;
+		} else {
+			this->response->body = "FAIL";
+			this->response->code = -1;    // have to introduce some constant for query failure
+		}
+	}
+	
+	curl_easy_cleanup(curl);
+	
+	return *(this->response);
+}
+
+
+size_t RestClient::read_callback(void* outputdata, size_t block_size, size_t block_count, void* input_data)
+{
+	upload_object* upload_data = reinterpret_cast<upload_object *>(input_data);
+	size_t output_size = block_size * block_count;
+	size_t copy_size = (upload_data->length < output_size) ? upload_data->length : output_size;
+	
+	memcpy(outputdata, upload_data->data, copy_size);
+	
+	upload_data->length -= copy_size;
+	upload_data->data += copy_size;
+	
+	return copy_size;
+}
+
+
 rest_response* RestClient::create_empty_response() 
 {
 	return this->response;
+}
+
+upload_object* RestClient::get_upload_data() 
+{
+	return this->upload_data;
 }
