@@ -7,6 +7,7 @@ INCLUDE = -I/usr/local/include
 LDFLAGS = -L/usr/local/lib
 LDLIBS  = -lcurl
 
+TEST_INCLUDE = -I/usr/include
 TEST_LDFLAGS = -L/usr/local/gtest-1.6.0/lib
 TEST_LDLIBS = -lgtest
 
@@ -28,7 +29,7 @@ stringutils.o:
 	
 	
 tests: runtests.o stringutilstest.o stringutils.o
-	$(CC) $(INCLUDE) $(CXXFLAGS) $(TEST_LDFLAGS) $(TEST_LDLIBS) runtests.o stringutilstest.o stringutils.o -o test-all 
+	$(CC) $(INCLUDE) $(TEST_INCLUDE) $(CXXFLAGS) $(TEST_LDFLAGS) $(TEST_LDLIBS) runtests.o stringutilstest.o stringutils.o -o test-all 
 	
 runtests.o: test/runtests.cpp
 	$(CC) $(CFLAGS) $(CXXFLAGS) test/runtests.cpp
