@@ -31,7 +31,7 @@ void RestClientTest::SetUp()
 // GET
 //---------------------------------------------
 
-TEST_F(RestClientTest, GetReturns200WhenOk)
+TEST_F(RestClientTest, ResponseShouldContain200CodeWhenGetSucceed)
 {
 	// when
 	rest_response response = client->get(get_url);
@@ -40,7 +40,7 @@ TEST_F(RestClientTest, GetReturns200WhenOk)
 }
 
 
-TEST_F(RestClientTest, GetReturnsValidResponseBody)
+TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenGetSucceed)
 {
 	// when
 	rest_response response = client->get(get_url);
@@ -48,7 +48,7 @@ TEST_F(RestClientTest, GetReturnsValidResponseBody)
 	EXPECT_EQ("{\"value\": \"get\"}\n", response.body);
 }
 
-TEST_F(RestClientTest, ShouldReturnValidResponseCodeWhenFails)
+TEST_F(RestClientTest, ResponseShouldContainValidResponseCodeWhenGetFails)
 {
 	// when
 	rest_response response = client->get("http://nonexisting.org");
@@ -61,7 +61,7 @@ TEST_F(RestClientTest, ShouldReturnValidResponseCodeWhenFails)
 // PUT
 //---------------------------------------------
 
-TEST_F(RestClientTest, ShouldReturn200WhenPUTSucceed)
+TEST_F(RestClientTest, ResponseShouldContain200CodeWhenPutSucceed)
 {
 	// given
 	std::string data = "testdata";
@@ -71,7 +71,7 @@ TEST_F(RestClientTest, ShouldReturn200WhenPUTSucceed)
 	EXPECT_EQ(200, response.code);
 }
 
-TEST_F(RestClientTest, ShouldReturnValidResponseBody)
+TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenPutSucceed)
 {
 	// given
 	std::string data = "testdata";
@@ -82,7 +82,7 @@ TEST_F(RestClientTest, ShouldReturnValidResponseBody)
  	ASSERT_TRUE(data_content_position != std::string::npos);
 }
 
-TEST_F(RestClientTest, ShouldReturnValidResponseCodeWhenPUTFails)
+TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPUTFails)
 {
 	// given
 	std::string data = "testdata";
