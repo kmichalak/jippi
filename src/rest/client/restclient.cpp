@@ -147,6 +147,8 @@ rest_response RestClient::put(const std::string& url, const std::string& content
 	
 	this->response = new rest_response;
 	this->upload_data = new upload_object;
+	this->upload_data->data = data.c_str();
+	this->upload_data->length = data.size();
 	
 	curl = curl_easy_init();
 	if (curl) {

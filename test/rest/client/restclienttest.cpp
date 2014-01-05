@@ -61,9 +61,21 @@ TEST_F(RestClientTest, ShouldReturnValidResponseCodeWhenFails)
 
 TEST_F(RestClientTest, ShouldReturn200WhenPUTSucceed)
 {
-	// when
+	// given
 	std::string data = "testdata";
+	// when
 	rest_response response = client->put(put_url, content_type, data);
 	// then
 	EXPECT_EQ(200, response.code);
+}
+
+TEST_F(RestClientTest, ShouldReturnValidResponseBody)
+{
+	// given
+	std::string data = "testdata";
+	// when
+	rest_response response = client->put(put_url, content_type, data);
+	size_t data_content_position = response.body.find(data);
+	// then
+ 	ASSERT_TRUE(data_content_position != std::string::npos);
 }

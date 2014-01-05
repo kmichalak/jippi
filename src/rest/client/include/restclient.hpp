@@ -89,7 +89,7 @@ private:
 	static size_t read_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
 	{
 		RestClient* client = static_cast<RestClient*>(rest_client);
-		return client->read_callback(outputdata, block_size, block_count, client->create_empty_response());
+		return client->read_callback(outputdata, block_size, block_count, client->get_upload_data());
 	}
 };
 
