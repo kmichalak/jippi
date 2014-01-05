@@ -21,15 +21,20 @@
 
 void RestClientTest::SetUp() 
 {
-	url = "http://echo.jsontest.com/value/get";	
+	get_url = "http://echo.jsontest.com/value/get";
+	put_url = "http://httpbin.org/put";
+	content_type = "application/json";
 	client = new RestClient;
 }
 
+//---------------------------------------------
+// GET
+//---------------------------------------------
 
 TEST_F(RestClientTest, GetReturns200WhenOk)
 {
 	// when
-	rest_response response = client->get(url);
+	rest_response response = client->get(get_url);
 	// then	
 	EXPECT_EQ(200, response.code);
 }
@@ -38,7 +43,7 @@ TEST_F(RestClientTest, GetReturns200WhenOk)
 TEST_F(RestClientTest, GetReturnsValidResponseBody)
 {
 	// when
-	rest_response response = client->get(url);
+	rest_response response = client->get(get_url);
 	// then
 	EXPECT_EQ("{\"value\": \"get\"}\n", response.body);
 }
@@ -49,3 +54,16 @@ TEST_F(RestClientTest, ShouldReturnValidResponseCodeWhenFails)
 	EXPECT_EQ(-1, response.code);
 }
 
+
+//---------------------------------------------
+// PUT
+//---------------------------------------------
+
+TEST_F(RestClientTest, ShouldReturn200WhenPUTSucceed)
+{
+	// when
+	std::string data = "testdata";
+	rest_response response = client->put(put_url, content_type, data);
+	// then
+	EXPECT_EQ(200, response.code);
+}

@@ -24,11 +24,13 @@
 class RestClientTest : public testing::Test
 {
 protected:	
-	std::string url;
+	std::string get_url;
+	std::string put_url;
+	std::string content_type;
 	RestClient* client;
 	
 	virtual void SetUp();
-	virtual void TearDown() {}
+	virtual void TearDown() {};
 };
 
 #endif // RESTCLIENTTEST_H
