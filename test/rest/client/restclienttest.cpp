@@ -79,3 +79,13 @@ TEST_F(RestClientTest, ShouldReturnValidResponseBody)
 	// then
  	ASSERT_TRUE(data_content_position != std::string::npos);
 }
+
+TEST_F(RestClientTest, ShouldReturnValidResponseCodeWhenPUTFails)
+{
+	// given
+	std::string data = "testdata";
+	// when
+	rest_response response = client->put("http://nonexisting.org", content_type, data);
+	// then
+	EXPECT_EQ(-1, response.code);
+}
