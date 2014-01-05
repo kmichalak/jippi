@@ -50,7 +50,9 @@ TEST_F(RestClientTest, GetReturnsValidResponseBody)
 
 TEST_F(RestClientTest, ShouldReturnValidResponseCodeWhenFails)
 {
+	// when
 	rest_response response = client->get("http://nonexisting.org");
+	// then
 	EXPECT_EQ(-1, response.code);
 }
 
