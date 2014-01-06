@@ -19,7 +19,7 @@ link_directories(/usr/local/lib)
 # **************************************
 link_libraries(curl)
 
-add_executable(jippi src/utils/string/stringutils.cpp src/rest/client/restclient.cpp main.cpp)
+add_executable(jippi src/utils/config.cpp src/utils/string/stringutils.cpp src/rest/client/restclient.cpp main.cpp)
 
 install(TARGETS jippi RUNTIME DESTINATION bin)
 
