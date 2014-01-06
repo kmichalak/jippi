@@ -15,14 +15,41 @@
  * 
  */
 
-#include <stdlib.h>
-#include <iostream>
 
-using namespace std;
+#include <iostream>
+#include <getopt.h>
 
 int main(int argc, char **argv)
 {	
-	char* home_dir = getenv("HOME");
-	cout << home_dir << endl;
+	int arg_char;
+	
+ 	static struct option long_options[] = {
+ 		{"config", 1, 0, 'c'},
+		{"query", 0, 0, 'q'},
+ 		{NULL, 0, NULL, 0}
+ 	};
+	
+	
+	int option_index = 0;
+	while ((arg_char = getopt_long(argc, argv, "c:", long_options, &option_index)) != -1)
+		switch (arg_char)
+		{
+			case 0:
+				std::cout << long_options[option_index].name << std::endl;
+			case 'c': 
+				std::cout << "configuration" << std::endl;
+				if (optarg)
+					std::cout << " with arguments: " << optarg << std::endl;
+				std::cout << argv[optind] << std::endl;
+				break;
+			case 'q': 
+				std::cout << "query" << std::endl;
+				break;
+			default:
+				std::cout << arg_char << std::endl;
+				if (optarg)
+					std::cout << " with arguments: " << optarg << std::endl;
+		}
+	
 	return 0;
 }
