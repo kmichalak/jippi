@@ -17,12 +17,32 @@
 
 #include "include/config.h"
 
-Config::Config()
+#include <iostream>>
+#include <libconfig.h++>
+#include <stdlib.h>
+#include <string.h>
+
+jippi::Config::Config()
 {
 
 }
 
-Config::~Config()
+jippi::Config::~Config()
 {
 
+}
+
+void jippi::Config::readConfiguration() 
+{
+	const char* home_dir = getenv("HOME");
+	const char* config_file = ".jippiconfig";
+	
+	std::string config_path = std::string(home_dir) + "/" + std::string(config_file);
+	
+  	libconfig::Config config;
+	try {
+		config.readFile(config_path.c_str());
+	} catch(const libconfig::FileIOException &fioex) {
+		std::cerr << "I/O error while reading configuration file" << std::endl;
+	}
 }

@@ -18,11 +18,19 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+namespace jippi {
+
 class Config
 {
 public:
 	Config();
 	~Config();
+	
+private:
+	void readConfiguration();
+	void writeConfiguration();
 };
+
+}	// namespace
 
 #endif // CONFIG_H

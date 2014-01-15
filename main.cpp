@@ -15,7 +15,14 @@
  * 
  */
 
+#include <stdlib.h>
+#include <iostream>
+
+using namespace std;
+
 int main(int argc, char **argv)
 {	
-    return 0;
+	char* home_dir = getenv("HOME");
+	cout << home_dir << endl;
+	return 0;
 }
