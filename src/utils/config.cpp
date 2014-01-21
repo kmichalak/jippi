@@ -17,14 +17,16 @@
 
 #include "include/config.h"
 
-#include <iostream>>
+#include <iostream>
 #include <libconfig.h++>
 #include <stdlib.h>
 #include <string.h>
 
-jippi::Config::Config()
+jippi::Config::Config(const std::string &configuration_file, 
+					  const std::string &configuration_path)
 {
-
+	this->configuration_file = configuration_file;
+	this->configuration_path = configuration_path;
 }
 
 jippi::Config::~Config()
@@ -42,7 +44,34 @@ void jippi::Config::readConfiguration()
   	libconfig::Config config;
 	try {
 		config.readFile(config_path.c_str());
+		
+		try {
+			
+ 			std::string jira_url = config.lookup("jira_url");
+			
+		} catch (libconfig::SettingNotFoundException &e) {
+			std::cerr << "There was an error during reading configuration from file: " << e.what() << std::endl;
+		}
+		
+		
 	} catch(const libconfig::FileIOException &fioex) {
 		std::cerr << "I/O error while reading configuration file" << std::endl;
 	}
+}
+
+std::string jippi::Config::get_property(const std::string& key)
+{
+
+}
+
+// Some getters 
+
+std::string jippi::Config::get_file()
+{
+	return this->configuration_file;
+}
+
+std::string jippi::Config::get_path()
+{
+	return this->configuration_path;
 }

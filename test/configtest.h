@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,33 +15,26 @@
  * 
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef CONFIGTEST_H
+#define CONFIGTEST_H
 
-#include <iostream>
+#include <gtest/gtest.h>
 
-namespace jippi {
+// namespace testing {
 
-class Config
+
+class ConfigTest : public testing::Test
 {
-public:
-	Config(const std::string &configuration_file, 
-		   const std::string &configuration_path);
-	~Config();
+protected:
+	virtual void SetUp();
+	virtual void TearDown() {};
 	
-	// methods
-	std::string get_file();
-	std::string get_path();
-	std::string get_property(const std::string &key);
-private:
-	void readConfiguration();
-	void writeConfiguration();
-	
-	// variables
-	std::string configuration_path;
-	std::string configuration_file;
+protected:
+	std::string config_file;
+	std::string config_path;
 };
 
-}	// namespace
 
-#endif // CONFIG_H
+// }	// end of testing namespace
+
+#endif // CONFIGTEST_H

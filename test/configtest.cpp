@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,33 +15,22 @@
  * 
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#include <gtest/gtest.h>
+#include "configtest.h"
 
-#include <iostream>
+#include "../src/utils/include/config.h"
 
-namespace jippi {
-
-class Config
+void ConfigTest::SetUp()
 {
-public:
-	Config(const std::string &configuration_file, 
-		   const std::string &configuration_path);
-	~Config();
-	
-	// methods
-	std::string get_file();
-	std::string get_path();
-	std::string get_property(const std::string &key);
-private:
-	void readConfiguration();
-	void writeConfiguration();
-	
-	// variables
-	std::string configuration_path;
-	std::string configuration_file;
-};
+	config_file = "test.conf";
+	config_path = "./";
+}
 
-}	// namespace
-
-#endif // CONFIG_H
+TEST_F(ConfigTest, ConstructorCreatesValidConfigurationObject)
+{
+	// when
+	jippi::Config *conf = new jippi::Config(config_file, config_path);
+	// then
+	EXPECT_EQ(config_file, conf->get_file());
+	EXPECT_EQ(config_path, conf->get_path());
+}
