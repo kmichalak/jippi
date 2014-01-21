@@ -31,5 +31,5 @@ test-all
 # CMake files
 CMakeFiles
 CMakeCache.txt
-*.cmake
 Makefile
+*install.cmake
