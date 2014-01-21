@@ -18,7 +18,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <iostream>
+#include <iostream>			// std::string
+#include <libconfig.h++>	// libconfig::Config
 
 namespace jippi {
 
@@ -30,15 +31,19 @@ public:
 	~Config();
 	
 	// methods
-	std::string get_file();
-	std::string get_path();
-	std::string get_property(const std::string &key);
-private:
 	void readConfiguration();
 	void writeConfiguration();
 	
+	std::string get_file();
+	std::string get_property(const std::string &group,
+							 const std::string &key);
+	void store_property(const std::string &group,
+						const std::string &key,
+						const std::string &value);
+private:	
 	// variables
-	std::string configuration_path;
+	libconfig::Config *configuration;
+	
 	std::string configuration_file;
 };
 

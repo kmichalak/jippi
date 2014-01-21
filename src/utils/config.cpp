@@ -18,50 +18,77 @@
 #include "include/config.h"
 
 #include <iostream>
-#include <libconfig.h++>
 #include <stdlib.h>
 #include <string.h>
+#include <libconfig.h++>
+#include <iomanip>
+
+#include <unistd.h>	// stat
 
 jippi::Config::Config(const std::string &configuration_file, 
 					  const std::string &configuration_path)
 {
-	this->configuration_file = configuration_file;
-	this->configuration_path = configuration_path;
+	this->configuration_file = configuration_path + configuration_file;
+	this->configuration = new libconfig::Config;
 }
 
 jippi::Config::~Config()
 {
-
+	delete this->configuration;
 }
 
-void jippi::Config::readConfiguration() 
-{
-	const char* home_dir = getenv("HOME");
-	const char* config_file = ".jippiconfig";
-	
-	std::string config_path = std::string(home_dir) + "/" + std::string(config_file);
-	
-  	libconfig::Config config;
+void jippi::Config::readConfiguration()
+{	
 	try {
-		config.readFile(config_path.c_str());
-		
-		try {
-			
- 			std::string jira_url = config.lookup("jira_url");
-			
-		} catch (libconfig::SettingNotFoundException &e) {
-			std::cerr << "There was an error during reading configuration from file: " << e.what() << std::endl;
-		}
-		
-		
+		configuration->readFile(configuration_file.c_str());
 	} catch(const libconfig::FileIOException &fioex) {
-		std::cerr << "I/O error while reading configuration file" << std::endl;
+		std::cerr << "I/O error while reading configuration file " << configuration_file << std::endl;
+		std::cerr << fioex.what();
 	}
 }
 
-std::string jippi::Config::get_property(const std::string& key)
+void jippi::Config::writeConfiguration()
 {
+	try {
+		if (configuration != NULL) {
+			configuration->writeFile(configuration_file.c_str());
+		}
+	} catch (const libconfig::FileIOException &fioex) {
+		std::cout << "I/O error while writing configuration file " << configuration_file << std::endl;
+		std::cout << fioex.what() << std::endl;
+	}
+}
 
+
+std::string jippi::Config::get_property(const std::string &group, 
+										const std::string& key)
+{
+	libconfig::Setting &root = configuration->getRoot();
+	if (root.exists(group)) {
+		libconfig::Setting &config_group = root[group];
+		if (config_group.exists(key)) {
+			return config_group[key];
+		}
+	}
+	return NULL;
+}
+
+void jippi::Config::store_property(const std::string &group, 
+								   const std::string &key, 
+								   const std::string &value)
+{
+	libconfig::Setting &root = configuration->getRoot();
+	// Check if there is property with given name. If not then create one.
+	if (!root.exists(group)) {
+		root.add(group, libconfig::Setting::TypeGroup);
+	}
+	
+	libconfig::Setting &config_group = root[group];
+	if (!config_group.exists(key)) {
+		config_group.add(key, libconfig::Setting::TypeString) = value;
+	} else {
+		config_group[key] = value;
+	}
 }
 
 // Some getters 
@@ -69,9 +96,4 @@ std::string jippi::Config::get_property(const std::string& key)
 std::string jippi::Config::get_file()
 {
 	return this->configuration_file;
-}
-
-std::string jippi::Config::get_path()
-{
-	return this->configuration_path;
 }

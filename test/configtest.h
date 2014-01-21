@@ -27,11 +27,12 @@ class ConfigTest : public testing::Test
 {
 protected:
 	virtual void SetUp();
-	virtual void TearDown() {};
+	virtual void TearDown();
 	
 protected:
 	std::string config_file;
 	std::string config_path;
+	std::string config_file_content; 
 };
 
 
