@@ -19,7 +19,7 @@
 #define RESTCLIENTTEST_H
 
 #include <gtest/gtest.h>
-#include "../../../../inc/restclient.hpp"
+#include "../../inc/restclient.hpp"
 
 class RestClientTest : public testing::Test
 {
