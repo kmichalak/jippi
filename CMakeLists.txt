@@ -47,7 +47,7 @@ if(build_tests)
 	
 	link_libraries(gtest)
 	add_executable(test-all test/runtests.cpp 
-				test/rest/client/restclienttest.cpp src/restclient.cpp 
+				test/src/restclienttest.cpp src/restclient.cpp 
 				test/src/stringutilstest.cpp src/stringutils.cpp
 				test/src/configtest.cpp src/config.cpp)
 
