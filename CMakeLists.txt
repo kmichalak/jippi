@@ -32,6 +32,7 @@ add_executable(jippi src/config.cpp src/stringutils.cpp src/restclient.cpp main.
 install(TARGETS jippi RUNTIME DESTINATION bin)
 
 add_subdirectory(src)
+add_subdirectory(inc)
 
 # **************************************
 # Build tests
@@ -41,6 +42,7 @@ add_subdirectory(src)
 if(build_tests)
 	find_package(GTest REQUIRED)
 	add_subdirectory(test)
+	add_subdirectory(test/inc)
 	add_subdirectory(test/rest)
 	
 	link_libraries(gtest)
@@ -51,6 +53,3 @@ if(build_tests)
 
 	add_test(NAME test-all COMMAND test-all)
 endif()
-	
-
-add_subdirectory(inc)
