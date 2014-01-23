@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,27 @@
  * 
  */
 
-#include <stdlib.h>
-#include <iostream>
+#ifndef CONFIGTEST_H
+#define CONFIGTEST_H
 
-using namespace std;
+#include <gtest/gtest.h>
 
-int main(int argc, char **argv)
-{	
-	char* home_dir = getenv("HOME");
-	cout << home_dir << endl;
-	return 0;
-}
+// namespace testing {
+
+
+class ConfigTest : public testing::Test
+{
+protected:
+	virtual void SetUp();
+	virtual void TearDown();
+	
+protected:
+	std::string config_file;
+	std::string config_path;
+	std::string config_file_content; 
+};
+
+
+// }	// end of testing namespace
+
+#endif // CONFIGTEST_H
