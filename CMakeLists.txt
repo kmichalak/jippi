@@ -27,7 +27,7 @@ link_directories(/usr/local/lib)
 link_libraries(curl)
 link_libraries(${LIBCONFIG++_LIBRARY})
 
-add_executable(jippi src/utils/config.cpp src/utils/string/stringutils.cpp src/rest/client/restclient.cpp main.cpp)
+add_executable(jippi src/utils/config.cpp src/utils/string/stringutils.cpp src/restclient.cpp main.cpp)
 
 install(TARGETS jippi RUNTIME DESTINATION bin)
 
@@ -45,7 +45,7 @@ if(build_tests)
 	
 	link_libraries(gtest)
 	add_executable(test-all test/runtests.cpp 
-				test/rest/client/restclienttest.cpp src/rest/client/restclient.cpp 
+				test/rest/client/restclienttest.cpp src/restclient.cpp 
 				test/utils/string/stringutilstest.cpp src/utils/string/stringutils.cpp
 				test/configtest.cpp src/utils/config.cpp)
 
