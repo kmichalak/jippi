@@ -18,7 +18,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <gtest/gtest.h>
-#include "configtest.hpp"
+#include "inc/configtest.hpp"
 
 #include "../inc/config.hpp"
 
