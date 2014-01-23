@@ -15,7 +15,7 @@
  * 
  */
 
-#include "include/config.h"
+#include "include/config.hpp"
 
 #include <iostream>
 #include <stdlib.h>

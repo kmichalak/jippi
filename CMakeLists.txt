@@ -52,3 +52,5 @@ if(build_tests)
 	add_test(NAME test-all COMMAND test-all)
 endif()
 	
+
+add_subdirectory(inc)
