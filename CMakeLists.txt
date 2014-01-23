@@ -46,7 +46,7 @@ if(build_tests)
 	add_subdirectory(test/src)
 	
 	link_libraries(gtest)
-	add_executable(test-all test/runtests.cpp 
+	add_executable(test-all test/src/runtests.cpp 
 				test/src/restclienttest.cpp src/restclient.cpp 
 				test/src/stringutilstest.cpp src/stringutils.cpp
 				test/src/configtest.cpp src/config.cpp)
