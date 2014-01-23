@@ -43,7 +43,7 @@ if(build_tests)
 	find_package(GTest REQUIRED)
 	add_subdirectory(test)
 	add_subdirectory(test/inc)
-	add_subdirectory(test/rest)
+	add_subdirectory(test/src)
 	
 	link_libraries(gtest)
 	add_executable(test-all test/runtests.cpp 
@@ -53,5 +53,3 @@ if(build_tests)
 
 	add_test(NAME test-all COMMAND test-all)
 endif()
-
-add_subdirectory(test/src)
