@@ -16,7 +16,6 @@
  */
 
 #include <gtest/gtest.h>
-#include "utils/string/include/stringutilstest.hpp"
 
 int main(int argc, char **argv)
 {
