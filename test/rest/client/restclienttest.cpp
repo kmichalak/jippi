@@ -17,7 +17,7 @@
 
 #include <gtest/gtest.h>
 #include "include/restclienttest.hpp"
-#include "../../../src/rest/client/include/restclient.hpp"
+#include "../../../inc/restclient.hpp"
 
 void RestClientTest::SetUp() 
 {
