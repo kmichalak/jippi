@@ -15,22 +15,10 @@
  * 
  */
 
-#ifndef RESTCLIENTTEST_H
-#define RESTCLIENTTEST_H
-
 #include <gtest/gtest.h>
-#include "../../../../src/rest/client/include/restclient.hpp"
 
-class RestClientTest : public testing::Test
+int main(int argc, char **argv)
 {
-protected:	
-	std::string get_url;
-	std::string put_url;
-	std::string content_type;
-	RestClient* client;
-	
-	virtual void SetUp();
-	virtual void TearDown() {};
-};
-
-#endif // RESTCLIENTTEST_H
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
+}

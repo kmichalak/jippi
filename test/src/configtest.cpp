@@ -18,9 +18,9 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <gtest/gtest.h>
-#include "configtest.h"
 
-#include "../src/utils/include/config.h"
+#include "../inc/configtest.hpp"
+#include "../../inc/config.hpp"
 
 void ConfigTest::SetUp()
 {

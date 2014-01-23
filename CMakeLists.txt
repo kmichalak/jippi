@@ -27,11 +27,12 @@ link_directories(/usr/local/lib)
 link_libraries(curl)
 link_libraries(${LIBCONFIG++_LIBRARY})
 
-add_executable(jippi src/utils/config.cpp src/utils/string/stringutils.cpp src/rest/client/restclient.cpp main.cpp)
+add_executable(jippi src/config.cpp src/stringutils.cpp src/restclient.cpp main.cpp)
 
 install(TARGETS jippi RUNTIME DESTINATION bin)
 
 add_subdirectory(src)
+add_subdirectory(inc)
 
 # **************************************
 # Build tests
@@ -41,14 +42,14 @@ add_subdirectory(src)
 if(build_tests)
 	find_package(GTest REQUIRED)
 	add_subdirectory(test)
-	add_subdirectory(test/rest)
+	add_subdirectory(test/inc)
+	add_subdirectory(test/src)
 	
 	link_libraries(gtest)
-	add_executable(test-all test/runtests.cpp 
-				test/rest/client/restclienttest.cpp src/rest/client/restclient.cpp 
-				test/utils/string/stringutilstest.cpp src/utils/string/stringutils.cpp
-				test/configtest.cpp src/utils/config.cpp)
+	add_executable(test-all test/src/runtests.cpp 
+				test/src/restclienttest.cpp src/restclient.cpp 
+				test/src/stringutilstest.cpp src/stringutils.cpp
+				test/src/configtest.cpp src/config.cpp)
 
 	add_test(NAME test-all COMMAND test-all)
 endif()
-	

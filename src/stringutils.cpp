@@ -15,7 +15,7 @@
  * 
  */
 
-#include "include/stringutils.hpp"
+#include "../inc/stringutils.hpp"
 #include <string>
 
 std::string StringUtils::trim(const std::string& str)
