@@ -42,7 +42,7 @@ RestClient::~RestClient()
  * @param user - user name
  * @param password - user password
  */
-void RestClient::set_authorization_data(const std::string& user, const std::string& password)
+void RestClient::setAuthorizationData(const std::string& user, const std::string& password)
 {
 	this->auth_data.clear();
 	this->auth_data = user + ":" + password;
@@ -55,7 +55,7 @@ void RestClient::set_authorization_data(const std::string& user, const std::stri
  * @param url - the URL to query
  * @return response from REST server
  */
-rest_response RestClient::get(const std::string& url)
+rest_response RestClient::doHttpGet(const std::string& url)
 {
 	const char* USER_AGENT = "JIPPI v0.1";
 	
@@ -71,9 +71,9 @@ rest_response RestClient::get(const std::string& url)
 		
 		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT);
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::write_callback_wrapper);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::writeCallbackWrapper);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
-		curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::header_callback_wrapper);	// have to add some header callback
+		curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);	// have to add some header callback
 		curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);	
 
 		curl_response = curl_easy_perform(curl);
@@ -106,7 +106,7 @@ rest_response RestClient::get(const std::string& url)
  * @param inputdata - pointer to user data to work with when creating 
  * 		      \a outputdata
  */
-size_t RestClient::write_callback(void* outputdata, size_t block_size, size_t block_count, void* inputdata)
+size_t RestClient::writeCallback(void* outputdata, size_t block_size, size_t block_count, void* inputdata)
 {
 	size_t output_size = block_size * block_count;
  	rest_response* response = reinterpret_cast<rest_response*>(inputdata);
@@ -115,7 +115,7 @@ size_t RestClient::write_callback(void* outputdata, size_t block_size, size_t bl
 }
 
 
-size_t RestClient::header_callback(void* output_data, size_t block_size, size_t block_count, void* inputd_ata)
+size_t RestClient::headerCallback(void* output_data, size_t block_size, size_t block_count, void* inputd_ata)
 {
 	size_t output_size = block_size * block_count;
 	rest_response* response = reinterpret_cast<rest_response*>(inputd_ata);
@@ -138,7 +138,7 @@ size_t RestClient::header_callback(void* output_data, size_t block_size, size_t 
 }
 
 
-rest_response RestClient::put(const std::string& url, const std::string& content_type, const std::string& data)
+rest_response RestClient::doHttpPut(const std::string& url, const std::string& content_type, const std::string& data)
 {
 	const char* USER_AGENT = "JIPPI v0.1";
 	
@@ -166,16 +166,16 @@ rest_response RestClient::put(const std::string& url, const std::string& content
 		curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
 		
 		// read callback
-		curl_easy_setopt(curl, CURLOPT_READFUNCTION, RestClient::read_callback_wrapper);
+		curl_easy_setopt(curl, CURLOPT_READFUNCTION, RestClient::readCallbackWrapper);
 		curl_easy_setopt(curl, CURLOPT_READDATA, this);
 		// write callback 
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::write_callback_wrapper);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::writeCallbackWrapper);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
 		// header callback 
-		curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::header_callback_wrapper);	// have to add some header callback
+		curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);	// have to add some header callback
 		curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);	
 		
-		curl_easy_setopt(curl, CURLOPT_INFILESIZE, static_cast<long>(this->get_upload_data()->length));
+		curl_easy_setopt(curl, CURLOPT_INFILESIZE, static_cast<long>(this->getUploadData()->length));
 		
 		
 		curl_slist* header = curl_slist_append(NULL, content_type_header.c_str());
@@ -199,7 +199,7 @@ rest_response RestClient::put(const std::string& url, const std::string& content
 }
 
 
-size_t RestClient::read_callback(void* outputdata, size_t block_size, size_t block_count, void* input_data)
+size_t RestClient::readCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data)
 {
 	upload_object* upload_data = reinterpret_cast<upload_object *>(input_data);
 	size_t output_size = block_size * block_count;
@@ -214,12 +214,12 @@ size_t RestClient::read_callback(void* outputdata, size_t block_size, size_t blo
 }
 
 
-rest_response* RestClient::create_empty_response() 
+rest_response* RestClient::crateEmptyResponse() 
 {
 	return this->response;
 }
 
-upload_object* RestClient::get_upload_data() 
+upload_object* RestClient::getUploadData() 
 {
 	return this->upload_data;
 }

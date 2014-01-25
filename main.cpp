@@ -26,11 +26,11 @@ int main(int argc, char **argv)
 {	
 	int arg_char;
 	
- 	static struct option long_options[] = {
- 		{"config", 1, 0, 'c'},
+	static struct option long_options[] = {
+		{"config", 1, 0, 'c'},
 		{"query", 0, 0, 'q'},
- 		{NULL, 0, NULL, 0}
- 	};
+		{NULL, 0, NULL, 0}
+	};
 	
 	
 	int option_index = 0;
@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 						std::cerr << "We've got wrong config command" << std::endl;
 					}
 				} else {
- 					// print help 
+					// print help 
 				}
 					
 				break;
