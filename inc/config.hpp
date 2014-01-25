@@ -18,28 +18,46 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <iostream>			// std::string
+#include <iostream>		// std::string
 #include <libconfig.h++>	// libconfig::Config
+#include <map>
+
+#ifndef CONFIGURATION_DEFAULTS
+#define CONFIGURATION_DEFAULTS
+
+const std::string DEFAULT_CONFIG_FILE = "jippi.config";
+const std::string DEFAULT_CONFIG_FILE_LOCATION = "./";
+
+const std::string JIRA_GROUP = "jira";
+
+const std::map<std::string, std::string> DEFAULT_JIRA_CONFIGURATION = {
+	{"url", ""}
+};
+
+
+
+#endif
 
 namespace jippi {
 
 class Config
 {
 public:
-	Config(const std::string &configuration_file, 
-		   const std::string &configuration_path);
+	Config(const std::string configuration_file, 
+		   const std::string configuration_path);
 	~Config();
 	
 	// methods
+	bool initialized();
+	void initialize();
+	
 	void readConfiguration();
 	void writeConfiguration();
 	
 	std::string get_file();
-	std::string get_property(const std::string &group,
-							 const std::string &key);
-	void store_property(const std::string &group,
-						const std::string &key,
-						const std::string &value);
+	std::string get_property(const std::string &group, const std::string &key);
+	void store_property(const std::string &group, const std::string &key, const std::string &value);
+	
 private:	
 	// variables
 	libconfig::Config *configuration;

@@ -25,19 +25,31 @@
 
 #include <unistd.h>	// stat
 
-jippi::Config::Config(const std::string &configuration_file, 
-					  const std::string &configuration_path)
+using namespace jippi;
+
+Config::Config(const std::string configuration_file, 
+			const std::string configuration_path)
 {
 	this->configuration_file = configuration_path + configuration_file;
 	this->configuration = new libconfig::Config;
 }
 
-jippi::Config::~Config()
+Config::~Config()
 {
 	delete this->configuration;
 }
 
-void jippi::Config::readConfiguration()
+bool Config::initialized() 
+{
+	return access(configuration_file.c_str(), 0) == F_OK;
+}
+
+void Config::initialize()
+{
+	store_property("jira", );
+}
+
+void Config::readConfiguration()
 {	
 	try {
 		configuration->readFile(configuration_file.c_str());
@@ -47,7 +59,7 @@ void jippi::Config::readConfiguration()
 	}
 }
 
-void jippi::Config::writeConfiguration()
+void Config::writeConfiguration()
 {
 	try {
 		if (configuration != NULL) {
@@ -60,7 +72,7 @@ void jippi::Config::writeConfiguration()
 }
 
 
-std::string jippi::Config::get_property(const std::string &group, 
+std::string Config::get_property(const std::string &group, 
 										const std::string& key)
 {
 	libconfig::Setting &root = configuration->getRoot();
@@ -73,7 +85,7 @@ std::string jippi::Config::get_property(const std::string &group,
 	return NULL;
 }
 
-void jippi::Config::store_property(const std::string &group, 
+void Config::store_property(const std::string &group, 
 								   const std::string &key, 
 								   const std::string &value)
 {
@@ -93,7 +105,7 @@ void jippi::Config::store_property(const std::string &group,
 
 // Some getters 
 
-std::string jippi::Config::get_file()
+std::string Config::get_file()
 {
 	return this->configuration_file;
 }
