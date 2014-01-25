@@ -46,7 +46,7 @@ TEST_F(ConfigTest, ConstructorCreatesValidConfigurationObject)
 	jippi::Config *conf = new jippi::Config(config_file, config_path);
 	
 	// then
-	EXPECT_EQ(config_path + config_file, conf->get_file());
+	EXPECT_EQ(config_path + config_file, conf->getFileName());
 	
 	// cleanup
  	delete conf;
@@ -61,11 +61,11 @@ TEST_F(ConfigTest, StorePropertySavesValue)
 	
 	// when
 	jippi::Config *conf = new jippi::Config(config_file, config_path);
-	conf->store_property(group, key, value);
-	conf->writeConfiguration();
+	conf->storeProperty(group, key, value);
+	conf->writeConfigurationToFile();
 	
-	conf->readConfiguration();
-	std::string config_value = conf->get_property(group, key);
+	conf->readConfigurationFromFile();
+	std::string config_value = conf->getProperty(group, key);
 	
 	// then
 	EXPECT_EQ(value, config_value);

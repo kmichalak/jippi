@@ -17,39 +17,43 @@
 
 #include "inc/config.hpp"
 
-#include <iostream>
-#include <stdlib.h>
-#include <string.h>
-#include <libconfig.h++>
-#include <iomanip>
-
-#include <unistd.h>	// stat
+#include <libconfig.h++>	// support for configuration files 
+#include <unistd.h>		// stat
+#include <algorithm>		// for_each
 
 using namespace jippi;
 
-Config::Config(const std::string configuration_file, 
-			const std::string configuration_path)
+Config::Config(const std::string configuration_file, const std::string configuration_path)
 {
 	this->configuration_file = configuration_path + configuration_file;
 	this->configuration = new libconfig::Config;
 }
+
 
 Config::~Config()
 {
 	delete this->configuration;
 }
 
-bool Config::initialized() 
+
+bool Config::foundConfigurationFile() 
 {
 	return access(configuration_file.c_str(), 0) == F_OK;
 }
 
-void Config::initialize()
+
+void Config::storeDefaultConfigurationInFile()
 {
-	store_property("jira", );
+	// Add all values from default Jira configuration 
+	StorePropertyFunction *store_property = new StorePropertyFunction(this, JIRA_GROUP);
+	std::for_each(DEFAULT_JIRA_CONFIGURATION.begin(), DEFAULT_JIRA_CONFIGURATION.end(), *store_property);
+	delete store_property;
+	// Write configuration to the file
+	writeConfigurationToFile();
 }
 
-void Config::readConfiguration()
+
+void Config::readConfigurationFromFile()
 {	
 	try {
 		configuration->readFile(configuration_file.c_str());
@@ -59,7 +63,8 @@ void Config::readConfiguration()
 	}
 }
 
-void Config::writeConfiguration()
+
+void Config::writeConfigurationToFile()
 {
 	try {
 		if (configuration != NULL) {
@@ -72,8 +77,7 @@ void Config::writeConfiguration()
 }
 
 
-std::string Config::get_property(const std::string &group, 
-										const std::string& key)
+std::string Config::getProperty(const std::string &group, const std::string& key)
 {
 	libconfig::Setting &root = configuration->getRoot();
 	if (root.exists(group)) {
@@ -85,9 +89,8 @@ std::string Config::get_property(const std::string &group,
 	return NULL;
 }
 
-void Config::store_property(const std::string &group, 
-								   const std::string &key, 
-								   const std::string &value)
+
+void Config::storeProperty(const std::string &group, const std::string &key, const std::string &value)
 {
 	libconfig::Setting &root = configuration->getRoot();
 	// Check if there is property with given name. If not then create one.
@@ -103,9 +106,9 @@ void Config::store_property(const std::string &group,
 	}
 }
 
-// Some getters 
 
-std::string Config::get_file()
+// Some getters 
+std::string Config::getFileName()
 {
 	return this->configuration_file;
 }

@@ -15,7 +15,6 @@
  * 
  */
 
-
 #include <iostream>
 #include <getopt.h>
 #include <vector>
@@ -41,7 +40,6 @@ int main(int argc, char **argv)
 			case 0:
 				std::cout << long_options[option_index].name << std::endl;
 			case 'c': 
-				std::cout << "configuration" << std::endl;
 				if (optarg) {
 					// Do the staff with valid configuration parameters
 					
@@ -53,11 +51,14 @@ int main(int argc, char **argv)
 					// there is something wrong.
 					if (sections.size() == 2) {
 						jippi::Config *configuration = new jippi::Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
+						if (!configuration->foundConfigurationFile()) {
+							configuration->storeDefaultConfigurationInFile();
+						}
 						std::string group = sections.at(0);
 						std::string key = sections.at(1);
-						configuration->readConfiguration();
-						configuration->store_property(group, key, argv[optind]);
-						configuration->writeConfiguration();
+						configuration->readConfigurationFromFile();
+						configuration->storeProperty(group, key, argv[optind]);
+						configuration->writeConfigurationToFile();
 					} else {
 						std::cerr << "We've got wrong config command" << std::endl;
 					}
