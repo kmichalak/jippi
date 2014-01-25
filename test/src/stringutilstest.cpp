@@ -16,8 +16,8 @@
  */
 
 #include <gtest/gtest.h>
-#include "../inc/stringutilstest.hpp"
-#include "../../inc/stringutils.hpp"
+#include "test/inc/stringutilstest.hpp"
+#include "inc/stringutils.hpp"
 
 
 TEST(StringUtilsTest, TrimCutsLeadingSpaces)

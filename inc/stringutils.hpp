@@ -19,15 +19,20 @@
 #define STRINGUTILS_H
 
 #include <string>
+#include <vector>
 
 class StringUtils
 {
 public:
 	static std::string trim(const std::string & str);
 	static bool is_empty(const std::string & str);
+	
+	static std::vector<std::string> split(const std::string &s, char delim);
 private: 
 	static std::string right_trim(const std::string & str);
 	static std::string left_trim(const std::string & str);
+	
+	static std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
 };
 
 #endif // STRINGUTILS_H
