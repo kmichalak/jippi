@@ -22,6 +22,8 @@
 #include <stdio.h>
 #include <cstring>
 
+using namespace jippi;
+
 RestClient::RestClient()
 {
 

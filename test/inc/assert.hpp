@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,22 +15,18 @@
  * 
  */
 
-#ifndef RESTCLIENTTEST_H
-#define RESTCLIENTTEST_H
+#ifndef ASSERT_H
+#define ASSERT_H
 
 #include <gtest/gtest.h>
-#include "inc/restclient.hpp"
 
-class RestClientTest : public testing::Test
+void EXPECT_SEME_ORDER(std::vector<std::string> vec, std::string *strings)
 {
-protected:	
-	std::string get_url;
-	std::string put_url;
-	std::string content_type;
-	jippi::RestClient* client;
-	
-	virtual void SetUp();
-	virtual void TearDown() {};
-};
+	int counter = 0;
+	for (std::vector<std::string>::iterator it = vec.begin(); it != vec.end(); ++it) {
+		EXPECT_EQ(0, strings[counter++].compare(*it));
+	}
+		
+}
 
-#endif // RESTCLIENTTEST_H
+#endif // ASSERT_H

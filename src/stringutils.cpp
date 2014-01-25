@@ -19,6 +19,8 @@
 #include <string>
 #include <sstream>
 
+using namespace jippi;
+
 std::string StringUtils::trim(const std::string& str)
 {
 	return left_trim(right_trim(str));

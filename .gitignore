@@ -23,7 +23,7 @@ test-all
 *swp
 
 # Develop files 
-*.kdev4
+*.kdev*
 
 # Temporary files
 *swp

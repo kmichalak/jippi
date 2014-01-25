@@ -21,6 +21,8 @@
 #include <string>
 #include <map>
 
+namespace jippi {
+
 /** Reponse header container */
 typedef std::map<std::string, std::string> response_header;
 
@@ -92,6 +94,8 @@ private:
 		return client->read_callback(outputdata, block_size, block_count, client->get_upload_data());
 	}
 };
+
+} // end of namespace
 
 #endif // RESTCLIENT_H
 

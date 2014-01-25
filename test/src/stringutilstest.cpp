@@ -16,16 +16,21 @@
  */
 
 #include <gtest/gtest.h>
+#include <vector>
 #include "test/inc/stringutilstest.hpp"
+#include "test/inc/assert.hpp"
 #include "inc/stringutils.hpp"
 
+//------------------------------------------------------------------------------
+// Trim
+//------------------------------------------------------------------------------
 
 TEST(StringUtilsTest, TrimCutsLeadingSpaces)
 {
 	// given 
 	const std::string & test_string = std::string(" test string");	
 	// when
-	std::string result = StringUtils::trim(test_string);	
+	std::string result = jippi::StringUtils::trim(test_string);	
 	// then
 	EXPECT_EQ("test string", result);
 }
@@ -36,7 +41,7 @@ TEST(StringUtilsTest, TrimCutsTrailingSpaces)
 	// given 
 	const std::string & test_string = std::string("test string ");
 	// when
-	std::string result = StringUtils::trim(test_string);
+	std::string result = jippi::StringUtils::trim(test_string);
 	// then
 	EXPECT_EQ("test string", result);
 }
@@ -47,29 +52,65 @@ TEST(StringUtilsTest, TrimCutsLeadingAndTrailingSpaces)
 	// given 
 	const std::string & test_string = std::string(" test string ");
 	// when
-	std::string result = StringUtils::trim(test_string);
+	std::string result = jippi::StringUtils::trim(test_string);
 	// then
 	EXPECT_EQ("test string", result);
 }
 
+
+//------------------------------------------------------------------------------
+// Is empty
+//------------------------------------------------------------------------------
 
 TEST(StringUtilsTest, IsEmptyReturnsTrueWhenStringIsEmpty)
 {
 	// given 
 	const std::string test_string;
 	// when
-	bool result = StringUtils::is_empty(test_string);
+	bool result = jippi::StringUtils::is_empty(test_string);
 	// then
 	ASSERT_TRUE(result);
 }
 
+
+//------------------------------------------------------------------------------
+// Split
+//------------------------------------------------------------------------------
 
 TEST(StringUtilsTest, IsEmptyReturnsFalseWhenStringIsNotEmpty)
 {
 	// given 
 	const std::string test_string = std::string("test string");
 	// when
-	bool result = StringUtils::is_empty(test_string);
+	bool result = jippi::StringUtils::is_empty(test_string);
 	// then
 	ASSERT_FALSE(result);
+}
+
+TEST(StringUtilsTest, SplitReturnsSingleValueWhenNoDelimiter)
+{
+	//given 
+	const std::string &test_string = std::string("teststring");
+	const char delim = '.';
+	
+	// when 
+	std::vector<std::string> result = jippi::StringUtils::split(test_string, delim);
+	
+	// then
+	EXPECT_EQ(1, result.size());
+}
+
+TEST(StringUtilsTest, SplitReturnsValidNumberOfResults)
+{
+	//given 
+	const std::string &test_string = std::string("test.string.with.dots");
+	const char delim = '.';
+	std::string strings[4] = {"test", "string", "with", "dots"};
+	
+	// when 
+	std::vector<std::string> result = jippi::StringUtils::split(test_string, delim);
+	
+	// then
+	EXPECT_EQ(4, result.size());
+	EXPECT_SEME_ORDER(result, strings);
 }
