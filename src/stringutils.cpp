@@ -23,10 +23,10 @@ using namespace jippi;
 
 std::string StringUtils::trim(const std::string& str)
 {
-	return left_trim(right_trim(str));
+	return leftTrim(rightTrim(str));
 }
 
-std::string StringUtils::left_trim(const std::string& str)
+std::string StringUtils::leftTrim(const std::string& str)
 {
 	std::string::size_type pos = str.find_first_not_of(' ');
 	if (pos == std::string::npos) {
@@ -35,7 +35,7 @@ std::string StringUtils::left_trim(const std::string& str)
 	return str.substr(pos, std::string::npos);
 }
 
-std::string StringUtils::right_trim(const std::string& str)
+std::string StringUtils::rightTrim(const std::string& str)
 {
 	std::string::size_type pos = str.find_last_not_of(' ');
 	if (pos == std::string::npos) {
@@ -44,7 +44,7 @@ std::string StringUtils::right_trim(const std::string& str)
 	return str.substr(0, pos + 1);
 }
 
-bool StringUtils::is_empty(const std::string & str)
+bool StringUtils::isEmpty(const std::string & str)
 {
 	return str.length() == 0;
 }

@@ -67,7 +67,7 @@ TEST(StringUtilsTest, IsEmptyReturnsTrueWhenStringIsEmpty)
 	// given 
 	const std::string test_string;
 	// when
-	bool result = jippi::StringUtils::is_empty(test_string);
+	bool result = jippi::StringUtils::isEmpty(test_string);
 	// then
 	ASSERT_TRUE(result);
 }
@@ -82,7 +82,7 @@ TEST(StringUtilsTest, IsEmptyReturnsFalseWhenStringIsNotEmpty)
 	// given 
 	const std::string test_string = std::string("test string");
 	// when
-	bool result = jippi::StringUtils::is_empty(test_string);
+	bool result = jippi::StringUtils::isEmpty(test_string);
 	// then
 	ASSERT_FALSE(result);
 }

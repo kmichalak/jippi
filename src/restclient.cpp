@@ -124,7 +124,7 @@ size_t RestClient::headerCallback(void* output_data, size_t block_size, size_t b
 	
 	if (std::string::npos == separator_pos) {
  		header_content = StringUtils::trim(header_content);
-		if (StringUtils::is_empty(header_content)) {
+		if (StringUtils::isEmpty(header_content)) {
 			return output_size;
 		}
 		response->header[header_content] = "present";
