@@ -59,6 +59,7 @@ int main(int argc, char **argv)
 						configuration->readConfigurationFromFile();
 						configuration->storeProperty(group, key, argv[optind]);
 						configuration->writeConfigurationToFile();
+						delete configuration;
 					} else {
 						std::cerr << "We've got wrong config command" << std::endl;
 					}
