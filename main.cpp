@@ -21,6 +21,9 @@
 
 #include "inc/stringutils.hpp"
 #include "inc/config.hpp"
+#include "inc/help.hpp"
+
+
 
 int main(int argc, char **argv)
 {	
@@ -28,22 +31,19 @@ int main(int argc, char **argv)
 	
 	static struct option long_options[] = {
 		{"config", 1, 0, 'c'},
-		{"query", 0, 0, 'q'},
+		{"help", 0, 0, 'h'},
 		{NULL, 0, NULL, 0}
 	};
 	
 	
 	int option_index = 0;
-	while ((arg_char = getopt_long(argc, argv, "c:", long_options, &option_index)) != -1)
+	while ((arg_char = getopt_long(argc, argv, "hc:", long_options, &option_index)) != -1)
 		switch (arg_char)
 		{
 			case 0:
 				std::cout << long_options[option_index].name << std::endl;
 			case 'c': 
 				if (optarg) {
-					// Do the staff with valid configuration parameters
-					
-					
 					// Split configuration parameters using '.' full stop character
 					std::vector<std::string> sections = jippi::StringUtils::split(optarg, '.');
 					// We are going to set only one value at a time.
@@ -64,17 +64,17 @@ int main(int argc, char **argv)
 						std::cerr << "We've got wrong config command" << std::endl;
 					}
 				} else {
-					// print help 
+					// Invalid configuration parameters
+					printHelp();
 				}
 					
 				break;
-			case 'q': 
-				std::cout << "query" << std::endl;
+			case 'h': 
+				printHelp();
 				break;
 			default:
-				std::cout << arg_char << std::endl;
-				if (optarg)
-					std::cout << " with arguments: " << optarg << std::endl;
+				printHelp();
+				break;
 		}
 	
 	return 0;
