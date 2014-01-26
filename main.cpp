@@ -37,45 +37,49 @@ int main(int argc, char **argv)
 	
 	
 	int option_index = 0;
-	while ((arg_char = getopt_long(argc, argv, "hc:", long_options, &option_index)) != -1)
-		switch (arg_char)
-		{
-			case 0:
-				std::cout << long_options[option_index].name << std::endl;
-			case 'c': 
-				if (optarg) {
-					// Split configuration parameters using '.' full stop character
-					std::vector<std::string> sections = jippi::StringUtils::split(optarg, '.');
-					// We are going to set only one value at a time.
-					// If there are more than one value, then 
-					// there is something wrong.
-					if (sections.size() == 2) {
-						jippi::Config *configuration = new jippi::Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
-						if (!configuration->foundConfigurationFile()) {
-							configuration->storeDefaultConfigurationInFile();
+	if (argc > 1) {
+		while ((arg_char = getopt_long(argc, argv, "hc:", long_options, &option_index)) != -1) {
+			switch (arg_char)
+			{
+				case 0:
+					std::cout << long_options[option_index].name << std::endl;
+				case 'c': 
+					if (optarg) {
+						// Split configuration parameters using '.' full stop character
+						std::vector<std::string> sections = jippi::StringUtils::split(optarg, '.');
+						// We are going to set only one value at a time.
+						// If there are more than one value, then 
+						// there is something wrong.
+						if (sections.size() == 2) {
+							jippi::Config *configuration = new jippi::Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
+							if (!configuration->foundConfigurationFile()) {
+								configuration->storeDefaultConfigurationInFile();
+							}
+							std::string group = sections.at(0);
+							std::string key = sections.at(1);
+							configuration->readConfigurationFromFile();
+							configuration->storeProperty(group, key, argv[optind]);
+							configuration->writeConfigurationToFile();
+							delete configuration;
+						} else {
+							std::cerr << "We've got wrong config command" << std::endl;
 						}
-						std::string group = sections.at(0);
-						std::string key = sections.at(1);
-						configuration->readConfigurationFromFile();
-						configuration->storeProperty(group, key, argv[optind]);
-						configuration->writeConfigurationToFile();
-						delete configuration;
 					} else {
-						std::cerr << "We've got wrong config command" << std::endl;
+						// Invalid configuration parameters
+						printHelp();
 					}
-				} else {
-					// Invalid configuration parameters
+						
+					break;
+				case 'h': 
 					printHelp();
-				}
-					
-				break;
-			case 'h': 
-				printHelp();
-				break;
-			default:
-				printHelp();
-				break;
+					break;
+				default:
+					printHelp();
+					break;
+			}
 		}
-	
+	} else { 
+		printHelp(); 
+	}
 	return 0;
 }
