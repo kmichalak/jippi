@@ -15,8 +15,8 @@
  * 
  */
 
-#ifndef STRINGUTILS_H
-#define STRINGUTILS_H
+#ifndef STRINGUTILS_HPP
+#define STRINGUTILS_HPP
 
 #include <string>
 #include <vector>

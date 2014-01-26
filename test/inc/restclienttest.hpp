@@ -15,8 +15,8 @@
  * 
  */
 
-#ifndef RESTCLIENTTEST_H
-#define RESTCLIENTTEST_H
+#ifndef RESTCLIENTTEST_HPP
+#define RESTCLIENTTEST_HPP
 
 #include <gtest/gtest.h>
 #include "inc/restclient.hpp"

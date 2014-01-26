@@ -15,8 +15,8 @@
  * 
  */
 
-#ifndef RESTCLIENT_H
-#define RESTCLIENT_H
+#ifndef RESTCLIENT_HPP
+#define RESTCLIENT_HPP
 
 #include <string>
 #include <map>

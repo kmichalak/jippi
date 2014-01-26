@@ -15,8 +15,8 @@
  * 
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef CONFIG_HPP
+#define CONFIG_HPP
 
 #include <iostream>		// std::string
 #include <libconfig.h++>	// libconfig::Config

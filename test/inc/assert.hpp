@@ -15,8 +15,8 @@
  * 
  */
 
-#ifndef ASSERT_H
-#define ASSERT_H
+#ifndef ASSERT_HPP
+#define ASSERT_HPP
 
 #include <gtest/gtest.h>
 
