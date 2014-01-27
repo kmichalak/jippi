@@ -32,7 +32,7 @@ link_libraries(${LIBCONFIG++_LIBRARY})
 add_subdirectory(src)
 add_subdirectory(inc)
 
-add_executable(jippi src/config.cpp src/stringutils.cpp src/restclient.cpp main.cpp)
+add_executable(jippi src/argumentshandler.cpp src/config.cpp src/stringutils.cpp src/restclient.cpp main.cpp)
 
 install(TARGETS jippi RUNTIME DESTINATION bin)
 
