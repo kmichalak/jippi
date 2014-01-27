@@ -15,29 +15,45 @@
  * 
  */
 
-#include "../inc/config.hpp"
+#include "inc/config.hpp"
 
-#include <iostream>
-#include <stdlib.h>
-#include <string.h>
-#include <libconfig.h++>
-#include <iomanip>
+#include <libconfig.h++>	// support for configuration files 
+#include <unistd.h>		// stat
+#include <algorithm>		// for_each
 
-#include <unistd.h>	// stat
+using namespace jippi;
 
-jippi::Config::Config(const std::string &configuration_file, 
-					  const std::string &configuration_path)
+Config::Config(const std::string configuration_file, const std::string configuration_path)
 {
 	this->configuration_file = configuration_path + configuration_file;
 	this->configuration = new libconfig::Config;
 }
 
-jippi::Config::~Config()
+
+Config::~Config()
 {
 	delete this->configuration;
 }
 
-void jippi::Config::readConfiguration()
+
+bool Config::foundConfigurationFile() 
+{
+	return access(configuration_file.c_str(), 0) == F_OK;
+}
+
+
+void Config::storeDefaultConfigurationInFile()
+{
+	// Add all values from default Jira configuration 
+	StorePropertyFunction *store_property = new StorePropertyFunction(this, JIRA_GROUP);
+	std::for_each(DEFAULT_JIRA_CONFIGURATION.begin(), DEFAULT_JIRA_CONFIGURATION.end(), *store_property);
+	delete store_property;
+	// Write configuration to the file
+	writeConfigurationToFile();
+}
+
+
+void Config::readConfigurationFromFile()
 {	
 	try {
 		configuration->readFile(configuration_file.c_str());
@@ -47,7 +63,8 @@ void jippi::Config::readConfiguration()
 	}
 }
 
-void jippi::Config::writeConfiguration()
+
+void Config::writeConfigurationToFile()
 {
 	try {
 		if (configuration != NULL) {
@@ -60,8 +77,7 @@ void jippi::Config::writeConfiguration()
 }
 
 
-std::string jippi::Config::get_property(const std::string &group, 
-										const std::string& key)
+std::string Config::getProperty(const std::string &group, const std::string& key)
 {
 	libconfig::Setting &root = configuration->getRoot();
 	if (root.exists(group)) {
@@ -73,9 +89,8 @@ std::string jippi::Config::get_property(const std::string &group,
 	return NULL;
 }
 
-void jippi::Config::store_property(const std::string &group, 
-								   const std::string &key, 
-								   const std::string &value)
+
+void Config::storeProperty(const std::string &group, const std::string &key, const std::string &value)
 {
 	libconfig::Setting &root = configuration->getRoot();
 	// Check if there is property with given name. If not then create one.
@@ -91,9 +106,9 @@ void jippi::Config::store_property(const std::string &group,
 	}
 }
 
-// Some getters 
 
-std::string jippi::Config::get_file()
+// Some getters 
+std::string Config::getFileName()
 {
 	return this->configuration_file;
 }

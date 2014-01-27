@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,19 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
  */
 
+#ifndef HELP_HPP
+#define HELP_HPP
+
 #include <iostream>
-#include <getopt.h>
-#include <vector>
 
-#include "inc/argumentshandler.hpp"
-
-int main(int argc, char **argv)
-{	
-	jippi::ArgumentsHandler *cmdArgHandler = new jippi::ArgumentsHandler(argc, argv);
-	cmdArgHandler->handle();
-	delete cmdArgHandler;
-	return 0;
+void printHelp()
+{
+	const char* HELP_MSG = 
+	"usage jippi [-h|--help] [-c|--config name value]";
+	
+	std::cout << HELP_MSG << std::endl;
 }
+
+#endif

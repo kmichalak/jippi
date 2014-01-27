@@ -16,15 +16,15 @@
  */
 
 #include <gtest/gtest.h>
-#include "../inc/restclienttest.hpp"
-#include "../../inc/restclient.hpp"
+#include "test/inc/restclienttest.hpp"
+#include "inc/restclient.hpp"
 
 void RestClientTest::SetUp() 
 {
 	get_url = "http://echo.jsontest.com/value/get";
 	put_url = "http://httpbin.org/put";
 	content_type = "application/json";
-	client = new RestClient;
+	client = new jippi::RestClient;
 }
 
 //---------------------------------------------
@@ -34,7 +34,7 @@ void RestClientTest::SetUp()
 TEST_F(RestClientTest, ResponseShouldContain200CodeWhenGetSucceed)
 {
 	// when
-	rest_response response = client->get(get_url);
+	jippi::rest_response response = client->doHttpGet(get_url);
 	// then	
 	EXPECT_EQ(200, response.code);
 }
@@ -43,7 +43,7 @@ TEST_F(RestClientTest, ResponseShouldContain200CodeWhenGetSucceed)
 TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenGetSucceed)
 {
 	// when
-	rest_response response = client->get(get_url);
+	jippi::rest_response response = client->doHttpGet(get_url);
 	// then
 	EXPECT_EQ("{\"value\": \"get\"}\n", response.body);
 }
@@ -51,7 +51,7 @@ TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenGetSucceed)
 TEST_F(RestClientTest, ResponseShouldContainValidResponseCodeWhenGetFails)
 {
 	// when
-	rest_response response = client->get("http://nonexisting.org");
+	jippi::rest_response response = client->doHttpGet("http://nonexisting.org");
 	// then
 	EXPECT_EQ(-1, response.code);
 }
@@ -66,7 +66,7 @@ TEST_F(RestClientTest, ResponseShouldContain200CodeWhenPutSucceed)
 	// given
 	std::string data = "testdata";
 	// when
-	rest_response response = client->put(put_url, content_type, data);
+	jippi::rest_response response = client->doHttpPut(put_url, content_type, data);
 	// then
 	EXPECT_EQ(200, response.code);
 }
@@ -76,7 +76,7 @@ TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenPutSucceed)
 	// given
 	std::string data = "testdata";
 	// when
-	rest_response response = client->put(put_url, content_type, data);
+	jippi::rest_response response = client->doHttpPut(put_url, content_type, data);
 	size_t data_content_position = response.body.find(data);
 	// then
  	ASSERT_TRUE(data_content_position != std::string::npos);
@@ -87,7 +87,7 @@ TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPUTFails)
 	// given
 	std::string data = "testdata";
 	// when
-	rest_response response = client->put("http://nonexisting.org", content_type, data);
+	jippi::rest_response response = client->doHttpPut("http://nonexisting.org", content_type, data);
 	// then
 	EXPECT_EQ(-1, response.code);
 }

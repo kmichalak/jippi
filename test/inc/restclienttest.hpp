@@ -15,11 +15,11 @@
  * 
  */
 
-#ifndef RESTCLIENTTEST_H
-#define RESTCLIENTTEST_H
+#ifndef RESTCLIENTTEST_HPP
+#define RESTCLIENTTEST_HPP
 
 #include <gtest/gtest.h>
-#include "../../inc/restclient.hpp"
+#include "inc/restclient.hpp"
 
 class RestClientTest : public testing::Test
 {
@@ -27,7 +27,7 @@ protected:
 	std::string get_url;
 	std::string put_url;
 	std::string content_type;
-	RestClient* client;
+	jippi::RestClient* client;
 	
 	virtual void SetUp();
 	virtual void TearDown() {};

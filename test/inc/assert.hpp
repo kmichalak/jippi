@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,18 @@
  * 
  */
 
-#include <iostream>
-#include <getopt.h>
-#include <vector>
+#ifndef ASSERT_HPP
+#define ASSERT_HPP
 
-#include "inc/argumentshandler.hpp"
+#include <gtest/gtest.h>
 
-int main(int argc, char **argv)
-{	
-	jippi::ArgumentsHandler *cmdArgHandler = new jippi::ArgumentsHandler(argc, argv);
-	cmdArgHandler->handle();
-	delete cmdArgHandler;
-	return 0;
+void EXPECT_SEME_ORDER(std::vector<std::string> vec, std::string *strings)
+{
+	int counter = 0;
+	for (std::vector<std::string>::iterator it = vec.begin(); it != vec.end(); ++it) {
+		EXPECT_EQ(0, strings[counter++].compare(*it));
+	}
+		
 }
+
+#endif // ASSERT_H

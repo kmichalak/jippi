@@ -15,36 +15,73 @@
  * 
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef CONFIG_HPP
+#define CONFIG_HPP
 
-#include <iostream>			// std::string
+#include <iostream>		// std::string
 #include <libconfig.h++>	// libconfig::Config
+#include <map>
+
+#ifndef CONFIGURATION_DEFAULTS
+#define CONFIGURATION_DEFAULTS
+
+const std::string DEFAULT_CONFIG_FILE = "jippi.config";
+const std::string DEFAULT_CONFIG_FILE_LOCATION = "./";
+const std::string JIRA_GROUP = "jira";
+
+const std::map<std::string, std::string> DEFAULT_JIRA_CONFIGURATION = {
+	{"url", ""}
+};
+
+#endif
 
 namespace jippi {
 
 class Config
 {
 public:
-	Config(const std::string &configuration_file, 
-		   const std::string &configuration_path);
+	Config(const std::string configuration_file, const std::string configuration_path);
 	~Config();
 	
 	// methods
-	void readConfiguration();
-	void writeConfiguration();
+	bool foundConfigurationFile();
+	void storeDefaultConfigurationInFile();
 	
-	std::string get_file();
-	std::string get_property(const std::string &group,
-							 const std::string &key);
-	void store_property(const std::string &group,
-						const std::string &key,
-						const std::string &value);
+	void readConfigurationFromFile();
+	void writeConfigurationToFile();
+	
+	void storeProperty(const std::string &group, const std::string &key, const std::string &value);
+	std::string getProperty(const std::string &group, const std::string &key);
+	std::string getFileName();
+	
 private:	
 	// variables
 	libconfig::Config *configuration;
-	
 	std::string configuration_file;
+	
+	/**
+	 * Helper class used to write default configuration to the file.
+	 */
+	class StorePropertyFunction {
+	public:
+		StorePropertyFunction(Config *configuration, std::string group) { 
+			this->group = group;
+			this->configuration = configuration;
+		}
+		
+		~StorePropertyFunction() {
+			this->configuration = NULL;
+		}
+		
+		void operator() (std::pair<std::string, std::string> pair) { 
+			configuration->storeProperty(group, pair.first, pair.second);
+		}
+		
+	private:
+		Config *configuration;
+		std::string group; 
+	};
+	
 };
 
 }	// namespace

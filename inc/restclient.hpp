@@ -15,11 +15,13 @@
  * 
  */
 
-#ifndef RESTCLIENT_H
-#define RESTCLIENT_H
+#ifndef RESTCLIENT_HPP
+#define RESTCLIENT_HPP
 
 #include <string>
 #include <map>
+
+namespace jippi {
 
 /** Reponse header container */
 typedef std::map<std::string, std::string> response_header;
@@ -48,21 +50,21 @@ public:
 	RestClient();
 	~RestClient();
 
-	void set_authorization_data(const std::string& user, const std::string& password);
+	void setAuthorizationData(const std::string& user, const std::string& password);
 	
-	rest_response get(const std::string& url);
-	rest_response put(const std::string& url, const std::string& content_type, const std::string& data);
-	rest_response* create_empty_response();
-	upload_object* get_upload_data();
+	rest_response doHttpGet(const std::string& url);
+	rest_response doHttpPut(const std::string& url, const std::string& content_type, const std::string& data);
+	rest_response* crateEmptyResponse();
+	upload_object* getUploadData();
 	
 private:
 	rest_response* response;
 	upload_object* upload_data;
 	std::string auth_data;
 	
-	size_t write_callback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
-	size_t header_callback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
-	size_t read_callback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
+	size_t writeCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
+	size_t readCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
+	size_t headerCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
 	
 	/**
 	 * The solution suggested by CURL documentation available at 
@@ -70,28 +72,40 @@ private:
 	 * I know this is ugly, but I hate static methods... If it has to be static
 	 * let it do the least as it's possible.
 	 */
-	static size_t write_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+	static size_t writeCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
 	{
 		RestClient* client = static_cast<RestClient*>(rest_client);
-		return client->write_callback(outputdata, block_size, block_count, client->create_empty_response());
+		return client->writeCallback(outputdata, block_size, block_count, client->crateEmptyResponse());
 	}
 	
 	/**
-	 * The same solution as write_callback_wrapper. For more details look at 
-	 * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f.
-	 */
-	static size_t header_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+	 * The solution suggested by CURL documentation available at 
+	 * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
+	 * I know this is ugly, but I hate static methods... If it has to be static
+	 * let it do the least as it's possible.
+	 */	
+	static size_t readCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
 	{
 		RestClient* client = static_cast<RestClient*>(rest_client);
-		return client->header_callback(outputdata, block_size, block_count, client->create_empty_response());
+		return client->readCallback(outputdata, block_size, block_count, client->getUploadData());
 	}
 	
-	static size_t read_callback_wrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+	/**
+	 * The solution suggested by CURL documentation available at 
+	 * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
+	 * I know this is ugly, but I hate static methods... If it has to be static
+	 * let it do the least as it's possible.
+	 */
+	static size_t headerCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
 	{
 		RestClient* client = static_cast<RestClient*>(rest_client);
-		return client->read_callback(outputdata, block_size, block_count, client->get_upload_data());
+		return client->headerCallback(outputdata, block_size, block_count, client->crateEmptyResponse());
 	}
+	
+	
 };
+
+} // end of namespace
 
 #endif // RESTCLIENT_H
 

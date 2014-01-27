@@ -15,8 +15,8 @@
  * 
  */
 
-#ifndef CONFIGTEST_H
-#define CONFIGTEST_H
+#ifndef CONFIGTEST_HPP
+#define CONFIGTEST_HPP
 
 #include <gtest/gtest.h>
 

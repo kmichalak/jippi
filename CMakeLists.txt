@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 project(jippi)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_CXX_FLAGS "-g -Wall -std=c++11")
 
 #
 # Find CURL, required for all builds
@@ -14,9 +15,10 @@ find_package(CURL REQUIRED)
 #
 find_package(LibConfig++ REQUIRED)
 
-set(CMAKE_CXX_FLAGS "-g -Wall -std=c++11")
-
 include_directories(/usr/local/include)
+
+# Add project includes
+include_directories(${jippi_SOURCE_DIR})
 
 # set the path to the library folder
 link_directories(/usr/local/lib)
@@ -27,12 +29,14 @@ link_directories(/usr/local/lib)
 link_libraries(curl)
 link_libraries(${LIBCONFIG++_LIBRARY})
 
-add_executable(jippi src/config.cpp src/stringutils.cpp src/restclient.cpp main.cpp)
+add_subdirectory(src)
+add_subdirectory(inc)
+
+add_executable(jippi src/argumentshandler.cpp src/config.cpp src/stringutils.cpp src/restclient.cpp main.cpp)
 
 install(TARGETS jippi RUNTIME DESTINATION bin)
 
-add_subdirectory(src)
-add_subdirectory(inc)
+
 
 # **************************************
 # Build tests
