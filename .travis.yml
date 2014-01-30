@@ -1,6 +1,6 @@
 language: cpp
 
-install: sudo apt-get install libconfig++-dev
+install: sudo apt-get install libconfig++-dev libgtest0 libgtest-dev
 before_script:
  - cmake . -Dbuild_tests=BOOL:ON && ./test-all
 
