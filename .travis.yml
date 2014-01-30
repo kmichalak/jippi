@@ -1,10 +1,16 @@
 language: cpp
 
 before_install: 
- - sudo apt-get update
- - sudo apt-get install libconfig++-dev libgtest-dev
+ - sudo apt-get -qq update
+ - sudo apt-get -qq install libconfig++-dev libgtest-dev
  - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
+
 before_script:
- - cmake . -Dbuild_tests=BOOL:ON && /home/travis/build/kmichalak/jippi/test-all
+ - cmake . -Dbuild_tests=BOOL:ON
 
 script: make
+
+after_success:
+ - ./test-all
+
+
