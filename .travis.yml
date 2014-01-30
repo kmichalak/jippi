@@ -1,0 +1,6 @@
+language: cpp
+
+before_script:
+ - cmake . -Dbuild_tests=BOOL:ON && ./test-all
+
+script: make
