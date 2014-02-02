@@ -18,9 +18,11 @@
 #ifndef ASSERT_HPP
 #define ASSERT_HPP
 
+
 #include <gtest/gtest.h>
 
-void EXPECT_SEME_ORDER(std::vector<std::string> vec, std::string *strings)
+
+inline void EXPECT_SEME_ORDER(std::vector<std::string> vec, std::string *strings)
 {
 	int counter = 0;
 	for (std::vector<std::string>::iterator it = vec.begin(); it != vec.end(); ++it) {
@@ -28,5 +30,13 @@ void EXPECT_SEME_ORDER(std::vector<std::string> vec, std::string *strings)
 	}
 		
 }
+
+
+inline void EXPECT_STR_CONTAINS(std::string stringValue, std::string stringToSearch)
+{
+	std::size_t foundPos = stringValue.find(stringToSearch);
+	EXPECT_NE(std::string::npos, foundPos);
+}
+
 
 #endif // ASSERT_H
