@@ -54,6 +54,7 @@ public:
 	
 	rest_response doHttpGet(const std::string& url);
 	rest_response doHttpPut(const std::string& url, const std::string& content_type, const std::string& data);
+	rest_response doHttpPost(const std::string& url, const std::string& content_type, const std::string& data);
 	rest_response* crateEmptyResponse();
 	upload_object* getUploadData();
 	
