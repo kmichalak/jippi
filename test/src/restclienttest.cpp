@@ -83,7 +83,7 @@ TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenPutSucceed)
  	ASSERT_TRUE(data_content_position != std::string::npos);
 }
 
-TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPUTFails)
+TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPutFails)
 {
 	// given
 	std::string data = "testdata";
