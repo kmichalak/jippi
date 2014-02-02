@@ -38,8 +38,8 @@ link_libraries(${JsonCpp_LIBRARY})
 
 add_subdirectory(src)
 add_subdirectory(inc)
-
-add_executable(jippi src/query.cpp 
+                     
+add_executable(jippi src/query.cpp src/getissueaction.cpp 
 		     src/argumentshandler.cpp 
 		     src/config.cpp 
 		     src/stringutils.cpp 
