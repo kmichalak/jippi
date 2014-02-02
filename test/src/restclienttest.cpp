@@ -117,3 +117,13 @@ TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenPostSucceed)
 	// then
 	ASSERT_TRUE(data_content_position != std::string::npos);
 }
+
+TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPostFails)
+{
+	// given 
+	std::string data = "testdata";
+	// when
+	jippi::rest_response response = client->doHttpPost("http://notexisting.org", content_type, data);
+	// then
+	EXPECT_EQ(-1, response.code);
+}
