@@ -199,6 +199,63 @@ rest_response RestClient::doHttpPut(const std::string& url, const std::string& c
 }
 
 
+rest_response RestClient::doHttpPost(const std::string& url, const std::string& content_type, const std::string& data)
+{
+	const char* USER_AGENT = "JIPPI v0.1";
+	std::string content_type_header = "Content-Type: " + content_type;
+	
+	CURL *curl;
+	CURLcode curl_response;
+	
+	this->response = new rest_response;
+	this->upload_data = new upload_object;
+	this->upload_data->data = data.c_str();
+	this->upload_data->length = data.size();
+	
+	curl = curl_easy_init();
+	if (curl) {
+		// basic authentication
+		curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_easy_setopt(curl, CURLOPT_USERPWD, this->auth_data.c_str());
+		
+		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT);
+		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+		
+		// set request type to HTTP POST
+		curl_easy_setopt(curl, CURLOPT_POST, 1L);
+		
+ 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, data.size());
+		
+		// write callback 
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::writeCallbackWrapper);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
+		// header callback 
+		curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);	// have to add some header callback
+		curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);
+		
+		curl_slist* header = curl_slist_append(NULL, content_type_header.c_str());
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header);
+		
+		curl_response = curl_easy_perform(curl);
+		
+		if (curl_response == CURLE_OK) {
+			long http_code = 0;
+			curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+			this->response->code = http_code;
+		} else {
+			this->response->body = "FAIL";
+			this->response->code = -1;	// Please put some normal constant here...
+		}
+	}
+	
+	curl_easy_cleanup(curl);
+	
+	return *(this->response);
+}
+
+
+
 size_t RestClient::readCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data)
 {
 	upload_object* upload_data = reinterpret_cast<upload_object *>(input_data);
