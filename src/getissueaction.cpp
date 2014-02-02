@@ -38,12 +38,15 @@ void GetIssueAction::perform()
 	Config *configuration = new Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
 	configuration->readConfigurationFromFile();
 	const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL) + SEARCH_URL_SUFFIX ;
+	const std::string jiraUser = configuration->getProperty(JIRA_GROUP, JIRA_USER);
+	const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
 	delete configuration;
 	
-	std::cout << "Running query using URL : \""+jiraUrl+"\"" << std::endl;
+	std::string jsonPayload = getJSONPayload();
 	
 	RestClient *restClient = new RestClient();
-	rest_response response = restClient->doHttpPut(jiraUrl, "application/json", getJSONPayload());
+	restClient->setAuthorizationData(jiraUser, jiraPassword);
+	rest_response response = restClient->doHttpPost(jiraUrl, "application/json", jsonPayload);
 	delete restClient;
 	std::cout << response.code << " : " << response.body << std::endl;
 	

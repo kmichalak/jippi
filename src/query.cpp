@@ -52,7 +52,8 @@ void Query::withAssignee(std::string assignee)
 void Query::execute()
 {
 	std::string jsonString = jsonWriter->write(queryParams);
-	rest_response response = restClient->doHttpPut(
+	std::cout << "Passing JSON: " + jsonString << std::endl;
+	rest_response response = restClient->doHttpPost(
 		queryURL, "application/json", jsonString
 	);
 	std::cout << response.body << std::endl;
@@ -62,7 +63,6 @@ void Query::execute()
 std::string Query::getJsonPayload()
 {
 	std::string payload = jsonWriter->write(queryParams);
-	std::cerr << payload << std::endl;
 	return payload;
 }
 
