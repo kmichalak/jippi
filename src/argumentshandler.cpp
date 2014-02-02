@@ -41,7 +41,7 @@ void ArgumentsHandler::handle()
 	int arg_char;
 	int option_index = 0;
 	if (argumentsCounter > 1) {
-		while ((arg_char = getopt_long(argumentsCounter, argumentsVector, "hc:", long_options, &option_index)) != -1) {
+		while ((arg_char = getopt_long(argumentsCounter, argumentsVector, short_args, long_options, &option_index)) != -1) {
 			switch (arg_char)
 			{
 				case 0:
@@ -49,6 +49,8 @@ void ArgumentsHandler::handle()
 				case 'c': 
 					handleConfiguration();						
 					break;
+				case 'q':
+					handleQuery();
 				case 'h': 
 					printHelp();
 					break;
@@ -88,4 +90,10 @@ void ArgumentsHandler::handleConfiguration()
 		// Invalid configuration parameters
 		printHelp();
 	}
+}
+
+
+void ArgumentsHandler::handleQuery()
+{
+	
 }

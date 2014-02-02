@@ -42,14 +42,17 @@ public:
 private:
 	int argumentsCounter;
 	char **argumentsVector;
-	const struct option long_options[3] = {
+	const struct option long_options[4] = {
 		{"config", 1, 0, 'c'},
+		{"query", 1, 0, 'q'},
 		{"help", 0, 0, 'h'},
 		{NULL, 0, NULL, 0}
 	};
+	const char *short_args = "hc:q:";
 	
 	// methods
  	void handleConfiguration();
+	void handleQuery();
 };
 
 }; // end of namespace
