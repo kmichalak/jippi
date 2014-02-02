@@ -35,11 +35,11 @@ void GetIssueAction::perform()
 {
 	Config *configuration = new Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
 	configuration->readConfigurationFromFile();
-	const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL);
+	const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL) + "/search";
 	delete configuration;
 	
 	RestClient *restClient = new RestClient();
-	rest_response response = restClient->doHttpPut(jiraUrl, "", "");
+	rest_response response = restClient->doHttpPut(jiraUrl, "application/json", "");
 	delete restClient;
 	std::cout << response.code << " : " << response.body << std::endl;
 	
