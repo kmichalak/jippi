@@ -16,16 +16,18 @@
  */
 
 #include <iostream>
+#include <assert.h>
 
 #include "inc/query.hpp"
 #include "inc/restclient.hpp"
-
+#include "inc/stringutils.hpp"
 
 
 using namespace jippi;
 
 Query::Query(std::string queryURL)
 {
+	assert(!jippi::StringUtils::isEmpty(queryURL) && "Target URL cannot be empty!");
 	this->queryURL = queryURL;
 	restClient = new RestClient();
 	jsonWriter = new Json::StyledWriter();

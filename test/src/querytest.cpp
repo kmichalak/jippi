@@ -30,6 +30,12 @@ void QueryTest::TearDown()
 
 }
 
+TEST_F(QueryTest, QueryShouldDieWhenTargetURLIsEmpty)
+{
+	// expected
+	ASSERT_DEATH(jippi::Query(""), "");
+}
+
 TEST_F(QueryTest, WithProjectSetsProjectInJsonStructure)
 {
 	// given
@@ -37,8 +43,8 @@ TEST_F(QueryTest, WithProjectSetsProjectInJsonStructure)
 	jippi::Query *query = new jippi::Query("http:://mock.url.org");
 	// when
 	query->withProject(projectName);
-	// then - should get something like "jql":"project = MyTestProjectToSet"
 	std::string jsonPayload = query->getJsonPayload();
+	// then
 	EXPECT_STR_CONTAINS(jsonPayload, "\"jql\" : \"project=" + projectName+"\"");
 }
 
