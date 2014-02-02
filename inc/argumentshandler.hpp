@@ -20,6 +20,10 @@
 
 #include <stddef.h>
 #include <getopt.h>
+#include <map>
+
+#include "inc/action.hpp"
+#include "inc/getissueaction.hpp"
 
 namespace jippi {
 
@@ -30,7 +34,24 @@ namespace jippi {
 #define KEY_SECTION 	1	/* Second in pair where key name is stored */
 	
 #endif
+
+#ifndef ACTION_FACTORY_FUNCTION_
+#define ACTION_FACTORY_FUNCTION_
 	
+// Simple abstract factory function
+template<typename T> Action * createInstance() { return new T; }
+
+#endif
+
+
+#ifndef CLASS_MAP_T_
+#define CLASS_MAP_T_
+
+// Type definition for action name to class map.
+typedef std::map<std::string, Action*(*)()> class_map_t;
+
+#endif
+
 class ArgumentsHandler
 {
 public:
@@ -42,17 +63,28 @@ public:
 private:
 	int argumentsCounter;
 	char **argumentsVector;
+	
+	// Description of the long command line options.
 	const struct option long_options[4] = {
 		{"config", 1, 0, 'c'},
-		{"query", 1, 0, 'q'},
+		{"action", 1, 0, 'a'},
 		{"help", 0, 0, 'h'},
 		{NULL, 0, NULL, 0}
 	};
-	const char *short_args = "hc:q:";
+	
+	// Collection of short options
+	const char *short_args = "hc:a:";
+	
+	// This map contains pairs ActionName->ActionImplementation.
+	// It's used to create valid instance of the action based on the 
+	// action name. 
+	class_map_t actionToClassMap = {
+ 		{"getIssue", &createInstance<GetIssueAction>}
+ 	};
 	
 	// methods
  	void handleConfiguration();
-	void handleQuery();
+	void handleAction();
 };
 
 }; // end of namespace

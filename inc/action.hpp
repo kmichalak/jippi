@@ -59,7 +59,7 @@ public:
 		this->assignee = assignee;
 	}
 	
-	virtual void perform() = 0;
+	virtual void perform() {};
 	
 protected:
 	std::string issue;

@@ -49,8 +49,9 @@ void ArgumentsHandler::handle()
 				case 'c': 
 					handleConfiguration();						
 					break;
-				case 'q':
-					handleQuery();
+				case 'a':
+					handleAction();
+					break;
 				case 'h': 
 					printHelp();
 					break;
@@ -93,7 +94,14 @@ void ArgumentsHandler::handleConfiguration()
 }
 
 
-void ArgumentsHandler::handleQuery()
+void ArgumentsHandler::handleAction()
 {
-	
+	// optarg have to be specified - it contains the name of the action
+	if (optarg) {
+		Action *action = actionToClassMap[optarg]();
+ 		action->perform();
+		delete action;
+	} else {
+		// throw an exception and/or print help 
+	}
 }
