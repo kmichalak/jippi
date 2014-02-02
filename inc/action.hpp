@@ -22,7 +22,6 @@
 #include <assert.h>
 
 #include "inc/stringutils.hpp"
-#include "inc/config.hpp"
 
 namespace jippi {
 
@@ -37,11 +36,9 @@ class Action
 {
 public:
 	Action() {
-		this->configuration = new jippi::Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
 	}
 	
 	virtual ~Action() {
-		delete this->configuration;
 	};
 	
 	inline void withIssue(std::string issue) 
@@ -65,7 +62,6 @@ public:
 	virtual void perform() = 0;
 	
 protected:
-	jippi::Config *configuration;
 	std::string issue;
 	std::string project;
 	std::string assignee;

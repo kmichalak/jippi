@@ -16,6 +16,8 @@
  */
 
 #include "inc/getissueaction.hpp"
+#include "inc/config.hpp"
+#include "inc/restclient.hpp"
 
 using namespace jippi;
 
@@ -31,6 +33,15 @@ GetIssueAction::~GetIssueAction()
 
 void GetIssueAction::perform()
 {
+	Config *configuration = new Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
+	configuration->readConfigurationFromFile();
+	const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL);
+	delete configuration;
+	
+	RestClient *restClient = new RestClient();
+	rest_response response = restClient->doHttpPut(jiraUrl, "", "");
+	delete restClient;
+	std::cout << response.code << " : " << response.body << std::endl;
 	
 }
 

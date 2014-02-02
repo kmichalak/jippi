@@ -27,7 +27,9 @@
 
 const std::string DEFAULT_CONFIG_FILE = "jippi.config";
 const std::string DEFAULT_CONFIG_FILE_LOCATION = "./";
+
 const std::string JIRA_GROUP = "jira";
+const std::string JIRA_URL = "url";
 
 const std::map<std::string, std::string> DEFAULT_JIRA_CONFIGURATION = {
 	{"url", ""}
