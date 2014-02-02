@@ -20,6 +20,7 @@
 
 #include <string>
 #include <assert.h>
+#include <jsoncpp/json/json.h>
 
 #include "inc/stringutils.hpp"
 
@@ -45,18 +46,21 @@ public:
 	{
 		assertValidStringParam(issue, "Issue ID cannot be an empty string!");
 		this->issue = issue;
+		json["issue"] = issue;
 	}
 	
 	inline void withProject(std::string project)
 	{
 		assertValidStringParam(project, "Project ID cannot be an empty string!");
 		this->project = project;
+		this->json["jql"] = "project=" + project;
 	}
 	
 	inline void withAssignee(std::string assignee)
 	{
 		assertValidStringParam(assignee, "Assignee ID cannot be an empty string!");
 		this->assignee = assignee;
+		json["assignee"] = assignee;
 	}
 	
 	virtual void perform() {};
@@ -66,7 +70,16 @@ protected:
 	std::string project;
 	std::string assignee;
 	
+	std::string getJSONPayload()
+	{
+		std::string payload = jsonWriter.write(json);
+		return payload;
+	}
+	
 private:
+	Json::StyledWriter jsonWriter;
+	Json::Value json;
+	
 	inline void assertValidStringParam(std::string str, std::string msg)
 	{
 		assert(!jippi::StringUtils::isEmpty(str) && msg.c_str());

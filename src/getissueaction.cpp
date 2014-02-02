@@ -19,6 +19,8 @@
 #include "inc/config.hpp"
 #include "inc/restclient.hpp"
 
+#include "inc/jira.hpp"
+
 using namespace jippi;
 
 GetIssueAction::GetIssueAction()
@@ -35,11 +37,13 @@ void GetIssueAction::perform()
 {
 	Config *configuration = new Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
 	configuration->readConfigurationFromFile();
-	const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL) + "/search";
+	const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL) + SEARCH_URL_SUFFIX ;
 	delete configuration;
 	
+	std::cout << "Running query using URL : \""+jiraUrl+"\"" << std::endl;
+	
 	RestClient *restClient = new RestClient();
-	rest_response response = restClient->doHttpPut(jiraUrl, "application/json", "");
+	rest_response response = restClient->doHttpPut(jiraUrl, "application/json", getJSONPayload());
 	delete restClient;
 	std::cout << response.code << " : " << response.body << std::endl;
 	

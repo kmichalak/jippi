@@ -49,8 +49,17 @@ void ArgumentsHandler::handle()
 				case 'c': 
 					handleConfiguration();						
 					break;
-				case 'a':
+				case 'A':
 					handleAction();
+					break;
+				case 'a':
+					action->withAssignee(optarg);
+					break;
+				case 'p':
+					action->withProject(optarg);
+					break;
+				case 'i':
+					action->withIssue(optarg);
 					break;
 				case 'h': 
 					printHelp();
@@ -62,6 +71,10 @@ void ArgumentsHandler::handle()
 		} 
 	} else { 
 		printHelp(); 
+	}
+	if (action) {
+		action->perform();
+		delete action;
 	}
 }
 
@@ -98,9 +111,9 @@ void ArgumentsHandler::handleAction()
 {
 	// optarg have to be specified - it contains the name of the action
 	if (optarg) {
-		Action *action = actionToClassMap[optarg]();
- 		action->perform();
-		delete action;
+		action = actionToClassMap[optarg]();
+//  		action->perform();
+// 		delete action;
 	} else {
 		// throw an exception and/or print help 
 	}
