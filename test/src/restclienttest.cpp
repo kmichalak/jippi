@@ -23,6 +23,7 @@ void RestClientTest::SetUp()
 {
 	get_url = "http://echo.jsontest.com/value/get";
 	put_url = "http://httpbin.org/put";
+	post_url = "http://httpbin.org/post";
 	content_type = "application/json";
 	client = new jippi::RestClient;
 }
@@ -90,4 +91,29 @@ TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPUTFails)
 	jippi::rest_response response = client->doHttpPut("http://nonexisting.org", content_type, data);
 	// then
 	EXPECT_EQ(-1, response.code);
+}
+
+//---------------------------------------------
+// POST
+//---------------------------------------------
+
+TEST_F(RestClientTest, ResponseShouldContainValidResponseCodeWhenPostSucceed) 
+{
+	// given
+	std::string data = "testdata";
+	// when
+	jippi::rest_response response = client->doHttpPost(post_url, content_type, data);
+	// then
+	EXPECT_EQ(200, response.code);
+}
+
+TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenPostSucceed) 
+{
+	// given
+	std::string data = "testdata";
+	// when
+	jippi::rest_response response = client->doHttpPost(post_url, content_type, data);
+	size_t data_content_position = response.body.find(data);
+	// then
+	ASSERT_TRUE(data_content_position != std::string::npos);
 }
