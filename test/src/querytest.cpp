@@ -39,9 +39,7 @@ TEST_F(QueryTest, WithProjectSetsProjectInJsonStructure)
 	query->withProject(projectName);
 	// then - should get something like "jql":"project = MyTestProjectToSet"
 	std::string jsonPayload = query->getJsonPayload();
-	std::string expected = "\"jql\" : \"project=" + projectName+"\"";
-	std::cerr << expected << std::endl;
-	EXPECT_STR_CONTAINS(jsonPayload, expected);
+	EXPECT_STR_CONTAINS(jsonPayload, "\"jql\" : \"project=" + projectName+"\"");
 }
 
 TEST_F(QueryTest, WithAssigneeSetsAssigneeInJsonStructure)
@@ -52,9 +50,7 @@ TEST_F(QueryTest, WithAssigneeSetsAssigneeInJsonStructure)
 	// when
 	query->withAssignee(assignee);
 	std::string jsonPayload = query->getJsonPayload();
-	// then
-	std::string expected = "\"assignee\" : \""+ assignee+"\"";
-	std::cerr << expected << std::endl;
-	EXPECT_STR_CONTAINS(jsonPayload, expected);
+	// then;
+	EXPECT_STR_CONTAINS(jsonPayload, "\"assignee\" : \""+ assignee+"\"");
 }
 
