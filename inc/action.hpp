@@ -66,6 +66,22 @@ public:
 		json["assignee"] = assignee;
 	}
 	
+	//-----------------------------------------------------------------------
+	// new parameters that need to be implemented in argumants handler
+	//-----------------------------------------------------------------------
+	
+	inline void withMaxResults(int maxResults)
+	{
+		assert(maxResults > 0 && "Max number of results should be greater than 0!");
+		json["maxResults"] = maxResults;
+	}
+	
+	inline void withIssuetypeName(std::string issuetypeName) 
+	{
+		assertValidStringParam(issuetypeName, "Issue type name cannot be an empty string!");
+		json["issuetypeName"] = issuetypeName;
+	}
+	
 	virtual void perform() {};
 	
 protected:
