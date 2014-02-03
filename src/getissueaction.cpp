@@ -35,7 +35,6 @@ GetIssueAction::~GetIssueAction()
 
 void GetIssueAction::perform()
 {
-	configuration->readConfigurationFromFile();
 	const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL) + SEARCH_URL_SUFFIX ;
 	const std::string jiraUser = configuration->getProperty(JIRA_GROUP, JIRA_USER);
 	const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);

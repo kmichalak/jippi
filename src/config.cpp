@@ -18,7 +18,7 @@
 #include "inc/config.hpp"
 
 #include <libconfig.h++>	// support for configuration files 
-#include <unistd.h>		// stat
+#include <unistd.h>			// stat
 #include <algorithm>		// for_each
 
 using namespace jippi;
@@ -27,6 +27,9 @@ Config::Config(const std::string configuration_file, const std::string configura
 {
 	this->configuration_file = configuration_path + configuration_file;
 	this->configuration = new libconfig::Config;
+	if (!foundConfigurationFile()) {
+		storeDefaultConfigurationInFile();
+	}
 }
 
 

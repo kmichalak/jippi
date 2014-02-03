@@ -94,9 +94,6 @@ void ArgumentsHandler::handleConfiguration()
 		// there is something wrong.
 		if (sections.size() == 2) {
 			jippi::Config *configuration = new jippi::Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
-			if (!configuration->foundConfigurationFile()) {
-				configuration->storeDefaultConfigurationInFile();
-			}
 			std::string group = sections.at(GROUP_SECTION);
 			std::string key = sections.at(KEY_SECTION);
 			configuration->readConfigurationFromFile();

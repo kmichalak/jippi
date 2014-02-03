@@ -40,6 +40,7 @@ class Action
 public:
 	Action() {
 		configuration = new Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
+		configuration->readConfigurationFromFile();
 		restClient = new RestClient();
 	}
 	
