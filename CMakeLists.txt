@@ -39,7 +39,7 @@ link_libraries(${JsonCpp_LIBRARY})
 add_subdirectory(src)
 add_subdirectory(inc)
                      
-add_executable(jippi src/query.cpp src/getissueaction.cpp 
+add_executable(jippi src/getissueaction.cpp 
 		     src/argumentshandler.cpp 
 		     src/config.cpp 
 		     src/stringutils.cpp 
@@ -63,9 +63,8 @@ if(build_tests)
 	add_subdirectory(test/src)
 	
 	link_libraries(gtest)
-	add_executable(test-all test/src/runtests.cpp 
-				test/src/querytest.cpp src/query.cpp
-				test/src/restclienttest.cpp src/restclient.cpp 
+	add_executable(test-all test/src/runtests.cpp
+				test/src/restclienttest.cpp src/restclient.cpp
 				test/src/stringutilstest.cpp src/stringutils.cpp
 				test/src/configtest.cpp src/config.cpp)
 
