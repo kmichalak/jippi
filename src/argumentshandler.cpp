@@ -118,8 +118,6 @@ void ArgumentsHandler::handleAction()
 	// optarg have to be specified - it contains the name of the action
 	if (optarg) {
 		action = actionToClassMap[optarg]();
-//  		action->perform();
-// 		delete action;
 	} else {
 		// throw an exception and/or print help 
 	}
