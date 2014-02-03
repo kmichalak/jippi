@@ -20,6 +20,7 @@
 #include "inc/restclient.hpp"
 
 #include "inc/jira.hpp"
+#include "inc/jippi.hpp"
 
 using namespace jippi;
 
@@ -39,7 +40,20 @@ void GetIssueAction::perform()
 	const std::string jiraUser = configuration->getProperty(JIRA_GROUP, JIRA_USER);
 	const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
 	
+	if (StringUtils::isEmpty(jiraUrl)) {
+		throw new EmptyConfigurationValueException(jiraUrl.c_str());
+	}
+	
+	if (StringUtils::isEmpty(jiraUser)) {
+		throw new EmptyConfigurationValueException(jiraUrl.c_str());
+	}
+	
+	if (StringUtils::isEmpty(jiraPassword)) {
+		throw new EmptyConfigurationValueException(jiraUrl.c_str());
+	}
+	
 	std::string jsonPayload = getJSONPayload();
+	
 	if (isInDebugMode) {
 		std::cout << std::endl << jsonPayload << std::endl;
 	}
