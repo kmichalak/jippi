@@ -35,23 +35,15 @@ GetIssueAction::~GetIssueAction()
 
 void GetIssueAction::perform()
 {
-	// TODO: I should refactor those new-delete constructions to make them
-	// more elegant. I think they should be hidden 
-	// as an implementation detail, for example in Action class.
-	
-	Config *configuration = new Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
 	configuration->readConfigurationFromFile();
 	const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL) + SEARCH_URL_SUFFIX ;
 	const std::string jiraUser = configuration->getProperty(JIRA_GROUP, JIRA_USER);
 	const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
-	delete configuration;
 	
 	std::string jsonPayload = getJSONPayload();
 	
-	RestClient *restClient = new RestClient();
 	restClient->setAuthorizationData(jiraUser, jiraPassword);
 	rest_response response = restClient->doHttpPost(jiraUrl, "application/json", jsonPayload);
-	delete restClient;
 	std::cout << response.code << " : " << response.body << std::endl;
 	
 }

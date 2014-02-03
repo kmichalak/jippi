@@ -23,6 +23,8 @@
 #include <jsoncpp/json/json.h>
 
 #include "inc/stringutils.hpp"
+#include "inc/config.hpp"
+#include "inc/restclient.hpp"
 
 namespace jippi {
 
@@ -37,9 +39,13 @@ class Action
 {
 public:
 	Action() {
+		configuration = new Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
+		restClient = new RestClient();
 	}
 	
 	virtual ~Action() {
+		delete restClient;
+		delete configuration;
 	};
 	
 	inline void withIssue(std::string issue) 
@@ -63,6 +69,8 @@ public:
 	virtual void perform() {};
 	
 protected:
+	Config *configuration;
+	RestClient *restClient;
 	std::string getJSONPayload()
 	{
 		std::string payload = jsonWriter.write(json);
