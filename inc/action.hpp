@@ -76,7 +76,7 @@ public:
 		json["maxResults"] = maxResults;
 	}
 	
-	inline void withIssuetypeName(std::string issuetypeName) 
+	inline void withIssueTypeName(std::string issuetypeName) 
 	{
 		assertValidStringParam(issuetypeName, "Issue type name cannot be an empty string!");
 		json["issuetypeName"] = issuetypeName;
