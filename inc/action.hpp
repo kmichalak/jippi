@@ -52,19 +52,19 @@ public:
 	inline void withIssue(std::string issue) 
 	{
 		assertValidStringParam(issue, "Issue ID cannot be an empty string!");
-		json["issue"] = issue;
+		appendToQuery("issue = " + issue);
 	}
 	
 	inline void withProject(std::string project)
 	{
 		assertValidStringParam(project, "Project ID cannot be an empty string!");
-		this->json["jql"] = "project = " + project;
+		appendToQuery("project = " + project);
 	}
 	
 	inline void withAssignee(std::string assignee)
 	{
 		assertValidStringParam(assignee, "Assignee ID cannot be an empty string!");
-		json["assignee"] = assignee;
+		appendToQuery("assignee = \"" + assignee + "\"");
 	}
 	
 	//-----------------------------------------------------------------------
@@ -80,7 +80,12 @@ public:
 	inline void withIssueTypeName(std::string issuetypeName) 
 	{
 		assertValidStringParam(issuetypeName, "Issue type name cannot be an empty string!");
-		json["issuetypeName"] = issuetypeName;
+		json["issueTypeName"] = issuetypeName;
+	}
+	
+	inline void debug(bool isInDebugMode)
+	{
+		this->isInDebugMode = isInDebugMode;
 	}
 	
 	virtual void perform() {};
@@ -93,7 +98,7 @@ protected:
 		std::string payload = jsonWriter.write(json);
 		return payload;
 	}
-	
+	bool isInDebugMode = false;
 private:
 	Json::StyledWriter jsonWriter;
 	Json::Value json;
@@ -101,6 +106,15 @@ private:
 	inline void assertValidStringParam(std::string str, std::string msg)
 	{
 		assert(!jippi::StringUtils::isEmpty(str) && msg.c_str());
+	}
+	
+	inline void appendToQuery(std::string valueToAppend)
+	{
+		if (StringUtils::isEmpty(this->json["jql"].asString())) {
+			this->json["jql"] = valueToAppend;
+		} else {
+			this->json["jql"] = this->json["jql"].asString() + " AND " + valueToAppend;
+		}
 	}
 };
 

@@ -40,6 +40,9 @@ void GetIssueAction::perform()
 	const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
 	
 	std::string jsonPayload = getJSONPayload();
+	if (isInDebugMode) {
+		std::cout << std::endl << jsonPayload << std::endl;
+	}
 	
 	restClient->setAuthorizationData(jiraUser, jiraPassword);
 	rest_response response = restClient->doHttpPost(jiraUrl, "application/json", jsonPayload);

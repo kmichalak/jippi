@@ -62,13 +62,16 @@ void ArgumentsHandler::handle()
 					action->withIssue(optarg);
 					break;
 				case 'r':
-					action->withMaxResults(static_cast<int>(*optarg));
+					action->withMaxResults(std::stoi(optarg));
 					break;
 				case 't':
 					action->withIssueTypeName(optarg);
 					break;
 				case 'h': 
 					printHelp();
+					break;
+				case 'd':
+					action->debug(true);
 					break;
 				default:
 					printHelp();
