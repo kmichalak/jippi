@@ -49,27 +49,14 @@ public:
 		delete configuration;
 	};
 	
-	inline void withIssue(std::string issue) 
-	{
-		assertValidStringParam(issue, "Issue ID cannot be an empty string!");
-		appendToQuery("issue = " + issue);
-	}
+	//-----------------------------------------------------------
+	// JSON fields
+	//-----------------------------------------------------------
 	
-	inline void withProject(std::string project)
+	inline void withStartAt(int startAt)
 	{
-		assertValidStringParam(project, "Project ID cannot be an empty string!");
-		appendToQuery("project = " + project);
+		json["startAt"] = startAt;
 	}
-	
-	inline void withAssignee(std::string assignee)
-	{
-		assertValidStringParam(assignee, "Assignee ID cannot be an empty string!");
-		appendToQuery("assignee = \"" + assignee + "\"");
-	}
-	
-	//-----------------------------------------------------------------------
-	// new parameters that need to be implemented in argumants handler
-	//-----------------------------------------------------------------------
 	
 	inline void withMaxResults(int maxResults)
 	{
@@ -77,11 +64,41 @@ public:
 		json["maxResults"] = maxResults;
 	}
 	
+	inline void withFields(std::string fields)
+	{
+		assertValidStringParam(fields, "List of fields cannot be an empty string!");
+		json["fields"] = fields;
+	}
+	
+	//-----------------------------------------------------------
+	// JSQL elements
+	//-----------------------------------------------------------
+	
+	inline void withProject(std::string project)
+	{
+		assertValidStringParam(project, "Project ID cannot be an empty string!");
+		appendToQuery("project = " + project);
+	}
+	
+	inline void withIssue(std::string issue) 
+	{
+		assertValidStringParam(issue, "Issue ID cannot be an empty string!");
+		appendToQuery("issue = " + issue);
+	}
+		
+	inline void withAssignee(std::string assignee)
+	{
+		assertValidStringParam(assignee, "Assignee ID cannot be an empty string!");
+		appendToQuery("assignee = \"" + assignee + "\"");
+	}
+	
 	inline void withIssueTypeName(std::string issuetypeName) 
 	{
 		assertValidStringParam(issuetypeName, "Issue type name cannot be an empty string!");
 		json["issueTypeName"] = issuetypeName;
 	}
+	
+	// others 
 	
 	inline void debug(bool isInDebugMode)
 	{
