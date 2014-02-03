@@ -65,18 +65,20 @@ private:
 	char **argumentsVector;
 	
 	// Description of the long command line options.
-	const struct option long_options[7] = {
-		{"help", 0, 0, 'h'},
-		{"config", 1, 0, 'c'},
-		{"action", 1, 0, 'A'},
-		{"issue", 1, 0, 'i'},
-		{"assignee", 1, 0, 'a'},
-		{"project", 1, 0, 'p'},
-		{NULL, 0, NULL, 0}
+	const struct option long_options[9] = {
+		{"help", 		0, 0, 'h'},
+		{"config", 		1, 0, 'c'},
+		{"action", 		1, 0, 'A'},
+		{"issue", 		1, 0, 'i'},
+		{"assignee", 	1, 0, 'a'},
+		{"project", 	1, 0, 'p'},
+		{"max-results", 1, 0, 'r'},
+		{"issue-type", 	1, 0, 't'},
+		{NULL, 			0, NULL, 0}
 	};
 	
 	// Collection of short options
-	const char *short_args = "hc:A:i:a:p:";
+	const char *short_args = "hc:A:i:a:p:r:t:";
 	
 	// This map contains pairs ActionName->ActionImplementation.
 	// It's used to create valid instance of the action based on the 

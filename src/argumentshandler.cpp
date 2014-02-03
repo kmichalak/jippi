@@ -47,7 +47,7 @@ void ArgumentsHandler::handle()
 				case 0:
 					std::cout << long_options[option_index].name << std::endl;
 				case 'c': 
-					handleConfiguration();						
+					handleConfiguration();
 					break;
 				case 'A':
 					handleAction();
@@ -60,6 +60,12 @@ void ArgumentsHandler::handle()
 					break;
 				case 'i':
 					action->withIssue(optarg);
+					break;
+				case 'r':
+					action->withMaxResults(static_cast<int>(*optarg));
+					break;
+				case 't':
+					action->withIssueTypeName(optarg);
 					break;
 				case 'h': 
 					printHelp();
