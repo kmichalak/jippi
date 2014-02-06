@@ -15,26 +15,18 @@
  * 
  */
 
-#ifndef CONFIGTEST_HPP
-#define CONFIGTEST_HPP
+#ifndef QUERYTEST_H
+#define QUERYTEST_H
 
 #include <gtest/gtest.h>
 
-// namespace testing {
-
-
-class ConfigTest : public testing::Test
+class QueryTest : public testing::Test
 {
-protected:
+protected:	
 	virtual void SetUp();
 	virtual void TearDown();
 	
-	std::string config_file;
-	std::string config_path;
-	std::string config_file_content; 
+
 };
 
-
-// }	// end of testing namespace
-
-#endif // CONFIGTEST_H
+#endif // QUERYTEST_H

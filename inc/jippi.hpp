@@ -15,26 +15,26 @@
  * 
  */
 
-#ifndef CONFIGTEST_HPP
-#define CONFIGTEST_HPP
+#ifndef JIPPI_H
+#define JIPPI_H
 
-#include <gtest/gtest.h>
+#include <exception>
 
-// namespace testing {
-
-
-class ConfigTest : public testing::Test
-{
-protected:
-	virtual void SetUp();
-	virtual void TearDown();
+namespace jippi {
 	
-	std::string config_file;
-	std::string config_path;
-	std::string config_file_content; 
+class ConfigurationException : public std::exception { };
+
+class EmptyConfigurationValueException : public ConfigurationException
+{
+public:
+	EmptyConfigurationValueException();
+	EmptyConfigurationValueException(const char *name);
+	virtual ~EmptyConfigurationValueException() throw();
+	
+private:
+	char *configurationValueName;
 };
 
+}; // end of namespace
 
-// }	// end of testing namespace
-
-#endif // CONFIGTEST_H
+#endif // GETISSUEACTION_H

@@ -15,26 +15,26 @@
  * 
  */
 
-#ifndef CONFIGTEST_HPP
-#define CONFIGTEST_HPP
+#include <cstdlib>		// free support
+#include <string.h>
 
-#include <gtest/gtest.h>
+#include "inc/jippi.hpp"
 
-// namespace testing {
+using namespace jippi;
 
-
-class ConfigTest : public testing::Test
+EmptyConfigurationValueException::EmptyConfigurationValueException()
 {
-protected:
-	virtual void SetUp();
-	virtual void TearDown();
-	
-	std::string config_file;
-	std::string config_path;
-	std::string config_file_content; 
-};
 
+}
 
-// }	// end of testing namespace
+EmptyConfigurationValueException::EmptyConfigurationValueException(const char* name)
+{
+	configurationValueName = strdup(name);
+}
 
-#endif // CONFIGTEST_H
+EmptyConfigurationValueException::~EmptyConfigurationValueException() throw()
+{
+	free(configurationValueName);
+}
+
+//----------------------------------------------------------

@@ -27,10 +27,16 @@
 
 const std::string DEFAULT_CONFIG_FILE = "jippi.config";
 const std::string DEFAULT_CONFIG_FILE_LOCATION = "./";
+
 const std::string JIRA_GROUP = "jira";
+const std::string JIRA_URL = "url";
+const std::string JIRA_USER = "user";
+const std::string JIRA_PASSWORD = "password";
 
 const std::map<std::string, std::string> DEFAULT_JIRA_CONFIGURATION = {
-	{"url", ""}
+	{"url", 		""},
+	{"user", 		""},
+	{"password", 	""}
 };
 
 #endif
@@ -58,6 +64,8 @@ private:
 	// variables
 	libconfig::Config *configuration;
 	std::string configuration_file;
+	
+	void easy_init();
 	
 	/**
 	 * Helper class used to write default configuration to the file.

@@ -15,26 +15,19 @@
  * 
  */
 
-#ifndef CONFIGTEST_HPP
-#define CONFIGTEST_HPP
+#ifndef JIRA_H
+#define JIRA_H
 
-#include <gtest/gtest.h>
+#include <string>
 
-// namespace testing {
-
-
-class ConfigTest : public testing::Test
-{
-protected:
-	virtual void SetUp();
-	virtual void TearDown();
+namespace jippi {
 	
-	std::string config_file;
-	std::string config_path;
-	std::string config_file_content; 
-};
 
+/**  */
+const std::string API_URL_SUFFIX = "/rest/api/2";
+/**  */
+const std::string SEARCH_URL_SUFFIX = API_URL_SUFFIX + "/search";
 
-// }	// end of testing namespace
+}; // end of namespace
 
-#endif // CONFIGTEST_H
+#endif

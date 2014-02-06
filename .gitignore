@@ -1,6 +1,7 @@
 # Project output file
 jippi
 test-all
+jippi.config
 
 # Compiled Object files
 *.slo

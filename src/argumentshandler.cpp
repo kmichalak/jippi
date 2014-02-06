@@ -41,16 +41,37 @@ void ArgumentsHandler::handle()
 	int arg_char;
 	int option_index = 0;
 	if (argumentsCounter > 1) {
-		while ((arg_char = getopt_long(argumentsCounter, argumentsVector, "hc:", long_options, &option_index)) != -1) {
+		while ((arg_char = getopt_long(argumentsCounter, argumentsVector, short_args, long_options, &option_index)) != -1) {
 			switch (arg_char)
 			{
 				case 0:
 					std::cout << long_options[option_index].name << std::endl;
 				case 'c': 
-					handleConfiguration();						
+					handleConfiguration();
+					break;
+				case 'A':
+					handleAction();
+					break;
+				case 'a':
+					action->withAssignee(optarg);
+					break;
+				case 'p':
+					action->withProject(optarg);
+					break;
+				case 'i':
+					action->withIssue(optarg);
+					break;
+				case 'r':
+					action->withMaxResults(std::stoi(optarg));
+					break;
+				case 't':
+					action->withIssueTypeName(optarg);
 					break;
 				case 'h': 
 					printHelp();
+					break;
+				case 'd':
+					action->debug(true);
 					break;
 				default:
 					printHelp();
@@ -59,6 +80,10 @@ void ArgumentsHandler::handle()
 		} 
 	} else { 
 		printHelp(); 
+	}
+	if (action) {
+		action->perform();
+		delete action;
 	}
 }
 
@@ -72,9 +97,6 @@ void ArgumentsHandler::handleConfiguration()
 		// there is something wrong.
 		if (sections.size() == 2) {
 			jippi::Config *configuration = new jippi::Config(DEFAULT_CONFIG_FILE, DEFAULT_CONFIG_FILE_LOCATION);
-			if (!configuration->foundConfigurationFile()) {
-				configuration->storeDefaultConfigurationInFile();
-			}
 			std::string group = sections.at(GROUP_SECTION);
 			std::string key = sections.at(KEY_SECTION);
 			configuration->readConfigurationFromFile();
@@ -87,5 +109,16 @@ void ArgumentsHandler::handleConfiguration()
 	} else {
 		// Invalid configuration parameters
 		printHelp();
+	}
+}
+
+
+void ArgumentsHandler::handleAction()
+{
+	// optarg have to be specified - it contains the name of the action
+	if (optarg) {
+		action = actionToClassMap[optarg]();
+	} else {
+		// throw an exception and/or print help 
 	}
 }

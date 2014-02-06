@@ -15,26 +15,23 @@
  * 
  */
 
-#ifndef CONFIGTEST_HPP
-#define CONFIGTEST_HPP
+#ifndef GETISSUEACTION_H
+#define GETISSUEACTION_H
 
-#include <gtest/gtest.h>
+#include "inc/action.hpp"
 
-// namespace testing {
+namespace jippi {
 
-
-class ConfigTest : public testing::Test
+class GetIssueAction : public Action
 {
-protected:
-	virtual void SetUp();
-	virtual void TearDown();
+public:
+	GetIssueAction();
+	~GetIssueAction();
 	
-	std::string config_file;
-	std::string config_path;
-	std::string config_file_content; 
+	void perform();
+	
 };
 
+}; // end of namespace
 
-// }	// end of testing namespace
-
-#endif // CONFIGTEST_H
+#endif // GETISSUEACTION_H
