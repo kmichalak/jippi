@@ -74,7 +74,7 @@ private:
 		{"project", 		required_argument, 0, 'p'},
 		{"max-results", 	required_argument, 0, 'r'},
 		{"issue-type", 		required_argument, 0, 't'},
-		{"debug", 		required_argument, 0, 'd'},
+		{"debug", 		0, 0, 'd'},
 		{NULL, 			0, NULL, 0}
 	};
 	

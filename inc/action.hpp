@@ -92,10 +92,10 @@ public:
 		appendToQuery("assignee = \"" + assignee + "\"");
 	}
 	
-	inline void withIssueTypeName(std::string issuetypeName) 
+	inline void withIssueTypeName(std::string issueType) 
 	{
-		assertValidStringParam(issuetypeName, "Issue type name cannot be an empty string!");
-		json["issueTypeName"] = issuetypeName;
+		assertValidStringParam(issueType, "Issue type name cannot be an empty string!");
+		appendToQuery("issueType = " + issueType);
 	}
 	
 	// others 
