@@ -67,14 +67,14 @@ private:
 	// Description of the long command line options.
 	const struct option long_options[10] = {
 		{"help", 		0, 0, 'h'},
-		{"config", 		1, 0, 'c'},
-		{"action", 		1, 0, 'A'},
-		{"issue", 		1, 0, 'i'},
-		{"assignee", 	1, 0, 'a'},
-		{"project", 	1, 0, 'p'},
-		{"max-results", 1, 0, 'r'},
-		{"issue-type", 	1, 0, 't'},
-		{"debug", 		0, 0, 'd'},
+		{"config", 		optional_argument, 0, 'c'},
+		{"action", 		required_argument, 0, 'A'},
+		{"issue", 		required_argument, 0, 'i'},
+		{"assignee", 		required_argument, 0, 'a'},
+		{"project", 		required_argument, 0, 'p'},
+		{"max-results", 	required_argument, 0, 'r'},
+		{"issue-type", 		required_argument, 0, 't'},
+		{"debug", 		required_argument, 0, 'd'},
 		{NULL, 			0, NULL, 0}
 	};
 	
