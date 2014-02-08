@@ -57,10 +57,7 @@ void RestClient::setAuthorizationData(const std::string& user, const std::string
  */
 rest_response RestClient::doHttpGet(const std::string& url)
 {
-	const char* USER_AGENT = "JIPPI v0.1";
-	
 	CURL *curl;
-	CURLcode curl_response;
 
  	this->response = new rest_response;
 
@@ -69,23 +66,14 @@ rest_response RestClient::doHttpGet(const std::string& url)
 		curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		curl_easy_setopt(curl, CURLOPT_USERPWD, this->auth_data.c_str());
 		
-		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT);
+		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT.c_str());
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::writeCallbackWrapper);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
 		curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);	// have to add some header callback
 		curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);	
 
-		curl_response = curl_easy_perform(curl);
-
-		if (curl_response == CURLE_OK) {
-			long http_code = 0;
-			curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-			this->response->code = http_code;
-		} else {
-			this->response->body = "FAIL";
-			this->response->code = -1;    // have to introduce some constant for query failure
-		}
+		performRequest(curl);
 	}
 
 	curl_easy_cleanup(curl);
@@ -140,12 +128,9 @@ size_t RestClient::headerCallback(void* output_data, size_t block_size, size_t b
 
 rest_response RestClient::doHttpPut(const std::string& url, const std::string& content_type, const std::string& data)
 {
-	const char* USER_AGENT = "JIPPI v0.1";
-	
 	std::string content_type_header = "Content-Type: " + content_type;
 	
 	CURL *curl;
-	CURLcode curl_response;
 	
 	this->response = new rest_response;
 	this->upload_data = new upload_object;
@@ -158,7 +143,7 @@ rest_response RestClient::doHttpPut(const std::string& url, const std::string& c
 		curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		curl_easy_setopt(curl, CURLOPT_USERPWD, this->auth_data.c_str());
 		
-		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT);
+		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT.c_str());
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		
 		// set request type to HTTP PUT
@@ -181,16 +166,7 @@ rest_response RestClient::doHttpPut(const std::string& url, const std::string& c
 		curl_slist* header = curl_slist_append(NULL, content_type_header.c_str());
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header);
 		
-		curl_response = curl_easy_perform(curl);
-		
-		if (curl_response == CURLE_OK) {
-			long http_code = 0;
-			curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-			this->response->code = http_code;
-		} else {
-			this->response->body = "FAIL";
-			this->response->code = -1;    // have to introduce some constant for query failure
-		}
+		performRequest(curl);
 	}
 	
 	curl_easy_cleanup(curl);
@@ -201,11 +177,9 @@ rest_response RestClient::doHttpPut(const std::string& url, const std::string& c
 
 rest_response RestClient::doHttpPost(const std::string& url, const std::string& content_type, const std::string& data)
 {
-	const char* USER_AGENT = "JIPPI v0.1";
 	std::string content_type_header = "Content-Type: " + content_type;
 	
 	CURL *curl;
-	CURLcode curl_response;
 	
 	this->response = new rest_response;
 	this->upload_data = new upload_object;
@@ -218,7 +192,7 @@ rest_response RestClient::doHttpPost(const std::string& url, const std::string& 
 		curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		curl_easy_setopt(curl, CURLOPT_USERPWD, this->auth_data.c_str());
 		
-		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT);
+		curl_easy_setopt(curl, CURLOPT_USERAGENT, USER_AGENT.c_str());
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		
 		// set request type to HTTP POST
@@ -237,23 +211,13 @@ rest_response RestClient::doHttpPost(const std::string& url, const std::string& 
 		curl_slist* header = curl_slist_append(NULL, content_type_header.c_str());
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header);
 		
-		curl_response = curl_easy_perform(curl);
-		
-		if (curl_response == CURLE_OK) {
-			long http_code = 0;
-			curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-			this->response->code = http_code;
-		} else {
-			this->response->body = "FAIL";
-			this->response->code = -1;	// Please put some normal constant here...
-		}
+		performRequest(curl);
 	}
 	
 	curl_easy_cleanup(curl);
 	
 	return *(this->response);
 }
-
 
 
 size_t RestClient::readCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data)
@@ -268,6 +232,28 @@ size_t RestClient::readCallback(void* outputdata, size_t block_size, size_t bloc
 	upload_data->data += copy_size;
 	
 	return copy_size;
+}
+
+
+rest_response RestClient::performRequest(CURL *curl)
+{
+	long http_code = -1;
+	CURLcode curl_response = curl_easy_perform(curl);
+	
+	curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+	if (curl_response == CURLE_OK) {
+		this->response->code = http_code;
+	} else {
+		this->response->code = http_code ? http_code : curl_response;
+		this->response->body = codeToErrorMsg(this->response->code);
+	}
+	
+	return *this->response;
+}
+
+std::string RestClient::codeToErrorMsg(long int code)
+{
+	return JIPPIE_MSG[code];
 }
 
 

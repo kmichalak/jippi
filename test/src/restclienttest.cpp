@@ -16,6 +16,7 @@
  */
 
 #include <gtest/gtest.h>
+#include <curl/curl.h>
 #include "test/inc/restclienttest.hpp"
 #include "inc/restclient.hpp"
 
@@ -54,7 +55,7 @@ TEST_F(RestClientTest, ResponseShouldContainValidResponseCodeWhenGetFails)
 	// when
 	jippi::rest_response response = client->doHttpGet("http://nonexisting.org");
 	// then
-	EXPECT_EQ(-1, response.code);
+	EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
 }
 
 
@@ -90,7 +91,7 @@ TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPutFails)
 	// when
 	jippi::rest_response response = client->doHttpPut("http://nonexisting.org", content_type, data);
 	// then
-	EXPECT_EQ(-1, response.code);
+	EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
 }
 
 //---------------------------------------------
@@ -125,5 +126,5 @@ TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPostFails)
 	// when
 	jippi::rest_response response = client->doHttpPost("http://notexisting.org", content_type, data);
 	// then
-	EXPECT_EQ(-1, response.code);
+	EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
 }

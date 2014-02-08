@@ -20,6 +20,7 @@
 
 #include <string>
 #include <map>
+#include <curl/curl.h>
 
 namespace jippi {
 
@@ -40,6 +41,18 @@ typedef struct
 	const char* data;
 	size_t length;	
 } upload_object;
+
+const std::string JIPPIE_MSG[] = {
+	"OK",
+	"Unsupported protocol",
+	"Failed to init CURL",
+	"Malformed URL",
+	"Unknown Error 4",
+	"Culd not resolve proxy",
+	"Could not resolve host"
+};
+
+const std::string USER_AGENT = "JIPPI v0.1";
 
 /**
  * REST client definition. 
@@ -66,6 +79,8 @@ private:
 	size_t writeCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
 	size_t readCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
 	size_t headerCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
+	rest_response performRequest(CURL *curl);
+	std::string codeToErrorMsg(long code);
 	
 	/**
 	 * The solution suggested by CURL documentation available at 
