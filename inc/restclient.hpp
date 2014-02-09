@@ -42,15 +42,6 @@ typedef struct
 	size_t length;	
 } upload_object;
 
-const std::string JIPPIE_MSG[] = {
-	"OK",
-	"Unsupported protocol",
-	"Failed to init CURL",
-	"Malformed URL",
-	"Unknown Error 4",
-	"Culd not resolve proxy",
-	"Could not resolve host"
-};
 
 const std::string USER_AGENT = "JIPPI v0.1";
 
@@ -80,7 +71,7 @@ private:
 	size_t readCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
 	size_t headerCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
 	rest_response performRequest(CURL *curl);
-	std::string codeToErrorMsg(long code);
+	std::string codeToErrorMsg(CURLcode code);
 	
 	/**
 	 * The solution suggested by CURL documentation available at 

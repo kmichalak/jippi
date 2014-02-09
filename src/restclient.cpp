@@ -244,16 +244,17 @@ rest_response RestClient::performRequest(CURL *curl)
 	if (curl_response == CURLE_OK) {
 		this->response->code = http_code;
 	} else {
-		this->response->code = http_code ? http_code : curl_response;
-		this->response->body = codeToErrorMsg(this->response->code);
+		this->response->code = curl_response;
+		this->response->body = codeToErrorMsg(curl_response);
 	}
 	
 	return *this->response;
 }
 
-std::string RestClient::codeToErrorMsg(long int code)
+std::string RestClient::codeToErrorMsg(CURLcode code)
 {
-	return JIPPIE_MSG[code];
+	const char *error_msg = curl_easy_strerror(code);
+	return std::string(error_msg);
 }
 
 
