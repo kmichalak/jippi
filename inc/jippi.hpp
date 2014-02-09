@@ -18,10 +18,69 @@
 #ifndef JIPPI_H
 #define JIPPI_H
 
+#include <string>
 #include <exception>
 
 namespace jippi {
 	
+#ifndef __json_members
+#define __json_members
+
+	
+typedef struct {
+	long id;			/* field ID */ 
+	std::string self;		/* field definition URL */
+	std::string description;	/* field description */ 
+	std::string name;		/* field custom name */ 
+} field;		
+
+
+typedef struct {
+	std::string size16x16;		/* 16x16 pixels */
+	std::string size24x24;		/* 24x24 pixels */
+	std::string size32x32;		/* 32x32 pixels */
+	std::string size48x48;		/* 48x48 pixels */
+} avatar_urls;
+
+
+typedef struct : field {
+	std::string emailAddress;	/* e-mail addrress of the issue reporter*/
+	std::string displayName;	/* name of the reporter to display */ 
+	bool active;			/* reporter account is active */ 
+	avatar_urls avatarUrls;		/* reporter avatars */
+} reporter;
+
+
+typedef struct : field {
+	std::string emailAddress;	/* e-mail address of the assignee */
+	std::string displayName;	/* assignee display name */
+	bool active;			/* account active */ 
+	avatar_urls avatarUrls;		/* assignee avatars */
+} assignee;
+
+
+typedef struct : field {
+	std::string iconUrl;
+} status;
+
+
+typedef struct : field {
+	long progress;			/* isse reported progress */
+	long total;			/* total planned progress for issue */
+	long percent;			/* issue reported progress percentage */
+} progress;
+
+
+typedef struct {
+	long id;			/* issue ID */ 
+	std::string self;		/* issue definition URL */ 
+	std::string key;		/* issue key */ 	
+	field *fields;
+} issue;
+	
+#endif
+
+
 class ConfigurationException : public std::exception { };
 
 class EmptyConfigurationValueException : public ConfigurationException
