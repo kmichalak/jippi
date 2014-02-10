@@ -62,6 +62,21 @@ void GetIssueAction::perform()
 	rest_response response = restClient->doHttpPost(jiraUrl, "application/json", jsonPayload);
 	std::cout << response.code << " : " << response.body << std::endl;
 	
+	Json::Value root;
+	Json::Reader jsonReader;
+	
+	bool parsedSuccess = jsonReader.parse(response.body, root, false);
+	
+	if (! parsedSuccess) {
+		std::cout << "Error reading JSON structure: " + jsonReader.getFormatedErrorMessages() << std::endl;
+	}
+	
+	Json::Value::Members memberNames = root.getMemberNames();
+	Json::Value::Members::iterator jsonIterator;
+	for (jsonIterator = memberNames.begin(); jsonIterator != memberNames.end(); jsonIterator++) {
+		std::cout << *jsonIterator << "    ";
+	}
+	std::cout << std::endl;
 }
 
 

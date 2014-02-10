@@ -19,6 +19,7 @@
 #define JIPPI_H
 
 #include <string>
+#include <vector>
 #include <exception>
 
 namespace jippi {
@@ -28,11 +29,14 @@ namespace jippi {
 
 	
 typedef struct {
-	long id;			/* field ID */ 
+	std::string id;			/* field ID */ 
 	std::string self;		/* field definition URL */
 	std::string description;	/* field description */ 
 	std::string name;		/* field custom name */ 
 } field;		
+
+
+typedef std::vector<field> fields;
 
 
 typedef struct {
@@ -72,12 +76,16 @@ typedef struct : field {
 
 
 typedef struct {
-	long id;			/* issue ID */ 
+	std::string id;			/* issue ID */ 
 	std::string self;		/* issue definition URL */ 
 	std::string key;		/* issue key */ 	
-	field *fields;
+	fields fieldsCollection;	/* collection of fieds assigned to the issue */ 
 } issue;
-	
+
+
+typedef std::vector<issue> issues;
+
+
 #endif
 
 
