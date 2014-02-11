@@ -17,6 +17,7 @@
 
 #include "test/inc/jsonparsertest.hpp"
 #include "inc/jsonparser.hpp"
+#include "inc/jippi.hpp"
 
 void JsonParserTest::SetUp()
 {
@@ -39,6 +40,9 @@ TEST_F(JsonParserTest, ShouldReturnValidIssuesCollection)
 	
 	// then
 	EXPECT_EQ(1, issuesCollection.size());
+	
+	// cleanup
+	delete jsonParser;
 }
 
 TEST_F(JsonParserTest, IssueShouldContainValidId) 
@@ -53,6 +57,9 @@ TEST_F(JsonParserTest, IssueShouldContainValidId)
 	
 	// then
 	EXPECT_EQ("TEST_ISSUE_ID", issueInfo.id);
+	
+	// cleanup
+	delete jsonParser;
 }
 
 TEST_F(JsonParserTest, IssueShouldContainValidKey) 
@@ -67,4 +74,7 @@ TEST_F(JsonParserTest, IssueShouldContainValidKey)
 	
 	// then
 	EXPECT_EQ("TEST-1", issueInfo.key);
+	
+	// cleanup
+	delete jsonParser;
 }

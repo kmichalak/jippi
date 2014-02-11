@@ -55,7 +55,7 @@ typedef struct : field {
 } reporter;
 
 
-typedef struct : field {
+typedef struct assignee : field {
 	std::string emailAddress;	/* e-mail address of the assignee */
 	std::string displayName;	/* assignee display name */
 	bool active;			/* account active */ 

@@ -35,6 +35,23 @@ private:
 	issue fetchIssueInfo(Json::Value &issueJsonDocument);
 };
 
+class FieldParser 
+{
+public:
+	virtual ~FieldParser() {};
+	virtual field * parse(Json::Value &fieldJsonDocument) = 0;
+};
+
+class AssigneeFieldParser : public FieldParser 
+{
+public:
+	virtual ~AssigneeFieldParser() {};
+	virtual field * parse(Json::Value &fieldJsonDocument);
+	virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
+} ;
+
+// class ProjectFieldParser : public FieldParser {} ;
+
 }; // end of namespace
 
 #endif // JSONPARSER_H

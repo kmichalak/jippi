@@ -27,7 +27,6 @@ protected:
 	virtual void SetUp();
 	virtual void TearDown();
 
-protected:
 	const std::string SINGLE_ISSUE_JSON = 
 		"{\"expand\":\"schema,names\",\"startAt\":0,\"maxResults\":2,"
 		"\"total\":49922,\"issues\":[{\"expand\":\"editmeta,renderedFields,"
@@ -55,6 +54,8 @@ protected:
 		"\"http://test.jira.org/secure/useravatar?ownerId=test.reporter&avatarId=12726\"},"
 		"\"displayName\":\"Reporter, Test\",\"active\":true},"
 		"\"aggregatetimeestimate\":14400,\"aggregatetimespent\":null}}]}";
+		
+	
 };
 
 #endif // JSONPARSERTEST_H
