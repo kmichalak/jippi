@@ -55,12 +55,18 @@ typedef struct : field {
 } reporter;
 
 
-typedef struct assignee : field {
+typedef struct : field {
 	std::string emailAddress;	/* e-mail address of the assignee */
 	std::string displayName;	/* assignee display name */
 	bool active;			/* account active */ 
 	avatar_urls avatarUrls;		/* assignee avatars */
 } assignee;
+
+
+typedef struct : field {
+	std::string key;
+	avatar_urls avatarUrls;
+} project;
 
 
 typedef struct : field {

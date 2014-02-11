@@ -48,9 +48,15 @@ public:
 	virtual ~AssigneeFieldParser() {};
 	virtual field * parse(Json::Value &fieldJsonDocument);
 	virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
-} ;
+};
 
-// class ProjectFieldParser : public FieldParser {} ;
+class ProjectFieldParser : public FieldParser 
+{
+public:
+	virtual ~ProjectFieldParser () {};
+	virtual field * parse(Json::Value &fieldJsonDocument);
+	virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
+};
 
 }; // end of namespace
 

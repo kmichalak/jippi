@@ -93,4 +93,27 @@ avatar_urls AssigneeFieldParser::fetchAvatarUrlsInfo(Json::Value& avatarUrlJsonD
 }
 
 
+field * ProjectFieldParser::parse(Json::Value& fieldJsonDocument)
+{
+	project *projectInfo = new project;
+	
+	projectInfo->id = fieldJsonDocument["id"].asString();
+	projectInfo->self = fieldJsonDocument["self"].asString();
+	projectInfo->name = fieldJsonDocument["name"].asString();
+	projectInfo->key = fieldJsonDocument["key"].asString();
+		
+	Json::Value avatarUrlJsonDocument = fieldJsonDocument["avatarUrls"];
+ 	projectInfo->avatarUrls = fetchAvatarUrlsInfo(avatarUrlJsonDocument);
+	
+	return projectInfo;
+}
 
+avatar_urls ProjectFieldParser::fetchAvatarUrlsInfo(Json::Value& avatarUrlJsonDocument)
+{
+	avatar_urls avatarUrls;
+	avatarUrls.size16x16 = avatarUrlJsonDocument["16x16"].asString();
+	avatarUrls.size24x24 = avatarUrlJsonDocument["24x24"].asString();
+	avatarUrls.size32x32 = avatarUrlJsonDocument["32x32"].asString();
+	avatarUrls.size48x48 = avatarUrlJsonDocument["48x48"].asString();
+	return avatarUrls;
+}
