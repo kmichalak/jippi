@@ -14,25 +14,25 @@
  * limitations under the License.
  * 
  */
+#include <string.h>	// memcpy
+#include <curl/curl.h>
 
 #include "inc/restclient.hpp"
 #include "inc/stringutils.hpp"
-#include <curl/curl.h>
-#include <tr1/functional>
-#include <stdio.h>
-#include <cstring>
 
 using namespace jippi;
 
 RestClient::RestClient()
 {
-
+	this->response = new rest_response;
+	this->upload_data = new upload_object;
 }
 
 
 RestClient::~RestClient()
 {
-
+	delete this->upload_data;
+	delete this->response;
 }
 
 
@@ -58,10 +58,9 @@ void RestClient::setAuthorizationData(const std::string& user, const std::string
 rest_response RestClient::doHttpGet(const std::string& url)
 {
 	CURL *curl;
-
- 	this->response = new rest_response;
-
-	curl = curl_easy_init();
+ 	curl = curl_easy_init();
+	setupBuffers();
+	
 	if (curl) {
 		curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		curl_easy_setopt(curl, CURLOPT_USERPWD, this->auth_data.c_str());
@@ -130,14 +129,13 @@ rest_response RestClient::doHttpPut(const std::string& url, const std::string& c
 {
 	std::string content_type_header = "Content-Type: " + content_type;
 	
-	CURL *curl;
-	
-	this->response = new rest_response;
-	this->upload_data = new upload_object;
+ 	setupBuffers();
 	this->upload_data->data = data.c_str();
 	this->upload_data->length = data.size();
 	
+	CURL *curl;
 	curl = curl_easy_init();
+		
 	if (curl) {
 		// basic authentication
 		curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -181,12 +179,12 @@ rest_response RestClient::doHttpPost(const std::string& url, const std::string& 
 	
 	CURL *curl;
 	
-	this->response = new rest_response;
-	this->upload_data = new upload_object;
+	setupBuffers();
 	this->upload_data->data = data.c_str();
 	this->upload_data->length = data.size();
 	
 	curl = curl_easy_init();
+	curl_slist* header = curl_slist_append(NULL, content_type_header.c_str());
 	if (curl) {
 		// basic authentication
 		curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -208,13 +206,13 @@ rest_response RestClient::doHttpPost(const std::string& url, const std::string& 
 		curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);	// have to add some header callback
 		curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);
 		
-		curl_slist* header = curl_slist_append(NULL, content_type_header.c_str());
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header);
 		
 		performRequest(curl);
 	}
 	
 	curl_easy_cleanup(curl);
+	header = NULL;
 	
 	return *(this->response);
 }
@@ -257,8 +255,7 @@ std::string RestClient::codeToErrorMsg(CURLcode code)
 	return std::string(error_msg);
 }
 
-
-rest_response* RestClient::crateEmptyResponse() 
+rest_response* RestClient::getResponse() 
 {
 	return this->response;
 }

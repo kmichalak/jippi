@@ -30,7 +30,7 @@ typedef std::map<std::string, std::string> response_header;
 
 typedef struct 
 {
-	int code;					/* HTTP response code */
+	int code = 0;					/* HTTP response code */
 	std::string body;			/* Response body content*/
 	response_header header;		/* Response header content*/
 } rest_response;
@@ -38,8 +38,8 @@ typedef struct
 
 typedef struct
 {
-	const char* data;
-	size_t length;	
+	const char* data = NULL;
+	size_t length = 0;
 } upload_object;
 
 
@@ -59,7 +59,7 @@ public:
 	rest_response doHttpGet(const std::string& url);
 	rest_response doHttpPut(const std::string& url, const std::string& content_type, const std::string& data);
 	rest_response doHttpPost(const std::string& url, const std::string& content_type, const std::string& data);
-	rest_response* crateEmptyResponse();
+	rest_response* getResponse();
 	upload_object* getUploadData();
 	
 private:
@@ -82,7 +82,7 @@ private:
 	static size_t writeCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
 	{
 		RestClient* client = static_cast<RestClient*>(rest_client);
-		return client->writeCallback(outputdata, block_size, block_count, client->crateEmptyResponse());
+		return client->writeCallback(outputdata, block_size, block_count, client->getResponse());
 	}
 	
 	/**
@@ -106,10 +106,35 @@ private:
 	static size_t headerCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
 	{
 		RestClient* client = static_cast<RestClient*>(rest_client);
-		return client->headerCallback(outputdata, block_size, block_count, client->crateEmptyResponse());
+		return client->headerCallback(outputdata, block_size, block_count, client->getResponse());
 	}
 	
+	bool isClean()  
+	{
+		return ( 
+			this->response->body.length() == 0 &&
+ 			this->response->code == 0 &&
+ 			this->response->header.size() == 0 &&
+			
+ 			this->upload_data->data == NULL &&
+ 			this->upload_data->length == 0
+		);
+	}
 	
+	void flush()
+	{
+		delete this->response;
+		delete this->upload_data;
+		this->response = new rest_response;
+		this->upload_data = new upload_object;
+	}
+	
+	void setupBuffers() 
+	{
+		if (not isClean()) {
+			flush();
+		}
+	}
 };
 
 } // end of namespace
