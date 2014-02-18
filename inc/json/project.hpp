@@ -24,10 +24,10 @@ namespace jippi {
 class ProjectFieldParser : public FieldParser 
 {
 public:
-	virtual ~ProjectFieldParser () {};
-	virtual field * parse(Json::Value &fieldJsonDocument);
+    virtual ~ProjectFieldParser () {};
+    virtual field * parse(Json::Value &fieldJsonDocument);
 private:
-	virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
+    virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
 };
 
 }

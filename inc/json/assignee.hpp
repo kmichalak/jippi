@@ -24,9 +24,9 @@ namespace jippi {
 class AssigneeFieldParser : public FieldParser 
 {
 public:
-	virtual ~AssigneeFieldParser() {};
-	virtual field * parse(Json::Value &fieldJsonDocument);
-	virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
+    virtual ~AssigneeFieldParser() {};
+    virtual field * parse(Json::Value &fieldJsonDocument);
+    virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
 };
 
 }

@@ -25,11 +25,11 @@ namespace jippi {
 class GetIssueAction : public Action
 {
 public:
-	GetIssueAction();
-	~GetIssueAction();
-	
-	void perform();
-	
+    GetIssueAction();
+    ~GetIssueAction();
+    
+    void perform();
+    
 };
 
 }; // end of namespace

@@ -24,52 +24,52 @@
 
 void ConfigTest::SetUp()
 {
-	config_file = "test.conf";
-	config_path = "./";
+    config_file = "test.conf";
+    config_path = "./";
 }
 
 void ConfigTest::TearDown()
 {
-	// delete file if it exists
-	std::string file = config_path + config_file;
-	if (access(file.c_str(), 0) == F_OK) {
-		int status = remove(file.c_str());
-		if (status != 0) {
-			FAIL() << "Cannot delete test configuration file";
-		}
-	}
+    // delete file if it exists
+    std::string file = config_path + config_file;
+    if (access(file.c_str(), 0) == F_OK) {
+        int status = remove(file.c_str());
+        if (status != 0) {
+            FAIL() << "Cannot delete test configuration file";
+        }
+    }
 }
 
 TEST_F(ConfigTest, ConstructorCreatesValidConfigurationObject)
 {
-	// when
-	jippi::Config *conf = new jippi::Config(config_file, config_path);
-	
-	// then
-	EXPECT_EQ(config_path + config_file, conf->getFileName());
-	
-	// cleanup
- 	delete conf;
+    // when
+    jippi::Config *conf = new jippi::Config(config_file, config_path);
+    
+    // then
+    EXPECT_EQ(config_path + config_file, conf->getFileName());
+    
+    // cleanup
+     delete conf;
 }
 
 TEST_F(ConfigTest, StorePropertySavesValue)
 {
-	// given 
-	const std::string value = "test_value";
-	const std::string group = "test_group";
-	const std::string key = "test_property";
-	
-	// when
-	jippi::Config *conf = new jippi::Config(config_file, config_path);
-	conf->storeProperty(group, key, value);
-	conf->writeConfigurationToFile();
-	
-	conf->readConfigurationFromFile();
-	std::string config_value = conf->getProperty(group, key);
-	
-	// then
-	EXPECT_EQ(value, config_value);
-	
-	// cleanup
-	delete conf;
+    // given 
+    const std::string value = "test_value";
+    const std::string group = "test_group";
+    const std::string key = "test_property";
+    
+    // when
+    jippi::Config *conf = new jippi::Config(config_file, config_path);
+    conf->storeProperty(group, key, value);
+    conf->writeConfigurationToFile();
+    
+    conf->readConfigurationFromFile();
+    std::string config_value = conf->getProperty(group, key);
+    
+    // then
+    EXPECT_EQ(value, config_value);
+    
+    // cleanup
+    delete conf;
 }

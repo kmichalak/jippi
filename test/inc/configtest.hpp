@@ -26,15 +26,15 @@
 class ConfigTest : public testing::Test
 {
 protected:
-	virtual void SetUp();
-	virtual void TearDown();
-	
-	std::string config_file;
-	std::string config_path;
-	std::string config_file_content; 
+    virtual void SetUp();
+    virtual void TearDown();
+    
+    std::string config_file;
+    std::string config_path;
+    std::string config_file_content; 
 };
 
 
-// }	// end of testing namespace
+// }    // end of testing namespace
 
 #endif // CONFIGTEST_H

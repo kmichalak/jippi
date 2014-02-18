@@ -32,15 +32,15 @@
 #include <jsoncpp/json/value.h>
 
 namespace jippi {
-	
+    
 class JsonParser
 {
 public:
-	issues parseIssues(std::string &jsonDocument);
-	
+    issues parseIssues(std::string &jsonDocument);
+    
 private:
-	issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
-	issue fetchIssueInfo(Json::Value &issueJsonDocument);
+    issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
+    issue fetchIssueInfo(Json::Value &issueJsonDocument);
 };
 
 }; // end of namespace

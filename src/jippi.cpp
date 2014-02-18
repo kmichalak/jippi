@@ -15,7 +15,7 @@
  * 
  */
 
-#include <cstdlib>		// free support
+#include <cstdlib>        // free support
 #include <string.h>
 
 #include "inc/jippi.hpp"
@@ -29,12 +29,12 @@ EmptyConfigurationValueException::EmptyConfigurationValueException()
 
 EmptyConfigurationValueException::EmptyConfigurationValueException(const char* name)
 {
-	configurationValueName = strdup(name);
+    configurationValueName = strdup(name);
 }
 
 EmptyConfigurationValueException::~EmptyConfigurationValueException() throw()
 {
-	free(configurationValueName);
+    free(configurationValueName);
 }
 
 //----------------------------------------------------------

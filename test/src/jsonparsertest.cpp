@@ -20,68 +20,68 @@
 
 TEST_F(JsonParserTest, ShouldReturnValidIssuesCollection) 
 {
-	// given
-	jippi::JsonParser *jsonParser = new jippi::JsonParser();
-	std::string jsonDocument = SINGLE_ISSUE_JSON;
-	
-	// when
-	jippi::issues issuesCollection = jsonParser->parseIssues(jsonDocument);
-	
-	// then
-	EXPECT_EQ(1, issuesCollection.size());
-	
-	// cleanup
-	delete jsonParser;
+    // given
+    jippi::JsonParser *jsonParser = new jippi::JsonParser();
+    std::string jsonDocument = SINGLE_ISSUE_JSON;
+    
+    // when
+    jippi::issues issuesCollection = jsonParser->parseIssues(jsonDocument);
+    
+    // then
+    EXPECT_EQ(1, issuesCollection.size());
+    
+    // cleanup
+    delete jsonParser;
 }
 
 TEST_F(JsonParserTest, IssueShouldContainValidId) 
 {
-	// given
-	jippi::JsonParser *jsonParser = new jippi::JsonParser();
-	std::string jsonDocument = SINGLE_ISSUE_JSON;
-	
-	// when
-	jippi::issues issuesCollection = jsonParser->parseIssues(jsonDocument);
-	jippi::issue issueInfo = *issuesCollection.begin();
-	
-	// then
-	EXPECT_EQ("TEST_ISSUE_ID", issueInfo.id);
-	
-	// cleanup
-	delete jsonParser;
+    // given
+    jippi::JsonParser *jsonParser = new jippi::JsonParser();
+    std::string jsonDocument = SINGLE_ISSUE_JSON;
+    
+    // when
+    jippi::issues issuesCollection = jsonParser->parseIssues(jsonDocument);
+    jippi::issue issueInfo = *issuesCollection.begin();
+    
+    // then
+    EXPECT_EQ("TEST_ISSUE_ID", issueInfo.id);
+    
+    // cleanup
+    delete jsonParser;
 }
 
 TEST_F(JsonParserTest, IssueShouldContainValidKey) 
 {
-	// given
-	jippi::JsonParser *jsonParser = new jippi::JsonParser();
-	std::string jsonDocument = SINGLE_ISSUE_JSON;
-	
-	// when
-	jippi::issues issuesCollection = jsonParser->parseIssues(jsonDocument);
-	jippi::issue issueInfo = *issuesCollection.begin();
-	
-	// then
-	EXPECT_EQ("TEST-1", issueInfo.key);
-	
-	// cleanup
-	delete jsonParser;
+    // given
+    jippi::JsonParser *jsonParser = new jippi::JsonParser();
+    std::string jsonDocument = SINGLE_ISSUE_JSON;
+    
+    // when
+    jippi::issues issuesCollection = jsonParser->parseIssues(jsonDocument);
+    jippi::issue issueInfo = *issuesCollection.begin();
+    
+    // then
+    EXPECT_EQ("TEST-1", issueInfo.key);
+    
+    // cleanup
+    delete jsonParser;
 }
 
 
 TEST_F(JsonParserTest, IssueContainsFields)
 {
-	// given
-	jippi::JsonParser *jsonParser = new jippi::JsonParser();
-	std::string jsonDocument = SINGLE_ISSUE_JSON;
-	
-	// when
-	jippi::issues issuesCollection = jsonParser->parseIssues(jsonDocument);
-	jippi::issue issueInfo = *issuesCollection.begin();
-	
-	// then
-	EXPECT_EQ(2, issueInfo.fieldsCollection.size());
-	
-	// cleanup
-	delete jsonParser;
+    // given
+    jippi::JsonParser *jsonParser = new jippi::JsonParser();
+    std::string jsonDocument = SINGLE_ISSUE_JSON;
+    
+    // when
+    jippi::issues issuesCollection = jsonParser->parseIssues(jsonDocument);
+    jippi::issue issueInfo = *issuesCollection.begin();
+    
+    // then
+    EXPECT_EQ(2, issueInfo.fieldsCollection.size());
+    
+    // cleanup
+    delete jsonParser;
 }

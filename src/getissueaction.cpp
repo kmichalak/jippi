@@ -31,55 +31,55 @@ GetIssueAction::GetIssueAction()
 
 GetIssueAction::~GetIssueAction()
 {
-	
+    
 }
 
 void GetIssueAction::perform()
 {
-	const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL) + SEARCH_URL_SUFFIX ;
-	const std::string jiraUser = configuration->getProperty(JIRA_GROUP, JIRA_USER);
-	const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
-	
-	if (StringUtils::isEmpty(jiraUrl)) {
-		throw new EmptyConfigurationValueException(jiraUrl.c_str());
-	}
-	
-	if (StringUtils::isEmpty(jiraUser)) {
-		throw new EmptyConfigurationValueException(jiraUrl.c_str());
-	}
-	
-	if (StringUtils::isEmpty(jiraPassword)) {
-		throw new EmptyConfigurationValueException(jiraUrl.c_str());
-	}
-	
-	std::string jsonPayload = getJSONPayload();
-	
-	if (isInDebugMode) {
-		std::cout << std::endl << jsonPayload << std::endl;
-	}
-	
-	restClient->setAuthorizationData(jiraUser, jiraPassword);
-	rest_response response = restClient->doHttpPost(jiraUrl, "application/json", jsonPayload);
-	std::cout << response.code << " : " << response.body << std::endl;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	
-	bool parsedSuccess = jsonReader.parse(response.body, root, false);
-	
-	if (! parsedSuccess) {
-		std::cout << "Error reading JSON structure: " + jsonReader.getFormatedErrorMessages() << std::endl;
-	}
-	
-	Json::Value::Members memberNames = root.getMemberNames();
-	Json::Value::Members::iterator jsonIterator;
-	for (jsonIterator = memberNames.begin(); jsonIterator != memberNames.end(); jsonIterator++) {
-		std::cout << *jsonIterator << "    ";
-	}
-	std::cout << std::endl;
+    const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL) + SEARCH_URL_SUFFIX ;
+    const std::string jiraUser = configuration->getProperty(JIRA_GROUP, JIRA_USER);
+    const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
+    
+    if (StringUtils::isEmpty(jiraUrl)) {
+        throw new EmptyConfigurationValueException(jiraUrl.c_str());
+    }
+    
+    if (StringUtils::isEmpty(jiraUser)) {
+        throw new EmptyConfigurationValueException(jiraUrl.c_str());
+    }
+    
+    if (StringUtils::isEmpty(jiraPassword)) {
+        throw new EmptyConfigurationValueException(jiraUrl.c_str());
+    }
+    
+    std::string jsonPayload = getJSONPayload();
+    
+    if (isInDebugMode) {
+        std::cout << std::endl << jsonPayload << std::endl;
+    }
+    
+    restClient->setAuthorizationData(jiraUser, jiraPassword);
+    rest_response response = restClient->doHttpPost(jiraUrl, "application/json", jsonPayload);
+    std::cout << response.code << " : " << response.body << std::endl;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    
+    bool parsedSuccess = jsonReader.parse(response.body, root, false);
+    
+    if (! parsedSuccess) {
+        std::cout << "Error reading JSON structure: " + jsonReader.getFormatedErrorMessages() << std::endl;
+    }
+    
+    Json::Value::Members memberNames = root.getMemberNames();
+    Json::Value::Members::iterator jsonIterator;
+    for (jsonIterator = memberNames.begin(); jsonIterator != memberNames.end(); jsonIterator++) {
+        std::cout << *jsonIterator << "    ";
+    }
+    std::cout << std::endl;
 }
 
 
 
-	
+    
 

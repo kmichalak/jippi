@@ -24,18 +24,18 @@
 
 inline void EXPECT_SEME_ORDER(std::vector<std::string> vec, std::string *strings)
 {
-	int counter = 0;
-	for (std::vector<std::string>::iterator it = vec.begin(); it != vec.end(); ++it) {
-		EXPECT_EQ(0, strings[counter++].compare(*it));
-	}
-		
+    int counter = 0;
+    for (std::vector<std::string>::iterator it = vec.begin(); it != vec.end(); ++it) {
+        EXPECT_EQ(0, strings[counter++].compare(*it));
+    }
+        
 }
 
 
 inline void EXPECT_STR_CONTAINS(std::string stringValue, std::string stringToSearch)
 {
-	std::size_t foundPos = stringValue.find(stringToSearch);
-	EXPECT_NE(std::string::npos, foundPos);
+    std::size_t foundPos = stringValue.find(stringToSearch);
+    EXPECT_NE(std::string::npos, foundPos);
 }
 
 

@@ -23,22 +23,22 @@
 class AssigneeParserTest : public testing::Test
 {
 protected:
-	virtual void SetUp() {};
-	virtual void TearDown() {};
-	
-	const std::string ASSIGNEE_JSON = 
-		"{\"self\":\"http://test.jira.org/rest/api/2/user?username"
-		"=test.reporter\",\"name\":\"Test.Reporter\",\"emailAddress\":"
-		"\"test.reporter@test.org\",\"avatarUrls\":{\"16x16\":"
-		"\"http://test.jira.org/secure/useravatar?size=xsmall&ownerId="
-		"test.reporter&avatarId=12726\",\"24x24\":"
-		"\"http://test.jira.org/secure/useravatar?size=small&ownerId="
-		"test.reporter&avatarId=12726\",\"32x32\":"
-		"\"http://test.jira.org/secure/useravatar?size=medium&ownerId="
-		"test.reporter&avatarId=12726\",\"48x48\":"
-		"\"http://test.jira.org/secure/useravatar?ownerId="
-		"test.reporter&avatarId=12726\"},\"displayName\":"
-		"\"Reporter, Test\",\"active\":true}";
+    virtual void SetUp() {};
+    virtual void TearDown() {};
+    
+    const std::string ASSIGNEE_JSON = 
+        "{\"self\":\"http://test.jira.org/rest/api/2/user?username"
+        "=test.reporter\",\"name\":\"Test.Reporter\",\"emailAddress\":"
+        "\"test.reporter@test.org\",\"avatarUrls\":{\"16x16\":"
+        "\"http://test.jira.org/secure/useravatar?size=xsmall&ownerId="
+        "test.reporter&avatarId=12726\",\"24x24\":"
+        "\"http://test.jira.org/secure/useravatar?size=small&ownerId="
+        "test.reporter&avatarId=12726\",\"32x32\":"
+        "\"http://test.jira.org/secure/useravatar?size=medium&ownerId="
+        "test.reporter&avatarId=12726\",\"48x48\":"
+        "\"http://test.jira.org/secure/useravatar?ownerId="
+        "test.reporter&avatarId=12726\"},\"displayName\":"
+        "\"Reporter, Test\",\"active\":true}";
 };
 
 #endif // ASSIGNEEPARSERTEST_H

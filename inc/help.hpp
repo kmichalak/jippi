@@ -21,21 +21,21 @@
 
 void printHelp()
 {
-	const char* HELP_MSG = 
-	"\n"								
-	"usage jippi [-h|--help] [-c|--config group.name value] \n"
-	"[-A|--action action] [-a|--assignee assignee] [-i|--issue issue] \n"
-	"[-p|--project project]	[-r|--max-results] [-t|--issue-type] \n"
-	"Arguments:\n"
-	"\n\t -A, --action action 	\t Specify action name to perform" 	
-	"\n\t -a, --assignee assignee\t Name of the issue assignee"	
-	"\n\t -i, --issue issue	\t Issue identifier"
-	"\n\t -p, --project project	\t Project name"
-	"\n\t -r, --max-results	\t Maximun number of results returned by query"
-	"\n\t -t, --issue-type 	\t Expected type of issues"
-	"\n";
-	
-	std::cout << HELP_MSG << std::endl;
+    const char* HELP_MSG = 
+    "\n"                                
+    "usage jippi [-h|--help] [-c|--config group.name value] \n"
+    "[-A|--action action] [-a|--assignee assignee] [-i|--issue issue] \n"
+    "[-p|--project project]    [-r|--max-results] [-t|--issue-type] \n"
+    "Arguments:\n"
+    "\n\t -A, --action action     \t Specify action name to perform"     
+    "\n\t -a, --assignee assignee\t Name of the issue assignee"    
+    "\n\t -i, --issue issue    \t Issue identifier"
+    "\n\t -p, --project project    \t Project name"
+    "\n\t -r, --max-results    \t Maximun number of results returned by query"
+    "\n\t -t, --issue-type     \t Expected type of issues"
+    "\n";
+    
+    std::cout << HELP_MSG << std::endl;
 }
 
 #endif

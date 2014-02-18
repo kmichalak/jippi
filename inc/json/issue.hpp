@@ -25,12 +25,12 @@ namespace jippi {
 class IssueParser
 {
 public:
-	virtual ~IssueParser() {};
-	virtual void initialize();
-	virtual issue parse(Json::Value& issueJsonDocument);
+    virtual ~IssueParser() {};
+    virtual void initialize();
+    virtual issue parse(Json::Value& issueJsonDocument);
 private:
-	bool initialized;
- 	std::unordered_map<std::string, FieldParser*> fieldsParserRegistry;
+    bool initialized;
+     std::unordered_map<std::string, FieldParser*> fieldsParserRegistry;
 };
 
 }

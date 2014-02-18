@@ -20,148 +20,148 @@
 
 TEST_F(AssigneeParserTest, AssgneeContainsValidSelfUrl)
 {
-	// given
-	jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
-	std::string jsonDocument = ASSIGNEE_JSON;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	jsonReader.parse(jsonDocument, root, false);
-	
-	// when
- 	jippi::field *assigneeInfo = jsonParser->parse(root);
-	
-	// then
- 	EXPECT_EQ("http://test.jira.org/rest/api/2/user?username=test.reporter", assigneeInfo->self);
-	
-	// cleanup
-	delete jsonParser;
-	delete assigneeInfo;
+    // given
+    jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
+    std::string jsonDocument = ASSIGNEE_JSON;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    jsonReader.parse(jsonDocument, root, false);
+    
+    // when
+     jippi::field *assigneeInfo = jsonParser->parse(root);
+    
+    // then
+     EXPECT_EQ("http://test.jira.org/rest/api/2/user?username=test.reporter", assigneeInfo->self);
+    
+    // cleanup
+    delete jsonParser;
+    delete assigneeInfo;
 }
 
 TEST_F(AssigneeParserTest, AssgneeContainsValidName)
 {
-	// given
-	jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
-	std::string jsonDocument = ASSIGNEE_JSON;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	jsonReader.parse(jsonDocument, root, false);
-	
-	// when
- 	jippi::field *assigneeInfo = jsonParser->parse(root);
-	
-	// then
- 	EXPECT_EQ("Test.Reporter", assigneeInfo->name);
-	
-	// cleanup
-	delete jsonParser;
-	delete assigneeInfo;
+    // given
+    jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
+    std::string jsonDocument = ASSIGNEE_JSON;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    jsonReader.parse(jsonDocument, root, false);
+    
+    // when
+     jippi::field *assigneeInfo = jsonParser->parse(root);
+    
+    // then
+     EXPECT_EQ("Test.Reporter", assigneeInfo->name);
+    
+    // cleanup
+    delete jsonParser;
+    delete assigneeInfo;
 }
 
 
 TEST_F(AssigneeParserTest, AssgneeContainsValidEmailAddress)
 {
-	// given
-	jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
-	std::string jsonDocument = ASSIGNEE_JSON;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	jsonReader.parse(jsonDocument, root, false);
-	
-	// when
-  	jippi::assignee *assigneeInfo = reinterpret_cast<jippi::assignee *>(jsonParser->parse(root));
-	
-	// then
- 	EXPECT_EQ("test.reporter@test.org", assigneeInfo->emailAddress);
-	
-	// cleanup
-	delete jsonParser;
-	delete assigneeInfo;
-	
+    // given
+    jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
+    std::string jsonDocument = ASSIGNEE_JSON;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    jsonReader.parse(jsonDocument, root, false);
+    
+    // when
+      jippi::assignee *assigneeInfo = reinterpret_cast<jippi::assignee *>(jsonParser->parse(root));
+    
+    // then
+     EXPECT_EQ("test.reporter@test.org", assigneeInfo->emailAddress);
+    
+    // cleanup
+    delete jsonParser;
+    delete assigneeInfo;
+    
 }
 
 TEST_F(AssigneeParserTest, AssgneeContainsValidDisplayName)
 {
-	// given
-	jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
-	std::string jsonDocument = ASSIGNEE_JSON;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	jsonReader.parse(jsonDocument, root, false);
-	
-	// when
-	jippi::assignee *assigneeInfo = reinterpret_cast<jippi::assignee *>(jsonParser->parse(root));
-	
-	// then
-	EXPECT_EQ("Reporter, Test", assigneeInfo->displayName);
-	
-	// cleanup
-	delete jsonParser;
-	delete assigneeInfo;
+    // given
+    jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
+    std::string jsonDocument = ASSIGNEE_JSON;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    jsonReader.parse(jsonDocument, root, false);
+    
+    // when
+    jippi::assignee *assigneeInfo = reinterpret_cast<jippi::assignee *>(jsonParser->parse(root));
+    
+    // then
+    EXPECT_EQ("Reporter, Test", assigneeInfo->displayName);
+    
+    // cleanup
+    delete jsonParser;
+    delete assigneeInfo;
 }
 
 
 TEST_F(AssigneeParserTest, AssgneeContainsValidActiveFlag)
 {
-	// given
-	jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
-	std::string jsonDocument = ASSIGNEE_JSON;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	jsonReader.parse(jsonDocument, root, false);
-	
-	// when
-	jippi::assignee *assigneeInfo = reinterpret_cast<jippi::assignee *>(jsonParser->parse(root));
-	
-	// then
-	EXPECT_EQ(true, assigneeInfo->active);
-	
-	// cleanup
-	delete jsonParser;
-	delete assigneeInfo;	
+    // given
+    jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
+    std::string jsonDocument = ASSIGNEE_JSON;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    jsonReader.parse(jsonDocument, root, false);
+    
+    // when
+    jippi::assignee *assigneeInfo = reinterpret_cast<jippi::assignee *>(jsonParser->parse(root));
+    
+    // then
+    EXPECT_EQ(true, assigneeInfo->active);
+    
+    // cleanup
+    delete jsonParser;
+    delete assigneeInfo;    
 }
 
 
 TEST_F(AssigneeParserTest, AssgneeContainsFullSetOfAvatars)
 {
-	// given
-	jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
-	std::string jsonDocument = ASSIGNEE_JSON;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	jsonReader.parse(jsonDocument, root, false);
-	
-	// when
-	jippi::assignee *assigneeInfo = reinterpret_cast<jippi::assignee *>(jsonParser->parse(root));
-	
-	// then
-	EXPECT_EQ(
-		"http://test.jira.org/secure/useravatar?size=xsmall&ownerId="
-		"test.reporter&avatarId=12726", 
-		assigneeInfo->avatarUrls.size16x16);
-	
-	EXPECT_EQ(
-		"http://test.jira.org/secure/useravatar?size=small&ownerId="
-		"test.reporter&avatarId=12726", 
-		assigneeInfo->avatarUrls.size24x24);
-	
-	EXPECT_EQ(
-		"http://test.jira.org/secure/useravatar?size=medium&ownerId="
-		"test.reporter&avatarId=12726", 
-		assigneeInfo->avatarUrls.size32x32);
-	
-	EXPECT_EQ(
-		"http://test.jira.org/secure/useravatar?ownerId="
-		"test.reporter&avatarId=12726", 
-		assigneeInfo->avatarUrls.size48x48);
-	
-	// cleanup
-	delete jsonParser;
-	delete assigneeInfo;	
+    // given
+    jippi::AssigneeFieldParser *jsonParser = new jippi::AssigneeFieldParser();
+    std::string jsonDocument = ASSIGNEE_JSON;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    jsonReader.parse(jsonDocument, root, false);
+    
+    // when
+    jippi::assignee *assigneeInfo = reinterpret_cast<jippi::assignee *>(jsonParser->parse(root));
+    
+    // then
+    EXPECT_EQ(
+        "http://test.jira.org/secure/useravatar?size=xsmall&ownerId="
+        "test.reporter&avatarId=12726", 
+        assigneeInfo->avatarUrls.size16x16);
+    
+    EXPECT_EQ(
+        "http://test.jira.org/secure/useravatar?size=small&ownerId="
+        "test.reporter&avatarId=12726", 
+        assigneeInfo->avatarUrls.size24x24);
+    
+    EXPECT_EQ(
+        "http://test.jira.org/secure/useravatar?size=medium&ownerId="
+        "test.reporter&avatarId=12726", 
+        assigneeInfo->avatarUrls.size32x32);
+    
+    EXPECT_EQ(
+        "http://test.jira.org/secure/useravatar?ownerId="
+        "test.reporter&avatarId=12726", 
+        assigneeInfo->avatarUrls.size48x48);
+    
+    // cleanup
+    delete jsonParser;
+    delete assigneeInfo;    
 }

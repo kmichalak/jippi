@@ -24,8 +24,8 @@ namespace jippi {
 class ProgressFieldParser : public FieldParser
 {
 public:
-	virtual ~ProgressFieldParser() {};
-	virtual field * parse(Json::Value &fieldJsonDocument);
+    virtual ~ProgressFieldParser() {};
+    virtual field * parse(Json::Value &fieldJsonDocument);
 };
 
 }

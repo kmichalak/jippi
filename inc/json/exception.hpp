@@ -25,9 +25,9 @@ namespace jippi {
 class UninitializedParserException : public std::runtime_error
 {
 public:
-	UninitializedParserException(std::string msg) 
-		: std::runtime_error(msg)
-	{}
+    UninitializedParserException(std::string msg) 
+        : std::runtime_error(msg)
+    {}
 };
 
 }

@@ -30,16 +30,16 @@ typedef std::map<std::string, std::string> response_header;
 
 typedef struct 
 {
-	int code = 0;					/* HTTP response code */
-	std::string body;			/* Response body content*/
-	response_header header;		/* Response header content*/
+    int code = 0;                    /* HTTP response code */
+    std::string body;            /* Response body content*/
+    response_header header;        /* Response header content*/
 } rest_response;
 
 
 typedef struct
 {
-	const char* data = NULL;
-	size_t length = 0;
+    const char* data = NULL;
+    size_t length = 0;
 } upload_object;
 
 
@@ -51,90 +51,90 @@ const std::string USER_AGENT = "JIPPI v0.1";
 class RestClient
 {
 public:
-	RestClient();
-	~RestClient();
+    RestClient();
+    ~RestClient();
 
-	void setAuthorizationData(const std::string& user, const std::string& password);
-	
-	rest_response doHttpGet(const std::string& url);
-	rest_response doHttpPut(const std::string& url, const std::string& content_type, const std::string& data);
-	rest_response doHttpPost(const std::string& url, const std::string& content_type, const std::string& data);
-	rest_response* getResponse();
-	upload_object* getUploadData();
-	
+    void setAuthorizationData(const std::string& user, const std::string& password);
+    
+    rest_response doHttpGet(const std::string& url);
+    rest_response doHttpPut(const std::string& url, const std::string& content_type, const std::string& data);
+    rest_response doHttpPost(const std::string& url, const std::string& content_type, const std::string& data);
+    rest_response* getResponse();
+    upload_object* getUploadData();
+    
 private:
-	rest_response* response;
-	upload_object* upload_data;
-	std::string auth_data;
-	
-	size_t writeCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
-	size_t readCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
-	size_t headerCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
-	rest_response performRequest(CURL *curl);
-	std::string codeToErrorMsg(CURLcode code);
-	
-	/**
-	 * The solution suggested by CURL documentation available at 
-	 * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
-	 * I know this is ugly, but I hate static methods... If it has to be static
-	 * let it do the least as it's possible.
-	 */
-	static size_t writeCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
-	{
-		RestClient* client = static_cast<RestClient*>(rest_client);
-		return client->writeCallback(outputdata, block_size, block_count, client->getResponse());
-	}
-	
-	/**
-	 * The solution suggested by CURL documentation available at 
-	 * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
-	 * I know this is ugly, but I hate static methods... If it has to be static
-	 * let it do the least as it's possible.
-	 */	
-	static size_t readCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
-	{
-		RestClient* client = static_cast<RestClient*>(rest_client);
-		return client->readCallback(outputdata, block_size, block_count, client->getUploadData());
-	}
-	
-	/**
-	 * The solution suggested by CURL documentation available at 
-	 * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
-	 * I know this is ugly, but I hate static methods... If it has to be static
-	 * let it do the least as it's possible.
-	 */
-	static size_t headerCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
-	{
-		RestClient* client = static_cast<RestClient*>(rest_client);
-		return client->headerCallback(outputdata, block_size, block_count, client->getResponse());
-	}
-	
-	bool isClean()  
-	{
-		return ( 
-			this->response->body.length() == 0 &&
- 			this->response->code == 0 &&
- 			this->response->header.size() == 0 &&
-			
- 			this->upload_data->data == NULL &&
- 			this->upload_data->length == 0
-		);
-	}
-	
-	void flush()
-	{
-		delete this->response;
-		delete this->upload_data;
-		this->response = new rest_response;
-		this->upload_data = new upload_object;
-	}
-	
-	void setupBuffers() 
-	{
-		if (not isClean()) {
-			flush();
-		}
-	}
+    rest_response* response;
+    upload_object* upload_data;
+    std::string auth_data;
+    
+    size_t writeCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
+    size_t readCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
+    size_t headerCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data);
+    rest_response performRequest(CURL *curl);
+    std::string codeToErrorMsg(CURLcode code);
+    
+    /**
+     * The solution suggested by CURL documentation available at 
+     * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
+     * I know this is ugly, but I hate static methods... If it has to be static
+     * let it do the least as it's possible.
+     */
+    static size_t writeCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+    {
+        RestClient* client = static_cast<RestClient*>(rest_client);
+        return client->writeCallback(outputdata, block_size, block_count, client->getResponse());
+    }
+    
+    /**
+     * The solution suggested by CURL documentation available at 
+     * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
+     * I know this is ugly, but I hate static methods... If it has to be static
+     * let it do the least as it's possible.
+     */    
+    static size_t readCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+    {
+        RestClient* client = static_cast<RestClient*>(rest_client);
+        return client->readCallback(outputdata, block_size, block_count, client->getUploadData());
+    }
+    
+    /**
+     * The solution suggested by CURL documentation available at 
+     * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
+     * I know this is ugly, but I hate static methods... If it has to be static
+     * let it do the least as it's possible.
+     */
+    static size_t headerCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+    {
+        RestClient* client = static_cast<RestClient*>(rest_client);
+        return client->headerCallback(outputdata, block_size, block_count, client->getResponse());
+    }
+    
+    bool isClean()  
+    {
+        return ( 
+            this->response->body.length() == 0 &&
+             this->response->code == 0 &&
+             this->response->header.size() == 0 &&
+            
+             this->upload_data->data == NULL &&
+             this->upload_data->length == 0
+        );
+    }
+    
+    void flush()
+    {
+        delete this->response;
+        delete this->upload_data;
+        this->response = new rest_response;
+        this->upload_data = new upload_object;
+    }
+    
+    void setupBuffers() 
+    {
+        if (not isClean()) {
+            flush();
+        }
+    }
 };
 
 } // end of namespace

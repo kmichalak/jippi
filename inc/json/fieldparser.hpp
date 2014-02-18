@@ -26,8 +26,8 @@ namespace jippi {
 class FieldParser 
 {
 public:
-	virtual ~FieldParser() {};
-	virtual field * parse(Json::Value &fieldJsonDocument) = 0;
+    virtual ~FieldParser() {};
+    virtual field * parse(Json::Value &fieldJsonDocument) = 0;
 };
 
 }

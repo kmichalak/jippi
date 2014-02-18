@@ -22,19 +22,19 @@
 #include <vector>
 
 namespace jippi {
-	
+    
 class StringUtils
 {
 public:
-	static std::string trim(const std::string & str);
-	static bool isEmpty(const std::string & str);
-	
-	static std::vector<std::string> split(const std::string &s, char delim);
+    static std::string trim(const std::string & str);
+    static bool isEmpty(const std::string & str);
+    
+    static std::vector<std::string> split(const std::string &s, char delim);
 private: 
-	static std::string rightTrim(const std::string & str);
-	static std::string leftTrim(const std::string & str);
-	
-	static std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
+    static std::string rightTrim(const std::string & str);
+    static std::string leftTrim(const std::string & str);
+    
+    static std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
 };
 
 

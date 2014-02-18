@@ -21,104 +21,104 @@
 
 TEST_F(ProjectParserTest, ProjectContainsValidSelfUrl)
 {
-	// given
-	jippi::ProjectFieldParser *jsonParser = new jippi::ProjectFieldParser();
-	std::string jsonDocument = PROJECT_JSON;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	jsonReader.parse(jsonDocument, root, false);
-	
-	// when
- 	jippi::project *projectInfo = reinterpret_cast<jippi::project *>(jsonParser->parse(root));
-	
-	// then
- 	EXPECT_EQ("http://test.jira.org/rest/api/2/project/TEST", projectInfo->self);
-	
-	// cleanup
-	delete jsonParser;
-	delete projectInfo;
+    // given
+    jippi::ProjectFieldParser *jsonParser = new jippi::ProjectFieldParser();
+    std::string jsonDocument = PROJECT_JSON;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    jsonReader.parse(jsonDocument, root, false);
+    
+    // when
+     jippi::project *projectInfo = reinterpret_cast<jippi::project *>(jsonParser->parse(root));
+    
+    // then
+     EXPECT_EQ("http://test.jira.org/rest/api/2/project/TEST", projectInfo->self);
+    
+    // cleanup
+    delete jsonParser;
+    delete projectInfo;
 }
 
 TEST_F(ProjectParserTest, ProjectContainsValidKey)
 {
-	// given
-	jippi::ProjectFieldParser *jsonParser = new jippi::ProjectFieldParser();
-	std::string jsonDocument = PROJECT_JSON;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	jsonReader.parse(jsonDocument, root, false);
-	
-	// when
- 	jippi::project *projectInfo = reinterpret_cast<jippi::project *>(jsonParser->parse(root));
-	
-	// then
- 	EXPECT_EQ("TEST", projectInfo->key);
-	
-	// cleanup
-	delete jsonParser;
-	delete projectInfo;
+    // given
+    jippi::ProjectFieldParser *jsonParser = new jippi::ProjectFieldParser();
+    std::string jsonDocument = PROJECT_JSON;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    jsonReader.parse(jsonDocument, root, false);
+    
+    // when
+     jippi::project *projectInfo = reinterpret_cast<jippi::project *>(jsonParser->parse(root));
+    
+    // then
+     EXPECT_EQ("TEST", projectInfo->key);
+    
+    // cleanup
+    delete jsonParser;
+    delete projectInfo;
 }
 
 
 TEST_F(ProjectParserTest, ProjectContainsValidName)
 {
-	// given
-	jippi::ProjectFieldParser *jsonParser = new jippi::ProjectFieldParser();
-	std::string jsonDocument = PROJECT_JSON;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	jsonReader.parse(jsonDocument, root, false);
-	
-	// when
-  	jippi::project *projectInfo = reinterpret_cast<jippi::project *>(jsonParser->parse(root));
-	
-	// then
- 	EXPECT_EQ("Test Project", projectInfo->name);
-	
-	// cleanup
-	delete jsonParser;
-	delete projectInfo;
+    // given
+    jippi::ProjectFieldParser *jsonParser = new jippi::ProjectFieldParser();
+    std::string jsonDocument = PROJECT_JSON;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    jsonReader.parse(jsonDocument, root, false);
+    
+    // when
+      jippi::project *projectInfo = reinterpret_cast<jippi::project *>(jsonParser->parse(root));
+    
+    // then
+     EXPECT_EQ("Test Project", projectInfo->name);
+    
+    // cleanup
+    delete jsonParser;
+    delete projectInfo;
 }
 
 
 TEST_F(ProjectParserTest, ProjectContainsFullSetOfAvatars)
 {
-	// given
-	jippi::ProjectFieldParser *jsonParser = new jippi::ProjectFieldParser();
-	std::string jsonDocument = PROJECT_JSON;
-	
-	Json::Value root;
-	Json::Reader jsonReader;
-	jsonReader.parse(jsonDocument, root, false);
-	
-	// when
-	jippi::project *projectInfo = reinterpret_cast<jippi::project *>(jsonParser->parse(root));
-	
-	// then
-	EXPECT_EQ(
-		"http://test.jira.org/secure/projectavatar?"
-		"size=xsmall&pid=12633&avatarId=12734", 
-		projectInfo->avatarUrls.size16x16);
-	
-	EXPECT_EQ(
-		"http://test.jira.org/secure/projectavatar?"
-		"size=small&pid=12633&avatarId=12734", 
-		projectInfo->avatarUrls.size24x24);
-	
-	EXPECT_EQ(
-		"http://test.jira.org/secure/projectavatar?"
-		"size=medium&pid=12633&avatarId=12734", 
-		projectInfo->avatarUrls.size32x32);
-	
-	EXPECT_EQ(
-		"http://test.jira.org/secure/projectavatar?"
-		"pid=12633&avatarId=12734", 
-		projectInfo->avatarUrls.size48x48);
-	
-	// cleanup
-	delete jsonParser;
-	delete projectInfo;	
+    // given
+    jippi::ProjectFieldParser *jsonParser = new jippi::ProjectFieldParser();
+    std::string jsonDocument = PROJECT_JSON;
+    
+    Json::Value root;
+    Json::Reader jsonReader;
+    jsonReader.parse(jsonDocument, root, false);
+    
+    // when
+    jippi::project *projectInfo = reinterpret_cast<jippi::project *>(jsonParser->parse(root));
+    
+    // then
+    EXPECT_EQ(
+        "http://test.jira.org/secure/projectavatar?"
+        "size=xsmall&pid=12633&avatarId=12734", 
+        projectInfo->avatarUrls.size16x16);
+    
+    EXPECT_EQ(
+        "http://test.jira.org/secure/projectavatar?"
+        "size=small&pid=12633&avatarId=12734", 
+        projectInfo->avatarUrls.size24x24);
+    
+    EXPECT_EQ(
+        "http://test.jira.org/secure/projectavatar?"
+        "size=medium&pid=12633&avatarId=12734", 
+        projectInfo->avatarUrls.size32x32);
+    
+    EXPECT_EQ(
+        "http://test.jira.org/secure/projectavatar?"
+        "pid=12633&avatarId=12734", 
+        projectInfo->avatarUrls.size48x48);
+    
+    // cleanup
+    delete jsonParser;
+    delete projectInfo;    
 }
