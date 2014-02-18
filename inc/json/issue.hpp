@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,25 @@
  * limitations under the License.
  * 
  */
+#ifndef ISSUE_H
+#define ISSUE_H
 
-#include <gtest/gtest.h>
+#include <unordered_map>
+#include "inc/json/fieldparser.hpp"
 
-class StringUtilsTest : public testing::Test
+namespace jippi {
+
+class IssueParser
 {
-    
-protected:    
-    virtual void SetUp() {}
-    virtual void TearDown() {}
+public:
+    virtual ~IssueParser() {};
+    virtual void initialize();
+    virtual issue parse(Json::Value& issueJsonDocument);
+private:
+    bool initialized;
+     std::unordered_map<std::string, FieldParser*> fieldsParserRegistry;
 };
+
+}
+
+#endif

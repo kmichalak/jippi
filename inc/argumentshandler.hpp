@@ -29,15 +29,15 @@ namespace jippi {
 
 #ifndef ARG_HANDLER_CONSTS
 #define ARG_HANDLER_CONSTS
-	
-#define GROUP_SECTION 	0	/* Section in pair where grop name is stored */
-#define KEY_SECTION 	1	/* Second in pair where key name is stored */
-	
+    
+#define GROUP_SECTION     0    /* Section in pair where grop name is stored */
+#define KEY_SECTION     1    /* Second in pair where key name is stored */
+    
 #endif
 
 #ifndef ACTION_FACTORY_FUNCTION_
 #define ACTION_FACTORY_FUNCTION_
-	
+    
 // Simple abstract factory function
 template<typename T> Action * createInstance() { return new T; }
 
@@ -55,44 +55,44 @@ typedef std::map<std::string, Action*(*)()> class_map_t;
 class ArgumentsHandler
 {
 public:
-	ArgumentsHandler(int argc, char **argv);
-	virtual ~ArgumentsHandler();
-	
-	void handle();
-	
+    ArgumentsHandler(int argc, char **argv);
+    virtual ~ArgumentsHandler();
+    
+    void handle();
+    
 private:
-	int argumentsCounter;
-	char **argumentsVector;
-	
-	// Description of the long command line options.
-	const struct option long_options[10] = {
-		{"help", 		0, 0, 'h'},
-		{"config", 		optional_argument, 0, 'c'},
-		{"action", 		required_argument, 0, 'A'},
-		{"issue", 		required_argument, 0, 'i'},
-		{"assignee", 		required_argument, 0, 'a'},
-		{"project", 		required_argument, 0, 'p'},
-		{"max-results", 	required_argument, 0, 'r'},
-		{"issue-type", 		required_argument, 0, 't'},
-		{"debug", 		0, 0, 'd'},
-		{NULL, 			0, NULL, 0}
-	};
-	
-	// Collection of short options
-	const char *short_args = "hc:A:i:a:p:r:t:d";
-	
-	// This map contains pairs ActionName->ActionImplementation.
-	// It's used to create valid instance of the action based on the 
-	// action name. 
-	class_map_t actionToClassMap = {
- 		{"getIssue", &createInstance<GetIssueAction>}
- 	};
-	
-	Action *action;
-	
-	// methods
- 	void handleConfiguration();
-	void handleAction();
+    int argumentsCounter;
+    char **argumentsVector;
+    
+    // Description of the long command line options.
+    const struct option long_options[10] = {
+        {"help",         0, 0, 'h'},
+        {"config",         optional_argument, 0, 'c'},
+        {"action",         required_argument, 0, 'A'},
+        {"issue",         required_argument, 0, 'i'},
+        {"assignee",         required_argument, 0, 'a'},
+        {"project",         required_argument, 0, 'p'},
+        {"max-results",     required_argument, 0, 'r'},
+        {"issue-type",         required_argument, 0, 't'},
+        {"debug",         0, 0, 'd'},
+        {NULL,             0, NULL, 0}
+    };
+    
+    // Collection of short options
+    const char *short_args = "hc:A:i:a:p:r:t:d";
+    
+    // This map contains pairs ActionName->ActionImplementation.
+    // It's used to create valid instance of the action based on the 
+    // action name. 
+    class_map_t actionToClassMap = {
+         {"getIssue", &createInstance<GetIssueAction>}
+     };
+    
+    Action *action;
+    
+    // methods
+     void handleConfiguration();
+    void handleAction();
 };
 
 }; // end of namespace

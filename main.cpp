@@ -22,9 +22,9 @@
 #include "inc/argumentshandler.hpp"
 
 int main(int argc, char **argv)
-{	
-	jippi::ArgumentsHandler *cmdArgHandler = new jippi::ArgumentsHandler(argc, argv);
-	cmdArgHandler->handle();
-	delete cmdArgHandler;
-	return 0;
+{    
+    jippi::ArgumentsHandler *cmdArgHandler = new jippi::ArgumentsHandler(argc, argv);
+    cmdArgHandler->handle();
+    delete cmdArgHandler;
+    return 0;
 }

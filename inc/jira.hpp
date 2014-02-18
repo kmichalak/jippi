@@ -21,7 +21,7 @@
 #include <string>
 
 namespace jippi {
-	
+    
 
 /**  */
 const std::string API_URL_SUFFIX = "/rest/api/2";

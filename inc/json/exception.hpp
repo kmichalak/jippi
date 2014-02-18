@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,21 @@
  * 
  */
 
-#include <gtest/gtest.h>
+#ifndef EXCEPTION_H
+#define EXCEPTION_H
 
-class StringUtilsTest : public testing::Test
+#include <exception>
+
+namespace jippi {
+
+class UninitializedParserException : public std::runtime_error
 {
-    
-protected:    
-    virtual void SetUp() {}
-    virtual void TearDown() {}
+public:
+    UninitializedParserException(std::string msg) 
+        : std::runtime_error(msg)
+    {}
 };
+
+}
+
+#endif

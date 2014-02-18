@@ -15,26 +15,34 @@
  * 
  */
 
-#ifndef CONFIGTEST_HPP
-#define CONFIGTEST_HPP
+#ifndef JSONPARSER_H
+#define JSONPARSER_H
 
-#include <gtest/gtest.h>
+#include <string>
 
-// namespace testing {
+#include "inc/json/assignee.hpp"
+#include "inc/json/fieldparser.hpp"
+#include "inc/json/issue.hpp"
+#include "inc/json/issuetype.hpp"
+#include "inc/json/progress.hpp"
+#include "inc/json/project.hpp"
+#include "inc/json/reporter.hpp"
+#include "inc/json/exception.hpp"
 
+#include <jsoncpp/json/value.h>
 
-class ConfigTest : public testing::Test
-{
-protected:
-    virtual void SetUp();
-    virtual void TearDown();
+namespace jippi {
     
-    std::string config_file;
-    std::string config_path;
-    std::string config_file_content; 
+class JsonParser
+{
+public:
+    issues parseIssues(std::string &jsonDocument);
+    
+private:
+    issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
+    issue fetchIssueInfo(Json::Value &issueJsonDocument);
 };
 
+}; // end of namespace
 
-// }    // end of testing namespace
-
-#endif // CONFIGTEST_H
+#endif // JSONPARSER_H

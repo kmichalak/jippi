@@ -22,11 +22,11 @@
 
 void RestClientTest::SetUp() 
 {
-	get_url = "http://echo.jsontest.com/value/get";
-	put_url = "http://httpbin.org/put";
-	post_url = "http://httpbin.org/post";
-	content_type = "application/json";
-	client = new jippi::RestClient;
+    get_url = "http://echo.jsontest.com/value/get";
+    put_url = "http://httpbin.org/put";
+    post_url = "http://httpbin.org/post";
+    content_type = "application/json";
+    client = new jippi::RestClient;
 }
 
 //---------------------------------------------
@@ -35,27 +35,27 @@ void RestClientTest::SetUp()
 
 TEST_F(RestClientTest, ResponseShouldContain200CodeWhenGetSucceed)
 {
-	// when
-	jippi::rest_response response = client->doHttpGet(get_url);
-	// then	
-	EXPECT_EQ(200, response.code);
+    // when
+    jippi::rest_response response = client->doHttpGet(get_url);
+    // then    
+    EXPECT_EQ(200, response.code);
 }
 
 
 TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenGetSucceed)
 {
-	// when
-	jippi::rest_response response = client->doHttpGet(get_url);
-	// then
-	EXPECT_EQ("{\"value\": \"get\"}\n", response.body);
+    // when
+    jippi::rest_response response = client->doHttpGet(get_url);
+    // then
+    EXPECT_EQ("{\"value\": \"get\"}\n", response.body);
 }
 
 TEST_F(RestClientTest, ResponseShouldContainValidResponseCodeWhenGetFails)
 {
-	// when
-	jippi::rest_response response = client->doHttpGet("http://nonexisting.org");
-	// then
-	EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
+    // when
+    jippi::rest_response response = client->doHttpGet("http://nonexisting.org");
+    // then
+    EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
 }
 
 
@@ -65,33 +65,33 @@ TEST_F(RestClientTest, ResponseShouldContainValidResponseCodeWhenGetFails)
 
 TEST_F(RestClientTest, ResponseShouldContain200CodeWhenPutSucceed)
 {
-	// given
-	std::string data = "testdata";
-	// when
-	jippi::rest_response response = client->doHttpPut(put_url, content_type, data);
-	// then
-	EXPECT_EQ(200, response.code);
+    // given
+    std::string data = "testdata";
+    // when
+    jippi::rest_response response = client->doHttpPut(put_url, content_type, data);
+    // then
+    EXPECT_EQ(200, response.code);
 }
 
 TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenPutSucceed)
 {
-	// given
-	std::string data = "testdata";
-	// when
-	jippi::rest_response response = client->doHttpPut(put_url, content_type, data);
-	size_t data_content_position = response.body.find(data);
-	// then
- 	ASSERT_TRUE(data_content_position != std::string::npos);
+    // given
+    std::string data = "testdata";
+    // when
+    jippi::rest_response response = client->doHttpPut(put_url, content_type, data);
+    size_t data_content_position = response.body.find(data);
+    // then
+     ASSERT_TRUE(data_content_position != std::string::npos);
 }
 
 TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPutFails)
 {
-	// given
-	std::string data = "testdata";
-	// when
-	jippi::rest_response response = client->doHttpPut("http://nonexisting.org", content_type, data);
-	// then
-	EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
+    // given
+    std::string data = "testdata";
+    // when
+    jippi::rest_response response = client->doHttpPut("http://nonexisting.org", content_type, data);
+    // then
+    EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
 }
 
 //---------------------------------------------
@@ -100,31 +100,31 @@ TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPutFails)
 
 TEST_F(RestClientTest, ResponseShouldContainValidResponseCodeWhenPostSucceed) 
 {
-	// given
-	std::string data = "testdata";
-	// when
-	jippi::rest_response response = client->doHttpPost(post_url, content_type, data);
-	// then
-	EXPECT_EQ(200, response.code);
+    // given
+    std::string data = "testdata";
+    // when
+    jippi::rest_response response = client->doHttpPost(post_url, content_type, data);
+    // then
+    EXPECT_EQ(200, response.code);
 }
 
 TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenPostSucceed) 
 {
-	// given
-	std::string data = "testdata";
-	// when
-	jippi::rest_response response = client->doHttpPost(post_url, content_type, data);
-	size_t data_content_position = response.body.find(data);
-	// then
-	ASSERT_TRUE(data_content_position != std::string::npos);
+    // given
+    std::string data = "testdata";
+    // when
+    jippi::rest_response response = client->doHttpPost(post_url, content_type, data);
+    size_t data_content_position = response.body.find(data);
+    // then
+    ASSERT_TRUE(data_content_position != std::string::npos);
 }
 
 TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPostFails)
 {
-	// given 
-	std::string data = "testdata";
-	// when
-	jippi::rest_response response = client->doHttpPost("http://notexisting.org", content_type, data);
-	// then
-	EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
+    // given 
+    std::string data = "testdata";
+    // when
+    jippi::rest_response response = client->doHttpPost("http://notexisting.org", content_type, data);
+    // then
+    EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
 }

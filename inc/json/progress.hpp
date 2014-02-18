@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,20 @@
  * limitations under the License.
  * 
  */
+#ifndef PROGRESS_H
+#define PROGRESS_H
 
-#include <gtest/gtest.h>
+#include "inc/json/fieldparser.hpp"
 
-class StringUtilsTest : public testing::Test
+namespace jippi {
+
+class ProgressFieldParser : public FieldParser
 {
-    
-protected:    
-    virtual void SetUp() {}
-    virtual void TearDown() {}
+public:
+    virtual ~ProgressFieldParser() {};
+    virtual field * parse(Json::Value &fieldJsonDocument);
 };
+
+}
+
+#endif

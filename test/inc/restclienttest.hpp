@@ -23,15 +23,15 @@
 
 class RestClientTest : public testing::Test
 {
-protected:	
-	std::string get_url;
-	std::string put_url;
-	std::string post_url;
-	std::string content_type;
-	jippi::RestClient* client;
-	
-	virtual void SetUp();
-	virtual void TearDown() {};
+protected:    
+    std::string get_url;
+    std::string put_url;
+    std::string post_url;
+    std::string content_type;
+    jippi::RestClient* client;
+    
+    virtual void SetUp();
+    virtual void TearDown() {};
 };
 
 #endif // RESTCLIENTTEST_H

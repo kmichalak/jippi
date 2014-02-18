@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,22 @@
  * limitations under the License.
  * 
  */
+#ifndef PROJECT_H
+#define PROJECT_H
 
-#include <gtest/gtest.h>
+#include "inc/json/fieldparser.hpp"
 
-class StringUtilsTest : public testing::Test
+namespace jippi {
+
+class ProjectFieldParser : public FieldParser 
 {
-    
-protected:    
-    virtual void SetUp() {}
-    virtual void TearDown() {}
+public:
+    virtual ~ProjectFieldParser () {};
+    virtual field * parse(Json::Value &fieldJsonDocument);
+private:
+    virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
 };
+
+}
+
+#endif

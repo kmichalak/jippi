@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,21 @@
  * 
  */
 
-#include <gtest/gtest.h>
+#ifndef FIELDPARSER_H
+#define FIELDPARSER_H
 
-class StringUtilsTest : public testing::Test
+#include <jsoncpp/json/value.h>
+#include "inc/jippi.hpp"
+
+namespace jippi {
+
+class FieldParser 
 {
-    
-protected:    
-    virtual void SetUp() {}
-    virtual void TearDown() {}
+public:
+    virtual ~FieldParser() {};
+    virtual field * parse(Json::Value &fieldJsonDocument) = 0;
 };
+
+}
+
+#endif
