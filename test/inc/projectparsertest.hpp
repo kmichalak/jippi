@@ -23,8 +23,8 @@
 class ProjectParserTest : public testing::Test
 {
 protected:
-	virtual void SetUp();
-	virtual void TearDown();
+	virtual void SetUp() {};
+	virtual void TearDown() {};
 	
 	const std::string PROJECT_JSON = 
 		"{\"self\":\"http://test.jira.org/rest/api/2/project/TEST\","

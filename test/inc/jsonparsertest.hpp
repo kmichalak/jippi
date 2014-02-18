@@ -20,12 +20,11 @@
 
 #include <gtest/gtest.h>
 
-
 class JsonParserTest : public testing::Test
 {
 protected:
-	virtual void SetUp();
-	virtual void TearDown();
+	virtual void SetUp() {};
+	virtual void TearDown() {};
 
 	const std::string SINGLE_ISSUE_JSON = 
 		"{\"expand\":\"schema,names\",\"startAt\":0,\"maxResults\":2,"

@@ -65,6 +65,7 @@ if(build_tests)
 	add_subdirectory(test/src)
 	
 	link_libraries(gtest)
+	link_libraries(${JsonCpp_LIBRARY})
 	add_executable(test-all test/src/runtests.cpp
 				
 				test/src/restclienttest.cpp 	src/restclient.cpp

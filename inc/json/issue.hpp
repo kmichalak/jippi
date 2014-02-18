@@ -14,35 +14,25 @@
  * limitations under the License.
  * 
  */
+#ifndef ISSUE_H
+#define ISSUE_H
 
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
-
-#include <string>
-
-#include "inc/json/assignee.hpp"
+#include <unordered_map>
 #include "inc/json/fieldparser.hpp"
-#include "inc/json/issue.hpp"
-#include "inc/json/issuetype.hpp"
-#include "inc/json/progress.hpp"
-#include "inc/json/project.hpp"
-#include "inc/json/reporter.hpp"
-#include "inc/json/exception.hpp"
-
-#include <jsoncpp/json/value.h>
 
 namespace jippi {
-	
-class JsonParser
+
+class IssueParser
 {
 public:
-	issues parseIssues(std::string &jsonDocument);
-	
+	virtual ~IssueParser() {};
+	virtual void initialize();
+	virtual issue parse(Json::Value& issueJsonDocument);
 private:
-	issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
-	issue fetchIssueInfo(Json::Value &issueJsonDocument);
+	bool initialized;
+ 	std::unordered_map<std::string, FieldParser*> fieldsParserRegistry;
 };
 
-}; // end of namespace
+}
 
-#endif // JSONPARSER_H
+#endif

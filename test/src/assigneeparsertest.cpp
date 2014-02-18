@@ -14,19 +14,9 @@
  * limitations under the License.
  * 
  */
-
+#include <jsoncpp/json/reader.h>
+#include "inc/json/assignee.hpp"
 #include "test/inc/assigneeparsertest.hpp"
-#include "inc/jsonparser.hpp"
-
-void AssigneeParserTest::SetUp()
-{
-
-}
-
-void AssigneeParserTest::TearDown()
-{
-
-}
 
 TEST_F(AssigneeParserTest, AssgneeContainsValidSelfUrl)
 {

@@ -16,7 +16,9 @@
  */
 #include <string>
 #include <unordered_map>
-#include <jsoncpp/json/json.h>
+#include <jsoncpp/json/value.h>
+#include <jsoncpp/json/reader.h>
+#include <jsoncpp/json/writer.h>
 #include "inc/jsonparser.hpp"
 
 using namespace jippi;

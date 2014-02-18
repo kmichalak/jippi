@@ -15,34 +15,21 @@
  * 
  */
 
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
+#ifndef EXCEPTION_H
+#define EXCEPTION_H
 
-#include <string>
-
-#include "inc/json/assignee.hpp"
-#include "inc/json/fieldparser.hpp"
-#include "inc/json/issue.hpp"
-#include "inc/json/issuetype.hpp"
-#include "inc/json/progress.hpp"
-#include "inc/json/project.hpp"
-#include "inc/json/reporter.hpp"
-#include "inc/json/exception.hpp"
-
-#include <jsoncpp/json/value.h>
+#include <exception>
 
 namespace jippi {
-	
-class JsonParser
+
+class UninitializedParserException : public std::runtime_error
 {
 public:
-	issues parseIssues(std::string &jsonDocument);
-	
-private:
-	issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
-	issue fetchIssueInfo(Json::Value &issueJsonDocument);
+	UninitializedParserException(std::string msg) 
+		: std::runtime_error(msg)
+	{}
 };
 
-}; // end of namespace
+}
 
-#endif // JSONPARSER_H
+#endif

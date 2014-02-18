@@ -15,18 +15,9 @@
  * 
  */
 
+#include <jsoncpp/json/reader.h>
+#include "inc/json/project.hpp"
 #include "test/inc/projectparsertest.hpp"
-#include "inc/jsonparser.hpp"
-
-void ProjectParserTest::SetUp()
-{
-
-}
-
-void ProjectParserTest::TearDown()
-{
-
-}
 
 TEST_F(ProjectParserTest, ProjectContainsValidSelfUrl)
 {

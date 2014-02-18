@@ -14,35 +14,20 @@
  * limitations under the License.
  * 
  */
+#ifndef PROGRESS_H
+#define PROGRESS_H
 
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
-
-#include <string>
-
-#include "inc/json/assignee.hpp"
 #include "inc/json/fieldparser.hpp"
-#include "inc/json/issue.hpp"
-#include "inc/json/issuetype.hpp"
-#include "inc/json/progress.hpp"
-#include "inc/json/project.hpp"
-#include "inc/json/reporter.hpp"
-#include "inc/json/exception.hpp"
-
-#include <jsoncpp/json/value.h>
 
 namespace jippi {
-	
-class JsonParser
+
+class ProgressFieldParser : public FieldParser
 {
 public:
-	issues parseIssues(std::string &jsonDocument);
-	
-private:
-	issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
-	issue fetchIssueInfo(Json::Value &issueJsonDocument);
+	virtual ~ProgressFieldParser() {};
+	virtual field * parse(Json::Value &fieldJsonDocument);
 };
 
-}; // end of namespace
+}
 
-#endif // JSONPARSER_H
+#endif

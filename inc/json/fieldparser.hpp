@@ -15,34 +15,21 @@
  * 
  */
 
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
-
-#include <string>
-
-#include "inc/json/assignee.hpp"
-#include "inc/json/fieldparser.hpp"
-#include "inc/json/issue.hpp"
-#include "inc/json/issuetype.hpp"
-#include "inc/json/progress.hpp"
-#include "inc/json/project.hpp"
-#include "inc/json/reporter.hpp"
-#include "inc/json/exception.hpp"
+#ifndef FIELDPARSER_H
+#define FIELDPARSER_H
 
 #include <jsoncpp/json/value.h>
+#include "inc/jippi.hpp"
 
 namespace jippi {
-	
-class JsonParser
+
+class FieldParser 
 {
 public:
-	issues parseIssues(std::string &jsonDocument);
-	
-private:
-	issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
-	issue fetchIssueInfo(Json::Value &issueJsonDocument);
+	virtual ~FieldParser() {};
+	virtual field * parse(Json::Value &fieldJsonDocument) = 0;
 };
 
-}; // end of namespace
+}
 
-#endif // JSONPARSER_H
+#endif

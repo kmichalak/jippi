@@ -15,19 +15,8 @@
  * 
  */
 
-#include "test/inc/jsonparsertest.hpp"
 #include "inc/jsonparser.hpp"
-#include "inc/jippi.hpp"
-
-void JsonParserTest::SetUp()
-{
-
-}
-
-void JsonParserTest::TearDown()
-{
-
-}
+#include "test/inc/jsonparsertest.hpp"
 
 TEST_F(JsonParserTest, ShouldReturnValidIssuesCollection) 
 {
