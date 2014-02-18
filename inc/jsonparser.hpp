@@ -18,9 +18,13 @@
 #ifndef JSONPARSER_H
 #define JSONPARSER_H
 
+#include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <jsoncpp/json/json.h>
+#include <exception>
 #include "inc/jippi.hpp"
 
 namespace jippi {
@@ -34,6 +38,8 @@ private:
 	issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
 	issue fetchIssueInfo(Json::Value &issueJsonDocument);
 };
+
+
 
 class FieldParser 
 {
@@ -50,12 +56,55 @@ public:
 	virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
 };
 
+class ReporterFieldParser : public FieldParser 
+{
+public:
+	virtual ~ReporterFieldParser() {};
+	virtual field * parse(Json::Value &fieldJsonDocument);
+	virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
+};
+
 class ProjectFieldParser : public FieldParser 
 {
 public:
 	virtual ~ProjectFieldParser () {};
 	virtual field * parse(Json::Value &fieldJsonDocument);
+private:
 	virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
+};
+
+class IssueTypeFieldParser : public FieldParser 
+{
+public:
+	virtual ~IssueTypeFieldParser() {};
+	virtual field * parse(Json::Value &fieldJsonDocument);
+};
+
+class ProgressFieldParser : public FieldParser
+{
+public:
+	virtual ~ProgressFieldParser() {};
+	virtual field * parse(Json::Value &fieldJsonDocument);
+};
+
+
+class UninitializedParserException : public std::runtime_error
+{
+public:
+	UninitializedParserException(std::string msg) 
+		: std::runtime_error(msg)
+	{}
+};
+
+class IssueParser
+{
+public:
+	virtual ~IssueParser() {};
+	virtual void initialize();
+	virtual issue parse(Json::Value& issueJsonDocument);
+private:
+	bool initialized;
+ 	std::unordered_map<std::string, FieldParser*> fieldsParserRegistry;
 };
 
 }; // end of namespace

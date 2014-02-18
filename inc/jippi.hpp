@@ -81,6 +81,12 @@ typedef struct : field {
 } progress;
 
 
+typedef struct : field {
+	std::string iconUrl;		/* issue type icon URL */
+	bool subtask;			/* issue is a subtask */
+} issue_type;
+
+
 typedef struct {
 	std::string id;			/* issue ID */ 
 	std::string self;		/* issue definition URL */ 

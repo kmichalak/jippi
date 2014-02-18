@@ -78,3 +78,21 @@ TEST_F(JsonParserTest, IssueShouldContainValidKey)
 	// cleanup
 	delete jsonParser;
 }
+
+
+TEST_F(JsonParserTest, IssueContainsFields)
+{
+	// given
+	jippi::JsonParser *jsonParser = new jippi::JsonParser();
+	std::string jsonDocument = SINGLE_ISSUE_JSON;
+	
+	// when
+	jippi::issues issuesCollection = jsonParser->parseIssues(jsonDocument);
+	jippi::issue issueInfo = *issuesCollection.begin();
+	
+	// then
+	EXPECT_EQ(2, issueInfo.fieldsCollection.size());
+	
+	// cleanup
+	delete jsonParser;
+}
