@@ -16,7 +16,7 @@
  */
 
 #include "inc/jsonparser.hpp"
-#include "test/inc/jsonparsertest.hpp"
+#include "test/inc/json/jsonparsertest.hpp"
 
 TEST_F(JsonParserTest, ShouldReturnValidIssuesCollection) 
 {

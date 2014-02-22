@@ -62,19 +62,21 @@ if(build_tests)
 	
 	add_subdirectory(test)
 	add_subdirectory(test/inc)
+	add_subdirectory(test/inc/json)
 	add_subdirectory(test/src)
+	add_subdirectory(test/src/json)
 	
 	link_libraries(gtest)
 	link_libraries(${JsonCpp_LIBRARY})
 	add_executable(test-all test/src/runtests.cpp
 				
-				test/src/restclienttest.cpp 	src/restclient.cpp
-				test/src/stringutilstest.cpp 	src/stringutils.cpp
-				test/src/configtest.cpp 	src/config.cpp
-				test/src/jsonparsertest.cpp 	src/jsonparser.cpp
-				test/src/assigneeparsertest.cpp
-				test/src/projectparsertest.cpp
-				test/src/progressparsertest.cpp)
+				test/src/restclienttest.cpp     src/restclient.cpp
+				test/src/stringutilstest.cpp    src/stringutils.cpp
+				test/src/configtest.cpp         src/config.cpp
+				test/src/json/jsonparsertest.cpp     src/jsonparser.cpp
+				test/src/json/assigneeparsertest.cpp
+				test/src/json/projectparsertest.cpp
+				test/src/json/progressparsertest.cpp)
 
 	add_test(NAME test-all COMMAND test-all)
 endif()
