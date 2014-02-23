@@ -76,7 +76,8 @@ if(build_tests)
 				test/src/json/jsonparsertest.cpp     src/jsonparser.cpp
 				test/src/json/assigneeparsertest.cpp
 				test/src/json/projectparsertest.cpp
-				test/src/json/progressparsertest.cpp)
+				test/src/json/progressparsertest.cpp
+				test/src/json/issueparsertest.cpp)
 
 	add_test(NAME test-all COMMAND test-all)
 endif()

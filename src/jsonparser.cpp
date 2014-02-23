@@ -102,7 +102,7 @@ issue JsonParser::fetchIssueInfo(Json::Value& issueJsonDocument)
 
 void IssueParser::initialize()
 {
-    fieldsParserRegistry["issueType"] = new IssueTypeFieldParser();
+    fieldsParserRegistry["issuetype"] = new IssueTypeFieldParser();
     fieldsParserRegistry["reporter"] = new ReporterFieldParser();
     fieldsParserRegistry["assignee"] = new AssigneeFieldParser();
     fieldsParserRegistry["project"] = new ProjectFieldParser();
