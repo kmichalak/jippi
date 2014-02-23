@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 project(jippi)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 set(CMAKE_CXX_FLAGS "-g -Wall -std=c++11")
 
 #
@@ -26,19 +27,9 @@ include_directories(/usr/local/include)
 # Add project includes
 include_directories(${jippi_SOURCE_DIR})
 
-# set the path to the library folder
-link_directories(/usr/local/lib)
-
-# **************************************
-# Link the libraries to the executable
-# **************************************
-link_libraries(curl)
-link_libraries(${LIBCONFIG++_LIBRARY})
-link_libraries(${JsonCpp_LIBRARY})
-
-add_subdirectory(src)
 add_subdirectory(inc)
-                     
+add_subdirectory(src)
+
 add_executable(
             jippi 
             src/jippi.cpp
@@ -55,7 +46,13 @@ add_executable(
             src/stringutils.cpp 
             src/restclient.cpp 
             main.cpp
+
     )
+
+# 
+# Link the libraries to the executable
+# 
+target_link_libraries(jippi ${LIBCONFIG++_LIBRARY} ${JsonCpp_LIBRARY} ${CURL_LIBRARIES})
 
 install(TARGETS jippi RUNTIME DESTINATION bin)
 
@@ -75,8 +72,6 @@ if(build_tests)
     add_subdirectory(test/src)
     add_subdirectory(test/src/json)
     
-    link_libraries(gtest)
-    link_libraries(${JsonCpp_LIBRARY})
     add_executable(
                 test-all 
                 test/src/runtests.cpp
@@ -92,5 +87,7 @@ if(build_tests)
                 test/src/json/progressparsertest.cpp    src/json/progress.cpp
     )
 
+    target_link_libraries(test-all ${GTEST_LIBRARY} ${LIBCONFIG++_LIBRARY} ${JsonCpp_LIBRARY} ${CURL_LIBRARIES})
+    
     add_test(NAME test-all COMMAND test-all)
 endif()
