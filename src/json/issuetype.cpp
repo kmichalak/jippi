@@ -15,26 +15,21 @@
  * 
  */
 
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
-
-#include <string>
-
-#include <jsoncpp/json/value.h>
 #include "inc/jippi.hpp"
+#include "inc/json/issuetype.hpp"
 
-namespace jippi {
-    
-class JsonParser
+using namespace jippi;
+
+field * IssueTypeFieldParser::parse(Json::Value& fieldJsonDocument)
 {
-public:
-    issues parseIssues(std::string &jsonDocument);
+    issue_type *issueType = new issue_type;
     
-private:
-    issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
-    issue fetchIssueInfo(Json::Value &issueJsonDocument);
-};
-
-}; // end of namespace
-
-#endif // JSONPARSER_H
+    issueType->id = fieldJsonDocument["id"].asString();
+    issueType->self = fieldJsonDocument["self"].asString();
+    issueType->name = fieldJsonDocument["name"].asString();
+    issueType->description = fieldJsonDocument["description"].asString();
+    issueType->iconUrl = fieldJsonDocument["iconUrl"].asString();
+    issueType->subtask = fieldJsonDocument["subtask"].asBool();
+    
+    return issueType;
+}

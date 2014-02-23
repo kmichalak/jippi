@@ -39,14 +39,23 @@ link_libraries(${JsonCpp_LIBRARY})
 add_subdirectory(src)
 add_subdirectory(inc)
                      
-add_executable(jippi src/jippi.cpp
-		     src/jsonparser.cpp
-		     src/getissueaction.cpp 
-		     src/argumentshandler.cpp 
-		     src/config.cpp 
-		     src/stringutils.cpp 
-		     src/restclient.cpp 
-		     main.cpp)
+add_executable(
+            jippi 
+            src/jippi.cpp
+            src/jsonparser.cpp
+            src/json/assignee.cpp
+            src/json/issue.cpp
+            src/json/issuetype.cpp
+            src/json/project.cpp
+            src/json/progress.cpp
+            src/json/reporter.cpp
+            src/getissueaction.cpp 
+            src/argumentshandler.cpp 
+            src/config.cpp 
+            src/stringutils.cpp 
+            src/restclient.cpp 
+            main.cpp
+    )
 
 install(TARGETS jippi RUNTIME DESTINATION bin)
 
@@ -58,26 +67,30 @@ install(TARGETS jippi RUNTIME DESTINATION bin)
 
 # cmake -Dbuild_tests=BOOL:ON
 if(build_tests)
-	find_package(GTest REQUIRED)
-	
-	add_subdirectory(test)
-	add_subdirectory(test/inc)
-	add_subdirectory(test/inc/json)
-	add_subdirectory(test/src)
-	add_subdirectory(test/src/json)
-	
-	link_libraries(gtest)
-	link_libraries(${JsonCpp_LIBRARY})
-	add_executable(test-all test/src/runtests.cpp
-				
-				test/src/restclienttest.cpp     src/restclient.cpp
-				test/src/stringutilstest.cpp    src/stringutils.cpp
-				test/src/configtest.cpp         src/config.cpp
-				test/src/json/jsonparsertest.cpp     src/jsonparser.cpp
-				test/src/json/assigneeparsertest.cpp
-				test/src/json/projectparsertest.cpp
-				test/src/json/progressparsertest.cpp
-				test/src/json/issueparsertest.cpp)
+    find_package(GTest REQUIRED)
 
-	add_test(NAME test-all COMMAND test-all)
+    add_subdirectory(test)
+    add_subdirectory(test/inc)
+    add_subdirectory(test/inc/json)
+    add_subdirectory(test/src)
+    add_subdirectory(test/src/json)
+    
+    link_libraries(gtest)
+    link_libraries(${JsonCpp_LIBRARY})
+    add_executable(
+                test-all 
+                test/src/runtests.cpp
+                test/src/restclienttest.cpp             src/restclient.cpp
+                test/src/stringutilstest.cpp            src/stringutils.cpp
+                test/src/configtest.cpp                 src/config.cpp
+                test/src/json/jsonparsertest.cpp        src/jsonparser.cpp  
+                test/src/json/assigneeparsertest.cpp    src/json/assignee.cpp
+                test/src/json/issueparsertest.cpp       src/json/issue.cpp  
+                                                        src/json/issuetype.cpp  
+                                                        src/json/reporter.cpp
+                test/src/json/projectparsertest.cpp     src/json/project.cpp
+                test/src/json/progressparsertest.cpp    src/json/progress.cpp
+    )
+
+    add_test(NAME test-all COMMAND test-all)
 endif()

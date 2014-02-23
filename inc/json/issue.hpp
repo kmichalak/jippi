@@ -30,7 +30,7 @@ public:
     virtual issue parse(Json::Value& issueJsonDocument);
 private:
     bool initialized;
-     std::unordered_map<std::string, FieldParser*> fieldsParserRegistry;
+    std::unordered_map<std::string, FieldParser*> fieldsParserRegistry;
 };
 
 }

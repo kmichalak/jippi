@@ -15,26 +15,17 @@
  * 
  */
 
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
+#include "inc/json/progress.hpp"
 
-#include <string>
+using namespace jippi;
 
-#include <jsoncpp/json/value.h>
-#include "inc/jippi.hpp"
-
-namespace jippi {
-    
-class JsonParser
+field * ProgressFieldParser::parse(Json::Value& fieldJsonDocument)
 {
-public:
-    issues parseIssues(std::string &jsonDocument);
+    progress *progressInfo = new progress;
     
-private:
-    issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
-    issue fetchIssueInfo(Json::Value &issueJsonDocument);
-};
-
-}; // end of namespace
-
-#endif // JSONPARSER_H
+    progressInfo->total = fieldJsonDocument["total"].asInt();
+    progressInfo->percent = fieldJsonDocument["percent"].asInt();
+    progressInfo->progress = fieldJsonDocument["progress"].asInt();
+    
+    return progressInfo;
+}
