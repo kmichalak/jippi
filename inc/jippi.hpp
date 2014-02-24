@@ -87,6 +87,11 @@ typedef struct : field {
 } issue_type;
 
 
+typedef struct : field {
+    long votes;             /* number of votes, default 0 */
+    bool hasVoted;          /* flag to determine if issue has votes, default false*/
+} votes;
+
 typedef struct {
     std::string id;            /* issue ID */ 
     std::string self;        /* issue definition URL */ 

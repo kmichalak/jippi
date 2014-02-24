@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 <copyright holder> <email>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,22 +15,15 @@
  * 
  */
 
-#ifndef PROGRESSTEST_H
-#define PROGRESSTEST_H
+#include "inc/json/votesparser.hpp"
 
-#include <gtest/gtest.h>
+using namespace jippi;
 
-class ProgressParserTest : public testing::Test
-{                          
-protected:
-    virtual void SetUp();
-    virtual void TearDown();
-    
-    const std::string PROGRSS_JSON = "{"
-          "\"progress\": 0,"
-          "\"total\": 14400,"
-          "\"percent\": 0"
-        "}";
-};
-
-#endif // PROGRESSTEST_H
+field * VotesParser::parse(Json::Value &fieldJsonDocument)
+{
+    votes *votesInfo = new votes;
+    votesInfo->self = fieldJsonDocument["self"].asString();
+    votesInfo->votes = fieldJsonDocument["votes"].asInt();
+    votesInfo->hasVoted = fieldJsonDocument["hasVoted"].asBool();
+    return votesInfo;
+}

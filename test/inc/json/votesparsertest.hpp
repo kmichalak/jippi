@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 <copyright holder> <email>
+ * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,25 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
  */
 
-#ifndef PROGRESSTEST_H
-#define PROGRESSTEST_H
+#ifndef VOTEPARSERTEST_H
+#define VOTEPARSERTEST_H
 
 #include <gtest/gtest.h>
 
-class ProgressParserTest : public testing::Test
-{                          
+class VotesParserTest : public testing::Test
+{
 protected:
     virtual void SetUp();
     virtual void TearDown();
     
-    const std::string PROGRSS_JSON = "{"
-          "\"progress\": 0,"
-          "\"total\": 14400,"
-          "\"percent\": 0"
+    const std::string VOTE_JSON = "{"
+          "\"self\": \"http://test.jira.org/rest/api/2/issue/TEST-1/votes\","
+          "\"votes\": 0,"
+          "\"hasVoted\": false"
         "}";
 };
 
-#endif // PROGRESSTEST_H
+#endif // VOTEPARSERTEST_H

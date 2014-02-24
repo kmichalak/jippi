@@ -31,7 +31,7 @@ add_subdirectory(inc)
 add_subdirectory(src)
 
 add_executable(
-            jippi 
+            jippi
             src/jippi.cpp
             src/jsonparser.cpp
             src/json/assignee.cpp
@@ -40,13 +40,13 @@ add_executable(
             src/json/project.cpp
             src/json/progress.cpp
             src/json/reporter.cpp
+            src/json/votesparser.cpp 
             src/getissueaction.cpp 
             src/argumentshandler.cpp 
             src/config.cpp 
             src/stringutils.cpp 
             src/restclient.cpp 
             main.cpp
-
     )
 
 # 
@@ -83,6 +83,7 @@ if(build_tests)
                 test/src/json/issueparsertest.cpp       src/json/issue.cpp  
                                                         src/json/issuetype.cpp  
                                                         src/json/reporter.cpp
+                test/src/json/votesparsertest.cpp       src/json/votesparser.cpp 
                 test/src/json/projectparsertest.cpp     src/json/project.cpp
                 test/src/json/progressparsertest.cpp    src/json/progress.cpp
     )
