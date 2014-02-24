@@ -43,5 +43,40 @@ TEST_F(VotesParserTest, ShouldContainValidSelfInfo)
     EXPECT_EQ("http://test.jira.org/rest/api/2/issue/TEST-1/votes", votesInfo->self);
     
     delete jsonParser;
+}
+
+TEST_F(VotesParserTest, ShouldContainValidVotesCount) 
+{
+    // given
+    Json::Reader jsonReader;
+    Json::Value root;
+    jsonReader.parse(VOTE_JSON, root, false);
     
+    // when
+    jippi::VotesParser *jsonParser = new jippi::VotesParser();
+    jippi::votes *votesInfo = reinterpret_cast<jippi::votes *>(jsonParser->parse(root));
+    
+    // then
+    
+    EXPECT_EQ(12, votesInfo->votes);
+    
+    delete jsonParser;
+}
+
+TEST_F(VotesParserTest, ShouldContainKnowsAboutVotes) 
+{
+    // given
+    Json::Reader jsonReader;
+    Json::Value root;
+    jsonReader.parse(VOTE_JSON, root, false);
+    
+    // when
+    jippi::VotesParser *jsonParser = new jippi::VotesParser();
+    jippi::votes *votesInfo = reinterpret_cast<jippi::votes *>(jsonParser->parse(root));
+    
+    // then
+    
+    EXPECT_EQ(true, votesInfo->hasVoted);
+    
+    delete jsonParser;
 }

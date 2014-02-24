@@ -27,8 +27,8 @@ protected:
     
     const std::string VOTE_JSON = "{"
           "\"self\": \"http://test.jira.org/rest/api/2/issue/TEST-1/votes\","
-          "\"votes\": 0,"
-          "\"hasVoted\": false"
+          "\"votes\": 12,"
+          "\"hasVoted\": true"
         "}";
 };
 

@@ -18,7 +18,7 @@
 #include "inc/json/votesparser.hpp"
 
 using namespace jippi;
-
+#include <iostream>
 field * VotesParser::parse(Json::Value &fieldJsonDocument)
 {
     votes *votesInfo = new votes;
