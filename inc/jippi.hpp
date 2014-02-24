@@ -92,6 +92,12 @@ typedef struct : field {
     bool hasVoted;          /* flag to determine if issue has votes, default false*/
 } votes;
 
+
+typedef struct : field {
+    std::string iconUrl;    /* URL to the priority icon */
+} priority;
+
+
 typedef struct {
     std::string id;            /* issue ID */ 
     std::string self;        /* issue definition URL */ 

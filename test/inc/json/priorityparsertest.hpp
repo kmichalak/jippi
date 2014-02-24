@@ -12,18 +12,25 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
  */
 
-#include "inc/json/votesparser.hpp"
+#ifndef PRIORITYPARSERTEST_H
+#define PRIORITYPARSERTEST_H
 
-using namespace jippi;
+#include <gtest/gtest.h>
 
-field * VotesParser::parse(Json::Value &fieldJsonDocument)
+class PriorityParserTest : public testing::Test
 {
-    votes *votesInfo = new votes;
-    votesInfo->self = fieldJsonDocument["self"].asString();
-    votesInfo->votes = fieldJsonDocument["votes"].asInt();
-    votesInfo->hasVoted = fieldJsonDocument["hasVoted"].asBool();
-    return votesInfo;
-}
+protected:
+    virtual void SetUp();
+    virtual void TearDown();
+    
+    const std::string PRIORITY_JSON = "{"
+          "\"self\": \"http://test.jira.org/rest/api/2/priority/3\","
+          "\"iconUrl\": \"http://test.jira.org/images/icons/priorities/major.png\","
+          "\"name\": \"TEST-NAME\","
+          "\"id\": \"TEST-ID\""
+        "}";
+};
+
+#endif // PRIORITYPARSERTEST_H

@@ -12,18 +12,22 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
  */
 
-#include "inc/json/votesparser.hpp"
+#ifndef PRIORITYPARSER_H
+#define PRIORITYPARSER_H
 
-using namespace jippi;
+#include "inc/json/fieldparser.hpp"
 
-field * VotesParser::parse(Json::Value &fieldJsonDocument)
+namespace jippi {
+
+class PriorityParser : public FieldParser
 {
-    votes *votesInfo = new votes;
-    votesInfo->self = fieldJsonDocument["self"].asString();
-    votesInfo->votes = fieldJsonDocument["votes"].asInt();
-    votesInfo->hasVoted = fieldJsonDocument["hasVoted"].asBool();
-    return votesInfo;
-}
+public:
+    virtual ~PriorityParser() {}
+    virtual field * parse(Json::Value& fieldJsonDocument);
+};
+
+}   // end of namespace
+
+#endif // PRIORITYPARSER_H
