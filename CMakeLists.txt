@@ -83,7 +83,7 @@ if(build_tests)
                 test/src/json/assigneeparsertest.cpp    src/json/assignee.cpp
                 test/src/json/issueparsertest.cpp       src/json/issue.cpp  
                 test/src/json/issuetypeparsertest.cpp   src/json/issuetype.cpp  
-                                                        src/json/reporter.cpp
+                test/src/json/reporterparsertest.cpp    src/json/reporter.cpp
                 test/src/json/votesparsertest.cpp       src/json/votesparser.cpp 
                 test/src/json/priorityparsertest.cpp    src/json/priorityparser.cpp
                 test/src/json/projectparsertest.cpp     src/json/project.cpp
