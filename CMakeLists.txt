@@ -27,6 +27,7 @@ include_directories(/usr/local/include)
 # Add project includes
 include_directories(${jippi_SOURCE_DIR})
 
+add_subdirectory(libstringutils)
 add_subdirectory(inc)
 add_subdirectory(src)
 
@@ -45,7 +46,7 @@ add_executable(
             src/getissueaction.cpp 
             src/argumentshandler.cpp 
             src/config.cpp 
-            src/stringutils.cpp 
+#             src/stringutils.cpp 
             src/restclient.cpp 
             main.cpp
     )
@@ -53,7 +54,7 @@ add_executable(
 # 
 # Link the libraries to the executable
 # 
-target_link_libraries(jippi ${LIBCONFIG++_LIBRARY} ${JsonCpp_LIBRARY} ${CURL_LIBRARIES})
+target_link_libraries(jippi ${LIBCONFIG++_LIBRARY} ${JsonCpp_LIBRARY} ${CURL_LIBRARIES} stringutils)
 
 install(TARGETS jippi RUNTIME DESTINATION bin)
 
@@ -77,7 +78,7 @@ if(build_tests)
                 test-all 
                 test/src/runtests.cpp
                 test/src/restclienttest.cpp             src/restclient.cpp
-                test/src/stringutilstest.cpp            src/stringutils.cpp
+#                 test/src/stringutilstest.cpp            src/stringutils.cpp
                 test/src/configtest.cpp                 src/config.cpp
                 test/src/json/jsonparsertest.cpp        src/jsonparser.cpp  
                 test/src/json/assigneeparsertest.cpp    src/json/assignee.cpp
@@ -90,7 +91,7 @@ if(build_tests)
                 test/src/json/progressparsertest.cpp    src/json/progress.cpp
     )
 
-    target_link_libraries(test-all ${GTEST_LIBRARY} ${LIBCONFIG++_LIBRARY} ${JsonCpp_LIBRARY} ${CURL_LIBRARIES})
+    target_link_libraries(test-all ${GTEST_LIBRARY} ${LIBCONFIG++_LIBRARY} ${JsonCpp_LIBRARY} ${CURL_LIBRARIES} stringutils)
     
     add_test(NAME test-all COMMAND test-all)
 endif()

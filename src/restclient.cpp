@@ -18,7 +18,7 @@
 #include <curl/curl.h>
 
 #include "inc/restclient.hpp"
-#include "inc/stringutils.hpp"
+#include "libstringutils/stringutils.hpp"
 
 using namespace jippi;
 

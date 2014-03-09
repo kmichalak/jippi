@@ -22,7 +22,7 @@
 #include <assert.h>
 #include <jsoncpp/json/json.h>
 
-#include "inc/stringutils.hpp"
+#include "libstringutils/stringutils.hpp"
 #include "inc/config.hpp"
 #include "inc/restclient.hpp"
 

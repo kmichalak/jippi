@@ -14,10 +14,10 @@
  * limitations under the License.
  * 
  */
-
-#include "inc/stringutils.hpp"
 #include <string>
 #include <sstream>
+
+#include "stringutils.hpp"
 
 using namespace jippi;
 
