@@ -21,7 +21,7 @@
 #include <jsoncpp/json/writer.h>
 
 #include "inc/jsonparser.hpp"
-#include "inc/json/issue.hpp"
+#include "libjson/issue.hpp"
 
 using namespace jippi;
 
