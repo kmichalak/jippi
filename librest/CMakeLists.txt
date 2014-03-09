@@ -1,8 +1,5 @@
 project(restclient)
 
-add_subdirectory(src)
-add_subdirectory(test)
-
 #
 # Find CURL, required for all builds - HTTP requests support
 #
@@ -12,8 +9,8 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/libstringutils
 )
 
-file(GLOB RESTCLIENT_HDERS ${librest_SOURCE_DIR}/src/*.hpp)
-file(GLOB RESTCLIENT_SRC ${librest_SOURCE_DIR}/src/*.cpp)
+file(GLOB RESTCLIENT_HDERS ${restclientt_SOURCE_DIR}/src/*.hpp)
+file(GLOB RESTCLIENT_SRC ${restclient_SOURCE_DIR}/src/*.cpp)
 
 add_library(restclient STATIC ${RESTCLIENT_SRC})
 
@@ -35,7 +32,7 @@ if(build_tests)
     # Test files
     file (
         GLOB LIBRESTCLIENT_TEST_SRC 
-        ${librest_SOURCE_DIR}/test/*.cpp
+        ${restclient_SOURCE_DIR}/test/*.cpp
     )
     
     add_executable(${TESTS_EXECUTABLE} ${RESTCLIENT_SRC} ${LIBRESTCLIENT_TEST_SRC})
