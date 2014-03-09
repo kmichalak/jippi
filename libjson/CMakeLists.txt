@@ -8,9 +8,6 @@ find_package(JsonCpp REQUIRED)
 file( GLOB JSONPARSER_HEADERS ${jsonparser_SOURCE_DIR}/*.hpp )
 file( GLOB JSONPARSER_SRC ${jsonparser_SOURCE_DIR}/*.cpp )
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
-
 add_library(jsonparser STATIC ${JSONPARSER_SRC})
 
 target_link_libraries(jsonparser ${JsonCpp_LIBRARY})
@@ -35,6 +32,11 @@ if(build_tests)
     )
     
     add_executable(${TESTS_EXECUTABLE} ${JSONPARSER_SRC} ${JSONPARSER_TEST_SRC})
-    target_link_libraries(${TESTS_EXECUTABLE} ${GTEST_LIBRARY} ${JsonCpp_LIBRARY} stringutils)
+    target_link_libraries(
+        ${TESTS_EXECUTABLE} 
+        ${GTEST_LIBRARY} 
+        ${JsonCpp_LIBRARY} 
+        stringutils
+    )
     
 endif()

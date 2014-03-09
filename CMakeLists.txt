@@ -6,18 +6,21 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_FLAGS "-g -Wall -std=c++11")
 
+set(JIPPI_LIB_DIR ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${JIPPI_LIB_DIR})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${JIPPI_LIB_DIR})
+
 #
 # Find LibConfig, required for all builds - configuration support
 #
 find_package(LibConfig++ REQUIRED)
 
-
-include_directories(/usr/local/include)
-
 # Add project includes
-include_directories(${jippi_SOURCE_DIR})
-
-include_directories(libjson)
+include_directories(
+    /usr/local/include
+    ${jippi_SOURCE_DIR} 
+    ${jippi_SOURCE_DIR}/libjson
+)
 
 add_subdirectory(libstringutils)
 add_subdirectory(librest)
@@ -44,6 +47,8 @@ install(TARGETS jippi RUNTIME DESTINATION bin)
 
 # cmake -Dbuild_tests=BOOL:ON
 if(build_tests)
+
+    #GTest required to execute unit tests
     find_package(GTest REQUIRED)
 
     add_subdirectory(test)
@@ -52,14 +57,24 @@ if(build_tests)
     
     include_directories(test/inc/)
     
-    file(GLOB JIPPI_TEST_SRC ${jippi_SOURCE_DIR}/test/src/*.cpp)
+    set (TESTS_EXECUTABLE test-jippi)
+    
+    file (
+        GLOB JIPPI_TEST_SRC 
+        ${jippi_SOURCE_DIR}/test/src/*.cpp
+    )
+    
     # Remove mapn.cpp from the files list to avoid problem  
     # with multiple definition of `main'.
     list(REMOVE_ITEM JIPPI_SRC ${jippi_SOURCE_DIR}/src/main.cpp)
     
-    add_executable( test-all ${JIPPI_TEST_SRC} ${JIPPI_SRC})
-
-    target_link_libraries(test-all ${GTEST_LIBRARY} ${LIBCONFIG++_LIBRARY} jsonparser restclient)
+    add_executable( ${TESTS_EXECUTABLE} ${JIPPI_TEST_SRC} ${JIPPI_SRC})
+    target_link_libraries(
+        ${TESTS_EXECUTABLE} 
+        ${GTEST_LIBRARY} 
+        ${LIBCONFIG++_LIBRARY} 
+        jsonparser 
+        restclient
+    )
     
-    add_test(NAME test-all COMMAND test-all)
 endif()

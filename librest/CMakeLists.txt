@@ -15,9 +15,6 @@ include_directories(
 file(GLOB RESTCLIENT_HDERS ${librest_SOURCE_DIR}/src/*.hpp)
 file(GLOB RESTCLIENT_SRC ${librest_SOURCE_DIR}/src/*.cpp)
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
-
 add_library(restclient STATIC ${RESTCLIENT_SRC})
 
 target_link_libraries( restclient ${CURL_LIBRARIES} stringutils )
@@ -35,11 +32,6 @@ if(build_tests)
     
     set (TESTS_EXECUTABLE test-restclient)
  
-#     include_directories(
-#         ${librest_SOURCE_DIR}/src
-#         ${librest_SOURCE_DIR}/test
-#     )
- 
     # Test files
     file (
         GLOB LIBRESTCLIENT_TEST_SRC 
@@ -47,7 +39,12 @@ if(build_tests)
     )
     
     add_executable(${TESTS_EXECUTABLE} ${RESTCLIENT_SRC} ${LIBRESTCLIENT_TEST_SRC})
-    target_link_libraries(${TESTS_EXECUTABLE} ${GTEST_LIBRARY} ${CURL_LIBRARIES} stringutils)
+    target_link_libraries(
+        ${TESTS_EXECUTABLE} 
+        ${GTEST_LIBRARY} 
+        ${CURL_LIBRARIES} 
+        stringutils
+    )
     
     #add_test(NAME test-restclient COMMAND test-restclient)
     
