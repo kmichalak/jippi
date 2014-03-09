@@ -14,11 +14,11 @@
  * limitations under the License.
  * 
  */
-#include <string.h>    // memcpy
-#include <curl/curl.h>
+#include <string.h>     // memcpy
+#include <curl/curl.h>    
 
-#include "inc/restclient.hpp"
 #include "libstringutils/stringutils.hpp"
+#include "librest/src/restclient.hpp"
 
 using namespace jippi;
 

@@ -24,7 +24,7 @@
 
 #include "libstringutils/stringutils.hpp"
 #include "inc/config.hpp"
-#include "inc/restclient.hpp"
+#include "librest/src/restclient.hpp"
 
 namespace jippi {
 

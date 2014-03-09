@@ -15,23 +15,10 @@
  * 
  */
 
-#ifndef RESTCLIENTTEST_HPP
-#define RESTCLIENTTEST_HPP
-
 #include <gtest/gtest.h>
-#include "inc/restclient.hpp"
 
-class RestClientTest : public testing::Test
+int main(int argc, char **argv)
 {
-protected:    
-    std::string get_url;
-    std::string put_url;
-    std::string post_url;
-    std::string content_type;
-    jippi::RestClient* client;
-    
-    virtual void SetUp();
-    virtual void TearDown() {};
-};
-
-#endif // RESTCLIENTTEST_H
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}

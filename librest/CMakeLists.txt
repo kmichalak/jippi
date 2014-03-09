@@ -1,0 +1,54 @@
+project(restclient)
+
+add_subdirectory(src)
+add_subdirectory(test)
+
+#
+# Find CURL, required for all builds - HTTP requests support
+#
+find_package(CURL REQUIRED)
+
+include_directories(
+    ${PROJECT_SOURCE_DIR}/libstringutils
+)
+
+file(GLOB RESTCLIENT_HDERS ${librest_SOURCE_DIR}/src/*.hpp)
+file(GLOB RESTCLIENT_SRC ${librest_SOURCE_DIR}/src/*.cpp)
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+
+add_library(restclient STATIC ${RESTCLIENT_SRC})
+
+target_link_libraries( restclient ${CURL_LIBRARIES} stringutils )
+
+
+# **************************************
+# Build tests
+# **************************************
+
+# cmake -Dbuild_tests=BOOL:ON
+if(build_tests)
+    
+    # GTest required to execute unit tests
+    find_package(GTest REQUIRED)
+    
+    set (TESTS_EXECUTABLE test-restclient)
+ 
+#     include_directories(
+#         ${librest_SOURCE_DIR}/src
+#         ${librest_SOURCE_DIR}/test
+#     )
+ 
+    # Test files
+    file (
+        GLOB LIBRESTCLIENT_TEST_SRC 
+        ${librest_SOURCE_DIR}/test/*.cpp
+    )
+    
+    add_executable(${TESTS_EXECUTABLE} ${RESTCLIENT_SRC} ${LIBRESTCLIENT_TEST_SRC})
+    target_link_libraries(${TESTS_EXECUTABLE} ${GTEST_LIBRARY} ${CURL_LIBRARIES} stringutils)
+    
+    #add_test(NAME test-restclient COMMAND test-restclient)
+    
+endif()
