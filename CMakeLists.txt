@@ -33,7 +33,7 @@ add_executable(jippi ${JIPPI_SRC})
 # 
 # Link the libraries to the executable
 #
-target_link_libraries(jippi ${LIBCONFIG++_LIBRARY} jsonparser restclient stringutils)
+target_link_libraries(jippi ${LIBCONFIG++_LIBRARY} jsonparser restclient)
 
 install(TARGETS jippi RUNTIME DESTINATION bin)
 
