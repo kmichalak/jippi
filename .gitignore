@@ -1,7 +1,6 @@
 # Project output file
 jippi
-test-all
-*test-restclient
+*test-*
 jippi.config
 
 # Compiled Object files
