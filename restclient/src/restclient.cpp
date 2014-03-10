@@ -149,7 +149,7 @@ rest_response RestClient::doHttpPost(const std::string& url, const std::string& 
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
         
         // header callback 
-        curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);    // have to add some header callback
+        curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);
         curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);
         
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header);
