@@ -18,9 +18,9 @@
 #include <iostream>
 #include <vector>
 
-#include "inc/argumentshandler.hpp"
-#include "inc/help.hpp"
-#include "inc/config.hpp"
+#include "jippi/argumentshandler.hpp"
+#include "jippi/help.hpp"
+#include "jippi/config.hpp"
 #include "libstringutils/stringutils.hpp"
 
 using namespace jippi;

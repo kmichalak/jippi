@@ -20,7 +20,7 @@
 #include <jsoncpp/json/reader.h>
 #include <jsoncpp/json/writer.h>
 
-#include "inc/jsonparser.hpp"
+#include "jippi/jsonparser.hpp"
 #include "libjson/issue.hpp"
 
 using namespace jippi;

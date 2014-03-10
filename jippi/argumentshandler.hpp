@@ -22,8 +22,8 @@
 #include <getopt.h>
 #include <map>
 
-#include "inc/action.hpp"
-#include "inc/getissueaction.hpp"
+#include "jippi/action.hpp"
+#include "jippi/getissueaction.hpp"
 
 namespace jippi {
 

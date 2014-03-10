@@ -6,9 +6,15 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_FLAGS "-g -Wall -std=c++11")
 
-set(JIPPI_LIB_DIR ${PROJECT_BINARY_DIR}/lib)
+set(JIPPI_BIN_DIR ${PROJECT_BINARY_DIR}/bin)
+set(JIPPI_LIB_DIR ${JIPPI_BIN_DIR}/lib)
+
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${JIPPI_LIB_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${JIPPI_LIB_DIR})
+
+set(EXECUTABLE_OUTPUT_PATH ${JIPPI_BIN_DIR})
+
+set(JIPPI_MAIN_SRC_DIR ${jippi_SOURCE_DIR}/jippi)
 
 #
 # Find LibConfig, required for all builds - configuration support
@@ -25,11 +31,10 @@ include_directories(
 add_subdirectory(libstringutils)
 add_subdirectory(librest)
 add_subdirectory(libjson)
+add_subdirectory(jippi)
 
-add_subdirectory(inc)
-add_subdirectory(src)
 
-file(GLOB JIPPI_SRC ${jippi_SOURCE_DIR}/src/*.cpp)
+file(GLOB JIPPI_SRC ${JIPPI_MAIN_SRC_DIR}/*.cpp)
 
 add_executable(jippi ${JIPPI_SRC})
 
@@ -66,7 +71,7 @@ if(build_tests)
     
     # Remove mapn.cpp from the files list to avoid problem  
     # with multiple definition of `main'.
-    list(REMOVE_ITEM JIPPI_SRC ${jippi_SOURCE_DIR}/src/main.cpp)
+    list(REMOVE_ITEM JIPPI_SRC ${JIPPI_MAIN_SRC_DIR}/main.cpp)
     
     add_executable( ${TESTS_EXECUTABLE} ${JIPPI_TEST_SRC} ${JIPPI_SRC})
     target_link_libraries(

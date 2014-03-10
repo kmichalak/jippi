@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
+ * Copyright 2013 Kamil Michalak <kmichalak8@gmail.com>
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,16 @@
  * 
  */
 
-#include <cstdlib>        // free support
-#include <string.h>
+#include <iostream>
+#include <getopt.h>
+#include <vector>
 
-#include "inc/jippi.hpp"
+#include "jippi/argumentshandler.hpp"
 
-using namespace jippi;
-
-EmptyConfigurationValueException::EmptyConfigurationValueException()
-{
-
+int main(int argc, char **argv)
+{    
+    jippi::ArgumentsHandler *cmdArgHandler = new jippi::ArgumentsHandler(argc, argv);
+    cmdArgHandler->handle();
+    delete cmdArgHandler;
+    return 0;
 }
-
-EmptyConfigurationValueException::EmptyConfigurationValueException(const char* name)
-{
-    configurationValueName = strdup(name);
-}
-
-EmptyConfigurationValueException::~EmptyConfigurationValueException() throw()
-{
-    free(configurationValueName);
-}
-
-//----------------------------------------------------------

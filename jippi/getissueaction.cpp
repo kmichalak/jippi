@@ -15,12 +15,12 @@
  * 
  */
 
-#include "inc/getissueaction.hpp"
-#include "inc/config.hpp"
+#include "jippi/getissueaction.hpp"
+#include "jippi/config.hpp"
 #include "librest/src/restclient.hpp"
 
-#include "inc/jira.hpp"
-#include "inc/jippi.hpp"
+#include "jippi/jira.hpp"
+#include "jippi/jippi.hpp"
 
 using namespace jippi;
 

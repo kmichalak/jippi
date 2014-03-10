@@ -20,7 +20,7 @@
 #include <gtest/gtest.h>
 
 #include "test/inc/configtest.hpp"
-#include "inc/config.hpp"
+#include "jippi/config.hpp"
 
 void ConfigTest::SetUp()
 {

@@ -15,26 +15,23 @@
  * 
  */
 
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
+#ifndef GETISSUEACTION_H
+#define GETISSUEACTION_H
 
-#include <string>
-
-#include <jsoncpp/json/value.h>
-#include "inc/jippi.hpp"
+#include "jippi/action.hpp"
 
 namespace jippi {
-    
-class JsonParser
+
+class GetIssueAction : public Action
 {
 public:
-    issues parseIssues(std::string &jsonDocument);
+    GetIssueAction();
+    ~GetIssueAction();
     
-private:
-    issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
-    issue fetchIssueInfo(Json::Value &issueJsonDocument);
+    void perform();
+    
 };
 
 }; // end of namespace
 
-#endif // JSONPARSER_H
+#endif // GETISSUEACTION_H

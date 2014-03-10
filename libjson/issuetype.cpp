@@ -15,7 +15,7 @@
  * 
  */
 
-#include "inc/jippi.hpp"
+#include "jippi/jippi.hpp"
 #include "issuetype.hpp"
 
 using namespace jippi;

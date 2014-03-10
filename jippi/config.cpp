@@ -15,7 +15,7 @@
  * 
  */
 
-#include "inc/config.hpp"
+#include "jippi/config.hpp"
 
 #include <libconfig.h++>    // support for configuration files 
 #include <unistd.h>            // stat

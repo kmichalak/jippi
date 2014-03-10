@@ -23,7 +23,7 @@
 #include <jsoncpp/json/json.h>
 
 #include "libstringutils/stringutils.hpp"
-#include "inc/config.hpp"
+#include "jippi/config.hpp"
 #include "librest/src/restclient.hpp"
 
 namespace jippi {

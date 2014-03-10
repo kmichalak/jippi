@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  */
-#include "inc/jippi.hpp"
+#include "jippi/jippi.hpp"
 #include "exception.hpp"
 #include "assignee.hpp"
 

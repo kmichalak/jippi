@@ -19,7 +19,7 @@
 #define FIELDPARSER_H
 
 #include <jsoncpp/json/value.h>
-#include "inc/jippi.hpp"
+#include "jippi/jippi.hpp"
 
 namespace jippi {
 
