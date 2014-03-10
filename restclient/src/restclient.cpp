@@ -22,6 +22,7 @@
 
 using namespace jippi;
 
+
 RestClient::RestClient()
 {
     this->response = new rest_response;
@@ -36,12 +37,6 @@ RestClient::~RestClient()
 }
 
 
-/**
- * @brief Setups authorization data for REST request.
- * 
- * @param user - user name
- * @param password - user password
- */
 void RestClient::setAuthorizationData(const std::string& user, const std::string& password)
 {
     this->auth_data.clear();
@@ -49,12 +44,6 @@ void RestClient::setAuthorizationData(const std::string& user, const std::string
 }
 
 
-/**
- * @brief HTTP GET method.
- * 
- * @param url - the URL to query
- * @return response from REST server
- */
 rest_response RestClient::doHttpGet(const std::string& url)
 {
     CURL *curl;
@@ -78,50 +67,6 @@ rest_response RestClient::doHttpGet(const std::string& url)
     curl_easy_cleanup(curl);
     
     return *(this->response);
-}
-
-
-/**
- * @brief Callback for CURL write function. 
- * As it's mentioned in CURL documentation callback should 
- * use a fwrite() syntax.
- * 
- * @param outputdata - output data of size (\a block_size * \a block_count)
- * @param block_size - size in bytes of each element to be written
- * @param block_count - number of elements, each one with a size of 
- *             \a block_size_ bytes
- * @param inputdata - pointer to user data to work with when creating 
- *               \a outputdata
- */
-size_t RestClient::writeCallback(void* outputdata, size_t block_size, size_t block_count, void* inputdata)
-{
-    size_t output_size = block_size * block_count;
-     rest_response* response = reinterpret_cast<rest_response*>(inputdata);
-    response->body.append(reinterpret_cast<char*>(outputdata), output_size);
-    return output_size;
-}
-
-
-size_t RestClient::headerCallback(void* output_data, size_t block_size, size_t block_count, void* inputd_ata)
-{
-    size_t output_size = block_size * block_count;
-    rest_response* response = reinterpret_cast<rest_response*>(inputd_ata);
-    std::string header_content(reinterpret_cast<char*>(output_data), output_size);
-    size_t separator_pos = header_content.find_first_of(":");
-    
-    if (std::string::npos == separator_pos) {
-         header_content = StringUtils::trim(header_content);
-        if (StringUtils::isEmpty(header_content)) {
-            return output_size;
-        }
-        response->header[header_content] = "present";
-    } else {
-        std::string key = StringUtils::trim(header_content.substr(0, separator_pos));
-        std::string value = StringUtils::trim(header_content.substr(separator_pos + 1));
-        response->header[key] = value;
-    }
-    
-    return output_size;
 }
 
 
@@ -196,12 +141,13 @@ rest_response RestClient::doHttpPost(const std::string& url, const std::string& 
         // set request type to HTTP POST
         curl_easy_setopt(curl, CURLOPT_POST, 1L);
         
-         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
         curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, data.size());
         
         // write callback 
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::writeCallbackWrapper);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
+        
         // header callback 
         curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);    // have to add some header callback
         curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);
@@ -218,6 +164,27 @@ rest_response RestClient::doHttpPost(const std::string& url, const std::string& 
 }
 
 
+rest_response* RestClient::getResponse() 
+{
+    return this->response;
+}
+
+
+upload_object* RestClient::getUploadData() 
+{
+    return this->upload_data;
+}
+
+
+size_t RestClient::writeCallback(void* outputdata, size_t block_size, size_t block_count, void* inputdata)
+{
+    size_t output_size = block_size * block_count;
+     rest_response* response = reinterpret_cast<rest_response*>(inputdata);
+    response->body.append(reinterpret_cast<char*>(outputdata), output_size);
+    return output_size;
+}
+
+
 size_t RestClient::readCallback(void* outputdata, size_t block_size, size_t block_count, void* input_data)
 {
     upload_object* upload_data = reinterpret_cast<upload_object *>(input_data);
@@ -230,6 +197,29 @@ size_t RestClient::readCallback(void* outputdata, size_t block_size, size_t bloc
     upload_data->data += copy_size;
     
     return copy_size;
+}
+
+
+size_t RestClient::headerCallback(void* output_data, size_t block_size, size_t block_count, void* inputd_ata)
+{
+    size_t output_size = block_size * block_count;
+    rest_response* response = reinterpret_cast<rest_response*>(inputd_ata);
+    std::string header_content(reinterpret_cast<char*>(output_data), output_size);
+    size_t separator_pos = header_content.find_first_of(":");
+    
+    if (std::string::npos == separator_pos) {
+         header_content = StringUtils::trim(header_content);
+        if (StringUtils::isEmpty(header_content)) {
+            return output_size;
+        }
+        response->header[header_content] = "present";
+    } else {
+        std::string key = StringUtils::trim(header_content.substr(0, separator_pos));
+        std::string value = StringUtils::trim(header_content.substr(separator_pos + 1));
+        response->header[key] = value;
+    }
+    
+    return output_size;
 }
 
 
@@ -249,18 +239,60 @@ rest_response RestClient::performRequest(CURL *curl)
     return *this->response;
 }
 
+
 std::string RestClient::codeToErrorMsg(CURLcode code)
 {
     const char *error_msg = curl_easy_strerror(code);
     return std::string(error_msg);
 }
 
-rest_response* RestClient::getResponse() 
+
+size_t RestClient::writeCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
 {
-    return this->response;
+    RestClient* client = static_cast<RestClient*>(rest_client);
+    return client->writeCallback(outputdata, block_size, block_count, client->getResponse());
+}
+    
+
+size_t RestClient::readCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+{
+    RestClient* client = static_cast<RestClient*>(rest_client);
+    return client->readCallback(outputdata, block_size, block_count, client->getUploadData());
+}
+    
+
+size_t RestClient::headerCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
+{
+    RestClient* client = static_cast<RestClient*>(rest_client);
+    return client->headerCallback(outputdata, block_size, block_count, client->getResponse());
 }
 
-upload_object* RestClient::getUploadData() 
+
+bool RestClient::isClean()  
 {
-    return this->upload_data;
+    return ( 
+        this->response->body.length() == 0 &&
+        this->response->code == 0 &&
+        this->response->header.size() == 0 &&
+        
+        this->upload_data->data == NULL &&
+        this->upload_data->length == 0
+    );
+}
+
+
+void RestClient::flush()
+{
+    delete this->response;
+    delete this->upload_data;
+    this->response = new rest_response;
+    this->upload_data = new upload_object;
+}
+
+
+void RestClient::setupBuffers() 
+{
+    if (not isClean()) {
+        flush();
+    }
 }

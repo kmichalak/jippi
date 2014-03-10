@@ -14,7 +14,6 @@
  * limitations under the License.
  * 
  */
-
 #ifndef RESTCLIENT_HPP
 #define RESTCLIENT_HPP
 
@@ -24,15 +23,14 @@
 
 namespace jippi {
 
-/** Reponse header container */
 typedef std::map<std::string, std::string> response_header;
 
 
 typedef struct 
 {
-    int code = 0;                    /* HTTP response code */
-    std::string body;            /* Response body content*/
-    response_header header;        /* Response header content*/
+    int code = 0;               /* HTTP response code */
+    std::string body;           /* Response body content*/
+    response_header header;     /* Response header content*/
 } rest_response;
 
 
@@ -79,62 +77,13 @@ private:
      * I know this is ugly, but I hate static methods... If it has to be static
      * let it do the least as it's possible.
      */
-    static size_t writeCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
-    {
-        RestClient* client = static_cast<RestClient*>(rest_client);
-        return client->writeCallback(outputdata, block_size, block_count, client->getResponse());
-    }
+    static size_t writeCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client);
+    static size_t readCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client);
+    static size_t headerCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client);
     
-    /**
-     * The solution suggested by CURL documentation available at 
-     * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
-     * I know this is ugly, but I hate static methods... If it has to be static
-     * let it do the least as it's possible.
-     */    
-    static size_t readCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
-    {
-        RestClient* client = static_cast<RestClient*>(rest_client);
-        return client->readCallback(outputdata, block_size, block_count, client->getUploadData());
-    }
-    
-    /**
-     * The solution suggested by CURL documentation available at 
-     * http://curl.haxx.se/docs/faq.html#Using_C_non_static_functions_f
-     * I know this is ugly, but I hate static methods... If it has to be static
-     * let it do the least as it's possible.
-     */
-    static size_t headerCallbackWrapper(void* outputdata, size_t block_size, size_t block_count, void* rest_client)
-    {
-        RestClient* client = static_cast<RestClient*>(rest_client);
-        return client->headerCallback(outputdata, block_size, block_count, client->getResponse());
-    }
-    
-    bool isClean()  
-    {
-        return ( 
-            this->response->body.length() == 0 &&
-             this->response->code == 0 &&
-             this->response->header.size() == 0 &&
-            
-             this->upload_data->data == NULL &&
-             this->upload_data->length == 0
-        );
-    }
-    
-    void flush()
-    {
-        delete this->response;
-        delete this->upload_data;
-        this->response = new rest_response;
-        this->upload_data = new upload_object;
-    }
-    
-    void setupBuffers() 
-    {
-        if (not isClean()) {
-            flush();
-        }
-    }
+    bool isClean();
+    void flush();
+    void setupBuffers();
 };
 
 } // end of namespace
