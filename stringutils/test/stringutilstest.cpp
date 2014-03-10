@@ -19,7 +19,7 @@
 #include <vector>
 #include "stringutilstest.hpp"
 #include "test/inc/assert.hpp"
-#include "libstringutils/stringutils.hpp"
+#include "stringutils/stringutils.hpp"
 
 //------------------------------------------------------------------------------
 // Trim

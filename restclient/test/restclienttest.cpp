@@ -17,8 +17,8 @@
 
 #include <gtest/gtest.h>
 #include <curl/curl.h>
-#include "librest/test/restclienttest.hpp"
-#include "librest/src/restclient.hpp"
+#include "restclient/test/restclienttest.hpp"
+#include "restclient/src/restclient.hpp"
 
 void RestClientTest::SetUp() 
 {

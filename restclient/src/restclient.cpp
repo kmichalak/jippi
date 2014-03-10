@@ -17,8 +17,8 @@
 #include <string.h>     // memcpy
 #include <curl/curl.h>    
 
-#include "libstringutils/stringutils.hpp"
-#include "librest/src/restclient.hpp"
+#include "stringutils/stringutils.hpp"
+#include "restclient/src/restclient.hpp"
 
 using namespace jippi;
 

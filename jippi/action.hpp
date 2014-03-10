@@ -22,9 +22,9 @@
 #include <assert.h>
 #include <jsoncpp/json/json.h>
 
-#include "libstringutils/stringutils.hpp"
+#include "stringutils/stringutils.hpp"
 #include "jippi/config.hpp"
-#include "librest/src/restclient.hpp"
+#include "restclient/src/restclient.hpp"
 
 namespace jippi {
 

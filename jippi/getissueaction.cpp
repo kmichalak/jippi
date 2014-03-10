@@ -17,7 +17,7 @@
 
 #include "jippi/getissueaction.hpp"
 #include "jippi/config.hpp"
-#include "librest/src/restclient.hpp"
+#include "restclient/src/restclient.hpp"
 
 #include "jippi/jira.hpp"
 #include "jippi/jippi.hpp"

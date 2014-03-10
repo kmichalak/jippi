@@ -25,13 +25,12 @@ find_package(LibConfig++ REQUIRED)
 include_directories(
     /usr/local/include
     ${jippi_SOURCE_DIR} 
-    ${jippi_SOURCE_DIR}/libjson
+    ${jippi_SOURCE_DIR}/json
 )
 
-add_subdirectory(libstringutils)
-add_subdirectory(librest)
-add_subdirectory(libjson)
-add_subdirectory(jippi)
+add_subdirectory(stringutils)
+add_subdirectory(restclient)
+add_subdirectory(json)
 
 
 file(GLOB JIPPI_SRC ${JIPPI_MAIN_SRC_DIR}/*.cpp)

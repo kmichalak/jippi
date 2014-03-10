@@ -21,7 +21,7 @@
 #include "jippi/argumentshandler.hpp"
 #include "jippi/help.hpp"
 #include "jippi/config.hpp"
-#include "libstringutils/stringutils.hpp"
+#include "stringutils/stringutils.hpp"
 
 using namespace jippi;
 
