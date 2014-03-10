@@ -20,6 +20,9 @@ jippi.config
 # KDevelop files
 *.kdev4
 
+# Eclipse filed
+.cproject
+
 # Temporary files
 *swp
 
