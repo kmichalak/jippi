@@ -19,6 +19,8 @@ jippi.config
 
 # KDevelop files
 *.kdev4
+*.cbp
+*.user
 
 # Eclipse filed
 .cproject
