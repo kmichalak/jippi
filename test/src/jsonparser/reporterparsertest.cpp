@@ -18,6 +18,11 @@
 #include "jsonparser/reporter.hpp"
 #include "test/include/jsonparser/reporterparsertest.hpp"
 
+void ReporterParserTest::SetUp() {}
+
+void ReporterParserTest::TearDown() {}
+
+
 TEST_F(ReporterParserTest, ReporterContainsValidSelfUrl)
 {
     // given

@@ -19,6 +19,11 @@
 #include "jsonparser/project.hpp"
 #include "test/include/jsonparser/projectparsertest.hpp"
 
+void ProjectParserTest::SetUp() {}
+
+void ProjectParserTest::TearDown() {}
+
+
 TEST_F(ProjectParserTest, ProjectContainsValidSelfUrl)
 {
     // given

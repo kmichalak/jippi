@@ -32,6 +32,6 @@ public:
     
 };
 
-}; // end of namespace
+} // end of namespace
 
 #endif // GETISSUEACTION_H

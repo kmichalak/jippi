@@ -18,15 +18,10 @@
 #include "jsonparser/issue.hpp"
 #include "test/include/jsonparser/issueparsertest.hpp"
 
-void IssueParserTest::SetUp()
-{
+void IssueParserTest::SetUp() {}
 
-}
+void IssueParserTest::TearDown() {}
 
-void IssueParserTest::TearDown()
-{
-
-}
 
 TEST_F(IssueParserTest, ShouldContainValidIssueId) 
 {

@@ -95,6 +95,6 @@ private:
     void handleAction();
 };
 
-}; // end of namespace
+} // end of namespace
 
 #endif // COMMANDLINEARGUMENTHANDLER_H

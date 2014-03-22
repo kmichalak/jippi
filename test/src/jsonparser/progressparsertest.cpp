@@ -18,15 +18,10 @@
 #include "jsonparser/progress.hpp"
 #include "test/include/jsonparser/progressparsertest.hpp"
 
-void ProgressParserTest::SetUp()
-{
+void ProgressParserTest::SetUp() {}
 
-}
+void ProgressParserTest::TearDown() {}
 
-void ProgressParserTest::TearDown()
-{
-
-}
 
 TEST_F(ProgressParserTest, ContainsValidProgressInfo) 
 {

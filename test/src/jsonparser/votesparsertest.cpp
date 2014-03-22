@@ -17,15 +17,10 @@
 #include "jsonparser/votesparser.hpp"
 #include "test/include/jsonparser/votesparsertest.hpp"
 
-void VotesParserTest::SetUp()
-{
+void VotesParserTest::SetUp() {}
 
-}
+void VotesParserTest::TearDown() {}
 
-void VotesParserTest::TearDown()
-{
-
-}
 
 TEST_F(VotesParserTest, ShouldContainValidSelfInfo) 
 {

@@ -28,6 +28,6 @@ const std::string API_URL_SUFFIX = "/rest/api/2";
 /**  */
 const std::string SEARCH_URL_SUFFIX = API_URL_SUFFIX + "/search";
 
-}; // end of namespace
+} // end of namespace
 
 #endif

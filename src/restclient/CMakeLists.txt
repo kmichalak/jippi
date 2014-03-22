@@ -16,7 +16,7 @@ file(
 
 file(
     GLOB RESTCLIENT_SRC
-    ${restclient_SOURCE_DIR}/src/*.cpp
+    ${restclient_SOURCE_DIR}/*.cpp
 )
 
 add_library(restclient STATIC ${RESTCLIENT_HEADERS} ${RESTCLIENT_SRC})

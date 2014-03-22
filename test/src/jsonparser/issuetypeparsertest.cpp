@@ -17,15 +17,10 @@
 #include "jsonparser/issuetype.hpp"
 #include "test/include/jsonparser/issuetypeparsertest.hpp"
 
-void IssueTypeParserTest::SetUp()
-{
+void IssueTypeParserTest::SetUp() {}
 
-}
+void IssueTypeParserTest::TearDown() {}
 
-void IssueTypeParserTest::TearDown()
-{
-
-}
 
 TEST_F(IssueTypeParserTest, ShouldContainValidSelfInfo) 
 {

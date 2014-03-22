@@ -24,7 +24,7 @@ namespace jippi {
 class IssueTypeFieldParser : public FieldParser 
 {
 public:
-    virtual ~IssueTypeFieldParser() {};
+    virtual ~IssueTypeFieldParser() {}
     virtual field * parse(Json::Value &fieldJsonDocument);
 };
 

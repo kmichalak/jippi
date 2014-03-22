@@ -37,4 +37,3 @@ EmptyConfigurationValueException::~EmptyConfigurationValueException() throw()
     free(configurationValueName);
 }
 
-//----------------------------------------------------------

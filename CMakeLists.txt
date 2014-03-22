@@ -31,7 +31,7 @@ include_directories(
 
 add_subdirectory(include)
 add_subdirectory(src/jippi)
-add_subdirectory(src/json)
+add_subdirectory(src/jsonparser)
 add_subdirectory(src/restclient)
 add_subdirectory(src/stringutils)
 
