@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="jippitest" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\cmake\;CMake Files\include\;CMake Files\include\jippi\;CMake Files\include\json\;CMake Files\include\restclient\;CMake Files\include\stringutils\;CMake Files\src\;CMake Files\src\jippi\;CMake Files\src\json\;CMake Files\src\restclient\;CMake Files\src\stringutils\;CMake Files\test\;CMake Files\test\inc\;CMake Files\test\src\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/kamil/sfw/repos/git/jippi/test" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test-jippi">
+         <Option output="/home/kamil/sfw/repos/git/jippi/bin/test-jippi" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/kamil/sfw/repos/git/jippi/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/kamil/sfw/repos/git/jippi" />
+            <Add directory="/home/kamil/sfw/repos/git/jippi/include" />
+            <Add directory="/home/kamil/sfw/repos/git/jippi/test/inc" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 test-jippi" />
+            <CompileFile command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test-jippi/fast">
+         <Option output="/home/kamil/sfw/repos/git/jippi/bin/test-jippi" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/kamil/sfw/repos/git/jippi/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/kamil/sfw/repos/git/jippi" />
+            <Add directory="/home/kamil/sfw/repos/git/jippi/include" />
+            <Add directory="/home/kamil/sfw/repos/git/jippi/test/inc" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 test-jippi/fast" />
+            <CompileFile command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/gmake -f &quot;/home/kamil/sfw/repos/git/jippi/test/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/jippi/argumentshandler.cpp">
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/jippi/config.cpp">
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/jippi/getissueaction.cpp">
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/jippi/jippi.cpp">
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/jippi/jsonparser.cpp">
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/test/src/configtest.cpp">
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/test/src/jsonparsertest.cpp">
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/test/src/runtests.cpp">
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/cmake/FindLibConfig++.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/cmake/FindJsonCpp.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/cmake/FindJsonCpp.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/include/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\include\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/include/jippi/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\include\jippi\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/include/json/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\include\json\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/include/restclient/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\include\restclient\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/include/stringutils/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\include\stringutils\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/jippi/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\jippi\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/json/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\json\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/json/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\json\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/restclient/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\restclient\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/restclient/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\restclient\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/stringutils/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\stringutils\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/src/stringutils/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\src\stringutils\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/test/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\test\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/test/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\test\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/test/inc/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\test\inc\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/test/inc/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\test\inc\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/test/src/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\test\src\" />
+      </Unit>
+      <Unit filename="/home/kamil/sfw/repos/git/jippi/test/src/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\test\src\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
