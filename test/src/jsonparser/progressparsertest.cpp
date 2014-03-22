@@ -15,8 +15,8 @@
  * 
  */
 #include <jsoncpp/json/reader.h>
-#include "json/progress.hpp"
-#include "test/include/json/progressparsertest.hpp"
+#include "jsonparser/progress.hpp"
+#include "test/include/jsonparser/progressparsertest.hpp"
 
 void ProgressParserTest::SetUp()
 {

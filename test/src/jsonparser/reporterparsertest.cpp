@@ -15,8 +15,8 @@
  * 
  */
 #include <jsoncpp/json/reader.h>
-#include "json/reporter.hpp"
-#include "test/include/json/reporterparsertest.hpp"
+#include "jsonparser/reporter.hpp"
+#include "test/include/jsonparser/reporterparsertest.hpp"
 
 TEST_F(ReporterParserTest, ReporterContainsValidSelfUrl)
 {

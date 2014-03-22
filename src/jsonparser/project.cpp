@@ -14,32 +14,27 @@
  * limitations under the License.
  * 
  */
-#include "jippi/jippi.hpp"
-#include "json/exception.hpp"
-#include "json/assignee.hpp"
 
+#include "jsonparser/project.hpp"
 
 using namespace jippi;
 
-field * AssigneeFieldParser::parse(Json::Value& fieldJsonDocument)
+field * ProjectFieldParser::parse(Json::Value& fieldJsonDocument)
 {
-    assignee *assigneeInfo = new assignee;
+    project *projectInfo = new project;
     
-    assigneeInfo->id = fieldJsonDocument["id"].asString();
-    assigneeInfo->self = fieldJsonDocument["self"].asString();
-    assigneeInfo->name = fieldJsonDocument["name"].asString();
-    assigneeInfo->displayName = fieldJsonDocument["displayName"].asString();
-    assigneeInfo->emailAddress = fieldJsonDocument["emailAddress"].asString();
-    assigneeInfo->description = fieldJsonDocument["description"].asString();
-    assigneeInfo->active = fieldJsonDocument["active"].asBool();
-    
+    projectInfo->id = fieldJsonDocument["id"].asString();
+    projectInfo->self = fieldJsonDocument["self"].asString();
+    projectInfo->name = fieldJsonDocument["name"].asString();
+    projectInfo->key = fieldJsonDocument["key"].asString();
+        
     Json::Value avatarUrlJsonDocument = fieldJsonDocument["avatarUrls"];
-     assigneeInfo->avatarUrls = fetchAvatarUrlsInfo(avatarUrlJsonDocument);
+     projectInfo->avatarUrls = fetchAvatarUrlsInfo(avatarUrlJsonDocument);
     
-    return assigneeInfo;
+    return projectInfo;
 }
 
-avatar_urls AssigneeFieldParser::fetchAvatarUrlsInfo(Json::Value& avatarUrlJsonDocument)
+avatar_urls ProjectFieldParser::fetchAvatarUrlsInfo(Json::Value& avatarUrlJsonDocument)
 {
     avatar_urls avatarUrls;
     avatarUrls.size16x16 = avatarUrlJsonDocument["16x16"].asString();

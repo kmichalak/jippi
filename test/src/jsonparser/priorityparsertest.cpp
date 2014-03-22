@@ -15,8 +15,8 @@
  */
 #include <gtest/gtest.h>
 #include <jsoncpp/json/reader.h>
-#include "json/priorityparser.hpp"
-#include "test/include/json/priorityparsertest.hpp"
+#include "jsonparser/priorityparser.hpp"
+#include "test/include/jsonparser/priorityparsertest.hpp"
 
 void PriorityParserTest::SetUp()
 {

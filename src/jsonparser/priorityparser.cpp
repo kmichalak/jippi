@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include "json/priorityparser.hpp"
+#include "jsonparser/priorityparser.hpp"
 
 using namespace jippi;
 

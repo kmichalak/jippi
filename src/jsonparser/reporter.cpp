@@ -15,7 +15,7 @@
  * 
  */
 
-#include "json/reporter.hpp"
+#include "jsonparser/reporter.hpp"
 
 using namespace jippi;
 

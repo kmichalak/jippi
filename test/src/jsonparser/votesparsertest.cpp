@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 #include <jsoncpp/json/reader.h>
-#include "json/votesparser.hpp"
-#include "test/include/json/votesparsertest.hpp"
+#include "jsonparser/votesparser.hpp"
+#include "test/include/jsonparser/votesparsertest.hpp"
 
 void VotesParserTest::SetUp()
 {

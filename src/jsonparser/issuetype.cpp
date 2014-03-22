@@ -16,7 +16,7 @@
  */
 
 #include "jippi/jippi.hpp"
-#include "json/issuetype.hpp"
+#include "jsonparser/issuetype.hpp"
 
 using namespace jippi;
 

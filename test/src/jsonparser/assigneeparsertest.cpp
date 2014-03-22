@@ -15,8 +15,8 @@
  * 
  */
 #include <jsoncpp/json/reader.h>
-#include "json/assignee.hpp"
-#include "test/include/json/assigneeparsertest.hpp"
+#include "jsonparser/assignee.hpp"
+#include "test/include/jsonparser/assigneeparsertest.hpp"
 
 TEST_F(AssigneeParserTest, AssgneeContainsValidSelfUrl)
 {

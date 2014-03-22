@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 #include <jsoncpp/json/reader.h>
-#include "json/issuetype.hpp"
-#include "test/include/json/issuetypeparsertest.hpp"
+#include "jsonparser/issuetype.hpp"
+#include "test/include/jsonparser/issuetypeparsertest.hpp"
 
 void IssueTypeParserTest::SetUp()
 {

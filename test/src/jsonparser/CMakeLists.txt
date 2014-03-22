@@ -1,15 +1,18 @@
 project(testjson)
 
-set (TESTS_EXECUTABLE test-json)
-set (TEST_SOURCE_DIR ${testjson_SOURCE_DIR})
 set (LIB_UNDER_TEST_SOURCE_DIR ${JSON_SRC})
 set (LIB_UNDER_TEST ${JSON_PARSER_LIBRARY})
+
+set (TESTS_EXECUTABLE test-json)
+set (TEST_SOURCE_DIR ${testjson_SOURCE_DIR})
+set (TEST_HEADERS_DIR ${JIPPI_TEST_MAIN_HEADERS_DIR}/${LIB_UNDER_TEST})
+
 
 include_directories(${TEST_SOURCE_DIR})
 
 file (
     GLOB TEST_HEADERS
-    ${TEST_SOURCE_DIR}/*.hpp
+    ${TEST_HEADERS_DIR}/*.hpp
 )
 
 file (

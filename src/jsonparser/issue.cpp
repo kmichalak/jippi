@@ -16,14 +16,14 @@
  */
 #include <iostream>
 
-#include "json/exception.hpp"
-#include "json/assignee.hpp"
-#include "json/issuetype.hpp"
-#include "json/progress.hpp"
-#include "json/project.hpp"
-#include "json/reporter.hpp"
-#include "json/exception.hpp"
-#include "json/issue.hpp"
+#include "jsonparser/exception.hpp"
+#include "jsonparser/assignee.hpp"
+#include "jsonparser/issuetype.hpp"
+#include "jsonparser/progress.hpp"
+#include "jsonparser/project.hpp"
+#include "jsonparser/reporter.hpp"
+#include "jsonparser/exception.hpp"
+#include "jsonparser/issue.hpp"
 
 using namespace jippi;
 

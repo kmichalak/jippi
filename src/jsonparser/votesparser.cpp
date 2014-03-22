@@ -15,17 +15,15 @@
  * 
  */
 
-#include "json/progress.hpp"
+#include "jsonparser/votesparser.hpp"
 
 using namespace jippi;
 
-field * ProgressFieldParser::parse(Json::Value& fieldJsonDocument)
+field * VotesParser::parse(Json::Value &fieldJsonDocument)
 {
-    progress *progressInfo = new progress;
-    
-    progressInfo->total = fieldJsonDocument["total"].asInt();
-    progressInfo->percent = fieldJsonDocument["percent"].asInt();
-    progressInfo->progress = fieldJsonDocument["progress"].asInt();
-    
-    return progressInfo;
+    votes *votesInfo = new votes;
+    votesInfo->self = fieldJsonDocument["self"].asString();
+    votesInfo->votes = fieldJsonDocument["votes"].asInt();
+    votesInfo->hasVoted = fieldJsonDocument["hasVoted"].asBool();
+    return votesInfo;
 }

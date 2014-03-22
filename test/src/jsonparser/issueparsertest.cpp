@@ -15,8 +15,8 @@
  * 
  */
 #include <jsoncpp/json/reader.h>
-#include "json/issue.hpp"
-#include "test/include/json/issueparsertest.hpp"
+#include "jsonparser/issue.hpp"
+#include "test/include/jsonparser/issueparsertest.hpp"
 
 void IssueParserTest::SetUp()
 {
