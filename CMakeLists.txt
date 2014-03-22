@@ -38,12 +38,13 @@ add_subdirectory(src/stringutils)
 file(GLOB JIPPI_HEADERS ${JIPPI_MAIN_HEADERS_DIR}/jippi/*.hpp)
 file(GLOB JIPPI_SRC ${JIPPI_MAIN_SRC_DIR}/jippi/*.cpp)
 
-add_executable(jippi ${JIPPI_SRC})
+add_executable(jippi ${JIPPI_HEADERS} ${JIPPI_SRC})
 
 # 
 # Link the libraries to the executable
 #
 target_link_libraries(jippi ${LIBCONFIG++_LIBRARY} jsonparser restclient)
+
 
 install(TARGETS jippi RUNTIME DESTINATION bin)
 

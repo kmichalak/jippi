@@ -17,7 +17,7 @@ file (
     ${TEST_SOURCE_DIR}/*.cpp
 )
 
-add_executable( ${TESTS_EXECUTABLE} ${TEST_SRC} ${LIB_UNDER_TEST_SOURCE_DIR})
+add_executable( ${TESTS_EXECUTABLE} ${TEST_HEADERS} ${TEST_SRC} ${LIB_UNDER_TEST_SOURCE_DIR})
 target_link_libraries(
     ${TESTS_EXECUTABLE}
     ${GTEST_LIBRARY}
