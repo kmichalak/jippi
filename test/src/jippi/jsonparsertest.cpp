@@ -18,6 +18,11 @@
 #include "jippi/jsonparser.hpp"
 #include "test/include/jsonparsertest.hpp"
 
+void JsonParserTest::SetUp() {}
+
+void JsonParserTest::TearDown() {}
+
+
 TEST_F(JsonParserTest, ShouldReturnValidIssuesCollection) 
 {
     // given

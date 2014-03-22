@@ -25,7 +25,7 @@ namespace jippi {
 class VotesParser : FieldParser
 {
 public:
-    virtual ~VotesParser() {};
+    virtual ~VotesParser() {}
     virtual field * parse(Json::Value &fieldJsonDocument);
 };
 

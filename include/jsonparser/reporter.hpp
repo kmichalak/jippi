@@ -24,7 +24,7 @@ namespace jippi {
 class ReporterFieldParser : public FieldParser 
 {
 public:
-    virtual ~ReporterFieldParser() {};
+    virtual ~ReporterFieldParser() {}
     virtual field * parse(Json::Value &fieldJsonDocument);
     virtual avatar_urls fetchAvatarUrlsInfo(Json::Value &avatarUrlJsonDocument);
 };

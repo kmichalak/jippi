@@ -18,15 +18,9 @@
 #include "jsonparser/priorityparser.hpp"
 #include "test/include/jsonparser/priorityparsertest.hpp"
 
-void PriorityParserTest::SetUp()
-{
+void PriorityParserTest::SetUp() {}
 
-}
-
-void PriorityParserTest::TearDown()
-{
-
-}
+void PriorityParserTest::TearDown() {}
 
 
 TEST_F(PriorityParserTest, ShouldContainValidSelfUrl)

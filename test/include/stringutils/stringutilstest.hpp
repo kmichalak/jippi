@@ -21,6 +21,6 @@ class StringUtilsTest : public testing::Test
 {
     
 protected:    
-    virtual void SetUp() {}
-    virtual void TearDown() {}
+    virtual void SetUp();
+    virtual void TearDown();
 };

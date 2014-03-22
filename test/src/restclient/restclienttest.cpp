@@ -29,6 +29,9 @@ void RestClientTest::SetUp()
     client = new jippi::RestClient;
 }
 
+void RestClientTest::TearDown() {}
+
+
 //---------------------------------------------
 // GET
 //---------------------------------------------

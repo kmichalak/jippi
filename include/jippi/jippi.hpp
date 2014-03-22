@@ -30,9 +30,9 @@ namespace jippi {
     
 typedef struct {
     std::string id;            /* field ID */ 
-    std::string self;        /* field definition URL */
-    std::string description;    /* field description */ 
-    std::string name;        /* field custom name */ 
+    std::string self;          /* field definition URL */
+    std::string description;   /* field description */
+    std::string name;          /* field custom name */
 } field;        
 
 
@@ -48,42 +48,42 @@ typedef struct {
 
 
 typedef struct : field {
-    std::string emailAddress;    /* e-mail addrress of the issue reporter*/
-    std::string displayName;    /* name of the reporter to display */ 
-    bool active;            /* reporter account is active */ 
-    avatar_urls avatarUrls;        /* reporter avatars */
+    std::string emailAddress;   /* e-mail addrress of the issue reporter*/
+    std::string displayName;    /* name of the reporter to display */
+    bool active;                /* reporter account is active */
+    avatar_urls avatarUrls;     /* reporter avatars */
 } reporter;
 
 
 typedef struct : field {
-    std::string emailAddress;    /* e-mail address of the assignee */
+    std::string emailAddress;   /* e-mail address of the assignee */
     std::string displayName;    /* assignee display name */
-    bool active;            /* account active */ 
-    avatar_urls avatarUrls;        /* assignee avatars */
+    bool active;                /* account active */
+    avatar_urls avatarUrls;     /* assignee avatars */
 } assignee;
 
 
 typedef struct : field {
-    std::string key;
-    avatar_urls avatarUrls;
+    std::string key;            /* project key */
+    avatar_urls avatarUrls;     /* project avatar URLs*/
 } project;
 
 
 typedef struct : field {
-    std::string iconUrl;
+    std::string iconUrl;        /* status icon URL */
 } status;
 
 
 typedef struct : field {
-    long progress;            /* isse reported progress */
-    long total;            /* total planned progress for issue */
-    long percent;            /* issue reported progress percentage */
+    long progress;          /* isse reported progress */
+    long total;             /* total planned progress for issue */
+    long percent;           /* issue reported progress percentage */
 } progress;
 
 
 typedef struct : field {
-    std::string iconUrl;        /* issue type icon URL */
-    bool subtask;            /* issue is a subtask */
+    std::string iconUrl;    /* issue type icon URL */
+    bool subtask;           /* issue is a subtask */
 } issue_type;
 
 
@@ -99,10 +99,10 @@ typedef struct : field {
 
 
 typedef struct {
-    std::string id;            /* issue ID */ 
-    std::string self;        /* issue definition URL */ 
-    std::string key;        /* issue key */     
-    fields fieldsCollection;    /* collection of fieds assigned to the issue */ 
+    std::string id;             /* issue ID */
+    std::string self;           /* issue definition URL */
+    std::string key;            /* issue key */
+    fields fieldsCollection;    /* collection of fieds assigned to the issue */
 } issue;
 
 
@@ -125,6 +125,6 @@ private:
     char *configurationValueName;
 };
 
-}; // end of namespace
+} // end of namespace
 
 #endif // GETISSUEACTION_H

@@ -23,8 +23,8 @@
 class AssigneeParserTest : public testing::Test
 {
 protected:
-    virtual void SetUp() {};
-    virtual void TearDown() {};
+    virtual void SetUp();
+    virtual void TearDown();
     
     const std::string ASSIGNEE_JSON = 
         "{\"self\":\"http://test.jira.org/rest/api/2/user?username"

@@ -18,6 +18,11 @@
 #include "jsonparser/assignee.hpp"
 #include "test/include/jsonparser/assigneeparsertest.hpp"
 
+void AssigneeParserTest::SetUp() {}
+
+void AssigneeParserTest::TearDown() {}
+
+
 TEST_F(AssigneeParserTest, AssgneeContainsValidSelfUrl)
 {
     // given

@@ -1,3 +1,5 @@
+# -*- cmake -*-
+
 # Find libconfig++
 
 find_path(LIBCONFIG++_INCLUDE_DIR libconfig.h++)

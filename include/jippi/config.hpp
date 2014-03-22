@@ -34,7 +34,7 @@ const std::string JIRA_USER = "user";
 const std::string JIRA_PASSWORD = "password";
 
 const std::map<std::string, std::string> DEFAULT_JIRA_CONFIGURATION = {
-    {"url",         ""},
+    {"url",          ""},
     {"user",         ""},
     {"password",     ""}
 };

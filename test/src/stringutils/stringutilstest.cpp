@@ -25,6 +25,11 @@
 // Trim
 //------------------------------------------------------------------------------
 
+void StringUtilsTest::SetUp() {}
+
+void StringUtilsTest::TearDown() {}
+
+
 TEST(StringUtilsTest, TrimCutsLeadingSpaces)
 {
     // given 

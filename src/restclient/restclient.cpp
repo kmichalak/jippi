@@ -58,7 +58,7 @@ rest_response RestClient::doHttpGet(const std::string& url)
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::writeCallbackWrapper);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
-        curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);    // have to add some header callback
+        curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);
         curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);    
 
         performRequest(curl);
@@ -100,7 +100,7 @@ rest_response RestClient::doHttpPut(const std::string& url, const std::string& c
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, RestClient::writeCallbackWrapper);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
         // header callback 
-        curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);    // have to add some header callback
+        curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, RestClient::headerCallbackWrapper);
         curl_easy_setopt(curl, CURLOPT_HEADERDATA, this);    
         
         curl_easy_setopt(curl, CURLOPT_INFILESIZE, static_cast<long>(this->getUploadData()->length));
