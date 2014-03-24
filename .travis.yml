@@ -8,7 +8,9 @@ before_install:
  - sudo apt-get -qq install libgtest-dev libjsoncpp-dev
  - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
  - "wget http://www.hyperrealm.com/libconfig/libconfig-1.4.9.tar.gz"
- - "tar -zxvf ./libconfig-1.4.9.tar.gz && cd libconfig-1.4.9 && ./configure && make && sudo make install"
+ - "tar -zxvf ./libconfig-1.4.9.tar.gz && cd libconfig-1.4.9"
+ - "./configure && make && sudo make install"
+ - "cd .. && rm -rf libconfig-1.4.9"
 
 before_script:
  - cmake . -Dbuild_tests=BOOL:ON
