@@ -5,8 +5,10 @@ before_install:
  - sudo apt-get update -qq
  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
- - sudo apt-get -qq install libconfig++-dev libgtest-dev libjsoncpp-dev-0.5.0
+ - sudo apt-get -qq install libgtest-dev libjsoncpp-dev
  - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
+ - "wget http://www.hyperrealm.com/libconfig/libconfig-1.4.9.tar.gz"
+ - "tar -zxvf ./libconfig-1.4.9.tar.gz && cd libconfig-1.4.9 && ./configure && make && sudo make install"
 
 before_script:
  - cmake . -Dbuild_tests=BOOL:ON
