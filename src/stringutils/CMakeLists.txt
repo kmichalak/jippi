@@ -1,5 +1,6 @@
 set (STRINGUTILS_LIBRARY "stringutils" CACHE STRING "String Utils Library")
 
+find_package(GTest REQUIRED)
 project(${STRINGUTILS_LIBRARY})
 
 file(GLOB STRINGUTILS_HEADERS ${JIPPI_MAIN_HEADERS_DIR}/stringutils/*.hpp)

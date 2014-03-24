@@ -7,6 +7,8 @@ set (TESTS_EXECUTABLE test-restclient)
 set (TEST_SOURCE_DIR ${testrestclient_SOURCE_DIR})
 set (TEST_HEADERS_DIR ${JIPPI_TEST_MAIN_HEADERS_DIR}/${LIB_UNDER_TEST})
 
+find_package(GTest REQUIRED)
+
 include_directories(${TEST_SOURCE_DIR})
 
 file (
