@@ -27,6 +27,7 @@ jippi.config
 
 # Temporary files
 *swp
+*~
 
 # Develop files 
 *.kdev*
