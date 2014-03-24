@@ -7,6 +7,7 @@ set (TESTS_EXECUTABLE test-json)
 set (TEST_SOURCE_DIR ${testjson_SOURCE_DIR})
 set (TEST_HEADERS_DIR ${JIPPI_TEST_MAIN_HEADERS_DIR}/${LIB_UNDER_TEST})
 
+find_package(GTest REQUIRED)
 
 include_directories(${TEST_SOURCE_DIR})
 
@@ -24,6 +25,4 @@ add_executable( ${TESTS_EXECUTABLE} ${TEST_HEADERS} ${TEST_SRC} ${LIB_UNDER_TEST
 target_link_libraries(
     ${TESTS_EXECUTABLE}
     ${GTEST_LIBRARY}
-    ${JsonCpp_LIBRARY}
-    ${LIB_UNDER_TEST}
 )

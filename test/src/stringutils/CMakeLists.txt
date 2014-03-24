@@ -7,6 +7,7 @@ set (TESTS_EXECUTABLE test-stringutils)
 set (TEST_SOURCE_DIR ${teststringutils_SOURCE_DIR})
 set (TEST_HEADERS_DIR ${JIPPI_TEST_MAIN_HEADERS_DIR}/${LIB_UNDER_TEST})
 
+find_package(GTest REQUIRED)
 
 include_directories(${TEST_SOURCE_DIR})
 
