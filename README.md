@@ -1,4 +1,4 @@
-jippi
+jippi [![Build Status](https://travis-ci.org/kmichalak/jippi.svg?branch=master)](https://travis-ci.org/kmichalak/jippi)
 =====
 
 Jira command line client written in C++
