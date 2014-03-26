@@ -26,4 +26,5 @@ target_link_libraries(
     ${TESTS_EXECUTABLE}
     ${GTEST_LIBRARY}
     ${LIB_UNDER_TEST}
+    pthread
 )
