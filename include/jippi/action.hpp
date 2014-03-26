@@ -47,7 +47,7 @@ public:
     virtual ~Action() {
         delete restClient;
         delete configuration;
-    };
+    }
     
     //-----------------------------------------------------------
     // JSON fields
@@ -105,7 +105,7 @@ public:
         this->isInDebugMode = isInDebugMode;
     }
     
-    virtual void perform() {};
+    virtual void perform() {}
     
 protected:
     Config *configuration;
