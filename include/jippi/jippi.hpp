@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 #include <exception>
+#include <unordered_map>
 
 namespace jippi {
     
@@ -37,6 +38,8 @@ typedef struct {
 
 
 typedef std::vector<field> fields;
+
+typedef std::unordered_map<std::string, field*> fieldsContainer;
 
 
 typedef struct {
@@ -98,11 +101,17 @@ typedef struct : field {
 } priority;
 
 
+typedef struct : field {
+    std::string summary;
+} summary;
+
+
 typedef struct {
     std::string id;             /* issue ID */
     std::string self;           /* issue definition URL */
     std::string key;            /* issue key */
     fields fieldsCollection;    /* collection of fieds assigned to the issue */
+    fieldsContainer allFields;
 } issue;
 
 

@@ -21,6 +21,7 @@
 
 #include "jippi/jira.hpp"
 #include "jippi/jippi.hpp"
+#include "jippi/jsonparser.hpp"
 
 using namespace jippi;
 
@@ -60,26 +61,20 @@ void GetIssueAction::perform()
     
     restClient->setAuthorizationData(jiraUser, jiraPassword);
     rest_response response = restClient->doHttpPost(jiraUrl, "application/json", jsonPayload);
-    std::cout << response.code << " : " << response.body << std::endl;
     
-    Json::Value root;
-    Json::Reader jsonReader;
-    
-    bool parsedSuccess = jsonReader.parse(response.body, root, false);
-    
-    if (! parsedSuccess) {
-        std::cout << "Error reading JSON structure: " + jsonReader.getFormatedErrorMessages() << std::endl;
-    }
-    
-    Json::Value::Members memberNames = root.getMemberNames();
-    Json::Value::Members::iterator jsonIterator;
-    for (jsonIterator = memberNames.begin(); jsonIterator != memberNames.end(); jsonIterator++) {
-        std::cout << *jsonIterator << "    ";
-    }
-    std::cout << std::endl;
+    JsonParser *jsonParser = new JsonParser;
+    issues parsedIssues = jsonParser->parseIssues(response.body);
+
+    printAllIssues(parsedIssues);
 }
 
+void GetIssueAction::printAllIssues(issues &issuesToPrint)
+{
+    for (issues::iterator it = issuesToPrint.begin(); it != issuesToPrint.end(); it++) {
+        issue currentIssue = *it;
+        summary * summaryField = static_cast<summary *>(currentIssue.allFields["summary"]);
+        std::cout << currentIssue.key << " - " << summaryField->summary << std::endl;
+    }
 
 
-    
-
+}

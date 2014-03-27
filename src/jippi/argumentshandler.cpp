@@ -48,6 +48,7 @@ void ArgumentsHandler::handle()
                 case 0:
                     std::cout << long_options[option_index].name << std::endl;
                 case 'c':
+                    std::cout << "Optarg: " << optarg << std::endl;
                     handleConfiguration();
                     break;
                 case 'A':
@@ -78,16 +79,20 @@ void ArgumentsHandler::handle()
                     printHelp();
                     break;
             }
-        } 
+        }
     } else { 
         printHelp(); 
     }
+
     try {
-        action->perform();
+        if (action) {
+            action->perform();
+        }
     } catch (jippi::EmptyConfigurationValueException& someException) {
         std::cout << "Cannot find value in configuration: " << someException.what() << std::endl;
     }
     delete action;
+
 }
 
 void ArgumentsHandler::handleConfiguration()

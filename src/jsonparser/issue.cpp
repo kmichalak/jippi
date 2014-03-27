@@ -22,6 +22,7 @@
 #include "jsonparser/progress.hpp"
 #include "jsonparser/project.hpp"
 #include "jsonparser/reporter.hpp"
+#include "jsonparser/summaryparser.hpp"
 #include "jsonparser/exception.hpp"
 #include "jsonparser/issue.hpp"
 
@@ -46,15 +47,14 @@ issue IssueParser::parse(Json::Value& issueJsonDocument)
     
     for (fieldsIterator = fields.begin(); fieldsIterator != fields.end(); fieldsIterator++) {
         std::string key = *fieldsIterator;
-         std::unordered_map<std::string, FieldParser*>::const_iterator found = fieldsParserRegistry.find(key);
+        std::unordered_map<std::string, FieldParser*>::const_iterator found = fieldsParserRegistry.find(key);
         bool foundItem = found != fieldsParserRegistry.end();
         if (foundItem) {
             FieldParser * fieldParser = static_cast<FieldParser *>(fieldsParserRegistry[*fieldsIterator]);
             field * issueField = fieldParser->parse(fieldsJsonDocument[*fieldsIterator]);
             issueInfo.fieldsCollection.push_back(*issueField);
-        } else {
-            std::cerr << "Cannot find parser for field " << key << std::endl;
-        }        
+            issueInfo.allFields[key] = issueField;
+        }
     }
     
     return issueInfo;
@@ -67,5 +67,6 @@ void IssueParser::initialize()
     fieldsParserRegistry["assignee"] = new AssigneeFieldParser();
     fieldsParserRegistry["project"] = new ProjectFieldParser();
     fieldsParserRegistry["progress"] = new ProgressFieldParser();
+    fieldsParserRegistry["summary"] = new SummaryFieldParser();
     initialized = true;
 }
