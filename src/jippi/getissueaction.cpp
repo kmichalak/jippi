@@ -41,15 +41,15 @@ void GetIssueAction::perform()
     const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
     
     if (StringUtils::isEmpty(jiraUrl)) {
-        throw new EmptyConfigurationValueException(jiraUrl.c_str());
+        throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_URL);
     }
     
     if (StringUtils::isEmpty(jiraUser)) {
-        throw new EmptyConfigurationValueException(jiraUrl.c_str());
+        throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_USER);
     }
     
     if (StringUtils::isEmpty(jiraPassword)) {
-        throw new EmptyConfigurationValueException(jiraUrl.c_str());
+        throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_PASSWORD);
     }
     
     std::string jsonPayload = getJSONPayload();

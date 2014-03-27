@@ -17,6 +17,7 @@
 
 #include <cstdlib>        // free support
 #include <string.h>
+#include <sstream>
 
 #include "jippi/jippi.hpp"
 
@@ -24,16 +25,25 @@ using namespace jippi;
 
 EmptyConfigurationValueException::EmptyConfigurationValueException()
 {
-
+    configurationGroupName = "";
+    configurationValueName = "";
 }
 
-EmptyConfigurationValueException::EmptyConfigurationValueException(const char* name)
+EmptyConfigurationValueException::EmptyConfigurationValueException(std::string configGroup, std::string configProperty)
 {
-    configurationValueName = strdup(name);
+    configurationGroupName = configGroup;
+    configurationValueName = configProperty;
+
 }
 
 EmptyConfigurationValueException::~EmptyConfigurationValueException() throw()
 {
-    free(configurationValueName);
+
 }
 
+std::string EmptyConfigurationValueException::what()
+{
+    std::ostringstream messageStream;
+    messageStream << this->configurationGroupName << "." << this->configurationValueName;
+    return messageStream.str();
+}

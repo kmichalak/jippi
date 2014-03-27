@@ -30,7 +30,7 @@ namespace jippi {
 #ifndef ARG_HANDLER_CONSTS
 #define ARG_HANDLER_CONSTS
     
-#define GROUP_SECTION     0    /* Section in pair where grop name is stored */
+#define GROUP_SECTION   0    /* Section in pair where grop name is stored */
 #define KEY_SECTION     1    /* Second in pair where key name is stored */
     
 #endif
@@ -91,7 +91,7 @@ private:
     Action *action;
     
     // methods
-     void handleConfiguration();
+    void handleConfiguration();
     void handleAction();
 };
 

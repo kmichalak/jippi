@@ -18,6 +18,7 @@
 #include <iostream>
 #include <vector>
 
+#include "jippi/jippi.hpp"
 #include "jippi/argumentshandler.hpp"
 #include "jippi/help.hpp"
 #include "jippi/config.hpp"
@@ -46,7 +47,7 @@ void ArgumentsHandler::handle()
             {
                 case 0:
                     std::cout << long_options[option_index].name << std::endl;
-                case 'c': 
+                case 'c':
                     handleConfiguration();
                     break;
                 case 'A':
@@ -67,7 +68,7 @@ void ArgumentsHandler::handle()
                 case 't':
                     action->withIssueTypeName(optarg);
                     break;
-                case 'h': 
+                case 'h':
                     printHelp();
                     break;
                 case 'd':
@@ -81,10 +82,12 @@ void ArgumentsHandler::handle()
     } else { 
         printHelp(); 
     }
-    if (action) {
+    try {
         action->perform();
-        delete action;
+    } catch (jippi::EmptyConfigurationValueException& someException) {
+        std::cout << "Cannot find value in configuration: " << someException.what() << std::endl;
     }
+    delete action;
 }
 
 void ArgumentsHandler::handleConfiguration()

@@ -43,7 +43,7 @@ public:
         configuration->readConfigurationFromFile();
         restClient = new RestClient();
     }
-    
+
     virtual ~Action() {
         delete restClient;
         delete configuration;

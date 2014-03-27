@@ -27,4 +27,5 @@ int main(int argc, char **argv)
     cmdArgHandler->handle();
     delete cmdArgHandler;
     return 0;
+
 }

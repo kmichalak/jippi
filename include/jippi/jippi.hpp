@@ -118,11 +118,13 @@ class EmptyConfigurationValueException : public ConfigurationException
 {
 public:
     EmptyConfigurationValueException();
-    EmptyConfigurationValueException(const char *name);
+    EmptyConfigurationValueException(std::string configGroup, std::string configProperty);
     virtual ~EmptyConfigurationValueException() throw();
+    virtual std::string what();
     
 private:
-    char *configurationValueName;
+    std::string configurationGroupName;
+    std::string configurationValueName;
 };
 
 } // end of namespace
