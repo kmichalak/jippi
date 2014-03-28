@@ -37,6 +37,7 @@ jippi.config
 
 # Temporary files
 *swp
+*.autosave
 
 # CMake files
 CMakeFiles
