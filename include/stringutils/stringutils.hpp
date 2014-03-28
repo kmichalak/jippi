@@ -32,7 +32,7 @@ public:
     static std::vector<std::string> split(const std::string &s, char delimiter);
     static std::string join(const std::vector<std::string> &vec, char delimiter);
 
-    static std::string cutToTheLength(const std::string &stringToCut, size_t outputSize);
+    static std::string truncateToLength(const std::string &stringToCut, size_t outputSize);
 private: 
     static std::string rightTrim(const std::string & str);
     static std::string leftTrim(const std::string & str);

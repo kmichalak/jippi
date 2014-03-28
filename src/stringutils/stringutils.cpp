@@ -68,7 +68,7 @@ std::vector<std::string> &StringUtils::split(const std::string &s, char delim, s
 }
 
 
-std::string StringUtils::cutToTheLength(const std::string &stringToCut, size_t outputSize)
+std::string StringUtils::truncateToLength(const std::string &stringToCut, size_t outputSize)
 {
     std::ostringstream outputStream;
     if (stringToCut.length() > outputSize) {
