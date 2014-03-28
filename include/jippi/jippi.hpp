@@ -37,9 +37,7 @@ typedef struct {
 } field;
 
 
-typedef std::vector<field> fields;
-
-typedef std::unordered_map<std::string, field*> fieldsContainer;
+typedef std::unordered_map<std::string, field*> named_fields;
 
 
 typedef struct {
@@ -119,8 +117,7 @@ typedef struct {
     std::string id;             /* issue ID */
     std::string self;           /* issue definition URL */
     std::string key;            /* issue key */
-    fields fieldsCollection;    /* collection of fieds assigned to the issue */
-    fieldsContainer allFields;
+    named_fields fields;        /* collection of fields assigned to the issue */
 } issue;
 
 

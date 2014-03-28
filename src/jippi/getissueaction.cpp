@@ -23,12 +23,14 @@
 
 using namespace jippi;
 
-GetIssueAction::GetIssueAction() {
+GetIssueAction::GetIssueAction()
+{
 
 }
 
-GetIssueAction::~GetIssueAction() {
-
+GetIssueAction::~GetIssueAction()
+{
+    
 }
 
 void GetIssueAction::perform() {
@@ -69,9 +71,9 @@ void GetIssueAction::perform() {
 
 void GetIssueAction::printAllIssues(issues &issuesToPrint) {
     for (issue jiraIssue : issuesToPrint) {
-        summary *summaryField = static_cast<summary *>(jiraIssue.allFields["summary"]);
-        issue_type *issueType = static_cast<issue_type *>(jiraIssue.allFields["issuetype"]);
-        components *componentsInfo = static_cast<components *>(jiraIssue.allFields["components"]);
+        summary *summaryField = static_cast<summary *>(jiraIssue.fields["summary"]);
+        issue_type *issueType = static_cast<issue_type *>(jiraIssue.fields["issuetype"]);
+        components *componentsInfo = static_cast<components *>(jiraIssue.fields["components"]);
 
         std::vector<std::string> componentsNames;
         for (auto component : componentsInfo->components) {

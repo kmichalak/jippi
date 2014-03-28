@@ -85,7 +85,7 @@ TEST_F(JsonParserTest, IssueContainsFields)
     jippi::issue issueInfo = *issuesCollection.begin();
     
     // then
-    EXPECT_EQ(2, issueInfo.fieldsCollection.size());
+    EXPECT_EQ(2, issueInfo.fields.size());
     
     // cleanup
     delete jsonParser;

@@ -98,7 +98,7 @@ TEST_F(IssueParserTest, ShouldContainAllKnownIssueFields)
     
     // then
     
-    EXPECT_EQ(2, issueInfo.fieldsCollection.size());
+    EXPECT_EQ(2, issueInfo.fields.size());
     
     delete jsonParser;
 }
