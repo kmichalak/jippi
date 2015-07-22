@@ -22,8 +22,11 @@ jippi.config
 *.cbp
 *.user
 
-# Eclipse filed
+# Eclipse files
 .cproject
+
+# Idea files
+.idea
 
 # Temporary files
 *swp
