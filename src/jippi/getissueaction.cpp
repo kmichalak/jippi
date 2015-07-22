@@ -75,6 +75,4 @@ void GetIssueAction::printAllIssues(issues &issuesToPrint)
         summary * summaryField = static_cast<summary *>(currentIssue.allFields["summary"]);
         std::cout << currentIssue.key << " - " << summaryField->summary << std::endl;
     }
-
-
 }

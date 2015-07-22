@@ -15,10 +15,6 @@
  * 
  */
 
-#include <iostream>
-#include <getopt.h>
-#include <vector>
-
 #include "jippi/argumentshandler.hpp"
 
 int main(int argc, char **argv)

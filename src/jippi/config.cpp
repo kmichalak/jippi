@@ -18,7 +18,7 @@
 #include "jippi/config.hpp"
 
 #include <libconfig.h++>    // support for configuration files 
-#include <unistd.h>            // stat
+#include <unistd.h>         // stat
 #include <algorithm>        // for_each
 
 using namespace jippi;

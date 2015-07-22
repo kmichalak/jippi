@@ -48,3 +48,16 @@ to the cmake command:
     make 
     
 
+5. How to use:
+--------------
+
+Initial configuration steps:
+
+When JIPPI is installed you need to configure connection to your Jira server. 
+Use following commands to do it:
+
+    jippi -c jira.url "http://myjira.server.com"
+    jippi -c jira.user "my.user.name"
+    jippi -c jira.password "my.jira.password"
+    
+    
