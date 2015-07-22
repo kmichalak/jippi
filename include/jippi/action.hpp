@@ -21,6 +21,10 @@
 #include <string>
 #include <assert.h>
 #include <jsoncpp/json/json.h>
+#include <bits/stl_set.h>
+#include <algorithm>        // for_each
+#include <iostream>
+#include <bits/stream_iterator.h>
 
 #include "stringutils/stringutils.hpp"
 #include "jippi/config.hpp"
@@ -95,9 +99,22 @@ public:
     inline void withIssueTypeName(std::string issueType) 
     {
         assertValidStringParam(issueType, "Issue type name cannot be an empty string!");
-        appendToQuery("issueType = " + issueType);
+        // We have to escape issue type because some users set those values to something like "User Story",
+        // "Story bug" or something similar...
+        appendToQuery("issueType = " + escapeStringValue(issueType));
     }
-    
+
+    inline std::string escapeStringValue(std::string issueType) {
+        return "\"" + issueType + "\"";
+    }
+
+    inline void withLabels(std::string labels)
+    {
+        const std::vector<std::string> &separatedLabels = StringUtils::split(labels, ',');
+        std::string result = StringUtils::join(separatedLabels, ',');
+        appendToQuery("labels in (" + result + ")");
+    }
+
     // others 
     
     inline void debug(bool isInDebugMode)

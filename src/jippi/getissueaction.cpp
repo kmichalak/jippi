@@ -15,6 +15,7 @@
  * 
  */
 
+#include <include/jippi/jippi.hpp>
 #include "jippi/getissueaction.hpp"
 #include "jippi/config.hpp"
 #include "restclient/restclient.hpp"
@@ -54,7 +55,6 @@ void GetIssueAction::perform()
     }
     
     std::string jsonPayload = getJSONPayload();
-    unsigned long i = jsonPayload.size();
     if (jsonPayload.empty()) {
         throw InvalidQueryException("At least one query parameter must be specified.");
     }
@@ -77,6 +77,7 @@ void GetIssueAction::printAllIssues(issues &issuesToPrint)
     for (issues::iterator it = issuesToPrint.begin(); it != issuesToPrint.end(); it++) {
         issue currentIssue = *it;
         summary * summaryField = static_cast<summary *>(currentIssue.allFields["summary"]);
-        std::cout << currentIssue.key << " - " << summaryField->summary << std::endl;
+        issue_type * issueType = static_cast<issue_type *>(currentIssue.allFields["issuetype"]);
+        std::cout << currentIssue.key << " - " << summaryField->summary << " <" << issueType->name << ">" << std::endl;
     }
 }

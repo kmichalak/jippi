@@ -66,6 +66,9 @@ void ArgumentsHandler::handle() {
                 case 't':
                     action->withIssueTypeName(optarg);
                     break;
+                case 'l':
+                    action->withLabels(optarg);
+                    break;
                 case 'h':
                     printHelp();
                     break;

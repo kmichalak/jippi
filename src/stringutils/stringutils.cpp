@@ -14,6 +14,7 @@
  * limitations under the License.
  * 
  */
+#include <algorithm>
 #include <string>
 #include <sstream>
 
@@ -21,13 +22,11 @@
 
 using namespace jippi;
 
-std::string StringUtils::trim(const std::string& str)
-{
+std::string StringUtils::trim(const std::string &str) {
     return leftTrim(rightTrim(str));
 }
 
-std::string StringUtils::leftTrim(const std::string& str)
-{
+std::string StringUtils::leftTrim(const std::string &str) {
     std::string::size_type pos = str.find_first_not_of(' ');
     if (pos == std::string::npos) {
         return std::string();
@@ -35,8 +34,7 @@ std::string StringUtils::leftTrim(const std::string& str)
     return str.substr(pos, std::string::npos);
 }
 
-std::string StringUtils::rightTrim(const std::string& str)
-{
+std::string StringUtils::rightTrim(const std::string &str) {
     std::string::size_type pos = str.find_last_not_of(' ');
     if (pos == std::string::npos) {
         return std::string();
@@ -44,22 +42,32 @@ std::string StringUtils::rightTrim(const std::string& str)
     return str.substr(0, pos + 1);
 }
 
-bool StringUtils::isEmpty(const std::string & str)
-{
+bool StringUtils::isEmpty(const std::string &str) {
     return str.length() == 0;
 }
 
-std::vector<std::string> StringUtils::split(const std::string &s, char delim) {
+std::vector<std::string> StringUtils::split(const std::string &s, char delimiter) {
     std::vector<std::string> elems;
-    split(s, delim, elems);
+    split(s, delimiter, elems);
     return elems;
 }
 
-std::vector<std::string> & StringUtils::split(const std::string &s, char delim, std::vector<std::string> &elems) {
+std::vector<std::string> &StringUtils::split(const std::string &s, char delim, std::vector<std::string> &elems) {
     std::stringstream ss(s);
     std::string item;
     while (std::getline(ss, item, delim)) {
         elems.push_back(item);
     }
     return elems;
+}
+
+std::string StringUtils::join(const std::vector<std::string> &vec, char delimiter) {
+    std::ostringstream result;
+    for (typename std::vector<std::string>::const_iterator i = vec.begin(); i < vec.end(); i++) {
+        if (i != vec.begin()) {
+            result << delimiter;
+        }
+        result << *i;
+    }
+    return result.str();
 }
