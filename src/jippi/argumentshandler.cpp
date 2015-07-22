@@ -26,25 +26,22 @@
 
 using namespace jippi;
 
-ArgumentsHandler::ArgumentsHandler(int argc, char **argv)
-{
+ArgumentsHandler::ArgumentsHandler(int argc, char **argv) {
     this->argumentsCounter = argc;
     this->argumentsVector = argv;
 }
 
-ArgumentsHandler::~ArgumentsHandler()
-{
+ArgumentsHandler::~ArgumentsHandler() {
 
 }
 
-void ArgumentsHandler::handle()
-{
+void ArgumentsHandler::handle() {
     int arg_char;
     int option_index = 0;
     if (argumentsCounter > 1) {
-        while ((arg_char = getopt_long(argumentsCounter, argumentsVector, short_args, long_options, &option_index)) != -1) {
-            switch (arg_char)
-            {
+        while ((arg_char = getopt_long(argumentsCounter, argumentsVector, short_args, long_options, &option_index)) !=
+               -1) {
+            switch (arg_char) {
                 case 0:
                     std::cout << long_options[option_index].name << std::endl;
                 case 'c':
@@ -80,23 +77,23 @@ void ArgumentsHandler::handle()
                     break;
             }
         }
-    } else { 
-        printHelp(); 
+    } else {
+        printHelp();
     }
 
     try {
         if (action) {
             action->perform();
         }
-    } catch (jippi::EmptyConfigurationValueException& someException) {
-        std::cout << "Cannot find value in configuration: " << someException.what() << std::endl;
+    } catch (jippi::EmptyConfigurationValueException &configurationException) {
+        std::cout << "Cannot find value in configuration: " << configurationException.what() << std::endl;
+    } catch (jippi::InvalidQueryException &invalidQueryException) {
+        std::cout << invalidQueryException.what() << std::endl;
     }
     delete action;
-
 }
 
-void ArgumentsHandler::handleConfiguration()
-{
+void ArgumentsHandler::handleConfiguration() {
     if (optarg) {
         // Split configuration parameters using '.' full stop character
         std::vector<std::string> sections = jippi::StringUtils::split(optarg, '.');
@@ -121,8 +118,7 @@ void ArgumentsHandler::handleConfiguration()
 }
 
 
-void ArgumentsHandler::handleAction()
-{
+void ArgumentsHandler::handleAction() {
     // optarg have to be specified - it contains the name of the action
     if (optarg) {
         action = actionToClassMap[optarg]();

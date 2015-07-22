@@ -112,6 +112,9 @@ protected:
     RestClient *restClient;
     std::string getJSONPayload()
     {
+        if (Json::Value::null == json) {
+            return "";
+        }
         std::string payload = jsonWriter.write(json);
         return payload;
     }

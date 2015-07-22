@@ -54,7 +54,11 @@ void GetIssueAction::perform()
     }
     
     std::string jsonPayload = getJSONPayload();
-    
+    unsigned long i = jsonPayload.size();
+    if (jsonPayload.empty()) {
+        throw InvalidQueryException("At least one query parameter must be specified.");
+    }
+
     if (isInDebugMode) {
         std::cout << std::endl << jsonPayload << std::endl;
     }

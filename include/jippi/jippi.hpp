@@ -136,6 +136,18 @@ private:
     std::string configurationValueName;
 };
 
+class InvalidQueryException : public std::exception
+{
+public:
+    InvalidQueryException();
+    InvalidQueryException(std::string message);
+    virtual ~InvalidQueryException() throw();
+    virtual std::string what();
+
+private:
+    std::string message;
+};
+
 } // end of namespace
 
 #endif // GETISSUEACTION_H
