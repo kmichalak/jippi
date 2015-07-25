@@ -15,6 +15,7 @@
  * 
  */
 #include <iostream>
+#include <include/jsonparser/componentsparser.hpp>
 
 #include "jsonparser/exception.hpp"
 #include "jsonparser/assignee.hpp"
@@ -68,5 +69,6 @@ void IssueParser::initialize()
     fieldsParserRegistry["project"] = new ProjectFieldParser();
     fieldsParserRegistry["progress"] = new ProgressFieldParser();
     fieldsParserRegistry["summary"] = new SummaryFieldParser();
+    fieldsParserRegistry["components"] = new ComponentsFieldParser();
     initialized = true;
 }

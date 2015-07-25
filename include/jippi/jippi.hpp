@@ -24,17 +24,17 @@
 #include <unordered_map>
 
 namespace jippi {
-    
+
 #ifndef __json_members
 #define __json_members
 
-    
+
 typedef struct {
-    std::string id;            /* field ID */ 
+    std::string id;            /* field ID */
     std::string self;          /* field definition URL */
     std::string description;   /* field description */
     std::string name;          /* field custom name */
-} field;        
+} field;
 
 
 typedef std::vector<field> fields;
@@ -106,6 +106,15 @@ typedef struct : field {
 } summary;
 
 
+typedef struct : field {
+} component;
+
+
+typedef struct : field {
+    std::vector<component> components;    /* collection of components names assigned to the issue */
+} components;
+
+
 typedef struct {
     std::string id;             /* issue ID */
     std::string self;           /* issue definition URL */
@@ -130,10 +139,22 @@ public:
     EmptyConfigurationValueException(std::string configGroup, std::string configProperty);
     virtual ~EmptyConfigurationValueException() throw();
     virtual std::string what();
-    
+
 private:
     std::string configurationGroupName;
     std::string configurationValueName;
+};
+
+class InvalidQueryException : public std::exception
+{
+public:
+    InvalidQueryException();
+    InvalidQueryException(std::string message);
+    virtual ~InvalidQueryException() throw();
+    virtual std::string what();
+
+private:
+    std::string message;
 };
 
 } // end of namespace

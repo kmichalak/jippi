@@ -15,6 +15,11 @@ file(
     ${jsonparser_SOURCE_DIR}/*.cpp
 )
 
-add_library(${JSON_PARSER_LIBRARY} STATIC ${JSONPARSER_HEADERS} ${JSONPARSER_SRC})
+add_library(
+    ${JSON_PARSER_LIBRARY}
+    STATIC ${JSONPARSER_HEADERS}
+    ${JSONPARSER_SRC}
+    ../../include/jsonparser/componentsparser.hpp
+    )
 
 target_link_libraries(${JSON_PARSER_LIBRARY} ${JsonCpp_LIBRARY})

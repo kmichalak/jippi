@@ -47,3 +47,13 @@ std::string EmptyConfigurationValueException::what()
     messageStream << this->configurationGroupName << "." << this->configurationValueName;
     return messageStream.str();
 }
+
+InvalidQueryException::InvalidQueryException(std::string message) {
+    this->message = message;
+}
+
+InvalidQueryException::~InvalidQueryException() throw() {}
+
+std::string InvalidQueryException::what() {
+    return message;
+}
