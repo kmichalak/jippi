@@ -17,43 +17,38 @@
 
 #include <include/jippi/jippi.hpp>
 #include "jippi/getissueaction.hpp"
-#include "jippi/config.hpp"
-#include "restclient/restclient.hpp"
 
 #include "jippi/jira.hpp"
-#include "jippi/jippi.hpp"
 #include "jippi/jsonparser.hpp"
 
 using namespace jippi;
 
-GetIssueAction::GetIssueAction()
-{
+GetIssueAction::GetIssueAction() {
 
 }
 
-GetIssueAction::~GetIssueAction()
-{
-    
+GetIssueAction::~GetIssueAction() {
+
 }
 
-void GetIssueAction::perform()
-{
-    const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL) + SEARCH_URL_SUFFIX ;
+void GetIssueAction::perform() {
+    const std::string jiraUrl =
+            configuration->getProperty(JIRA_GROUP, JIRA_URL) + SEARCH_URL_SUFFIX;
     const std::string jiraUser = configuration->getProperty(JIRA_GROUP, JIRA_USER);
     const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
-    
+
     if (StringUtils::isEmpty(jiraUrl)) {
         throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_URL);
     }
-    
+
     if (StringUtils::isEmpty(jiraUser)) {
         throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_USER);
     }
-    
+
     if (StringUtils::isEmpty(jiraPassword)) {
         throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_PASSWORD);
     }
-    
+
     std::string jsonPayload = getJSONPayload();
     if (jsonPayload.empty()) {
         throw InvalidQueryException("At least one query parameter must be specified.");
@@ -62,22 +57,37 @@ void GetIssueAction::perform()
     if (isInDebugMode) {
         std::cout << std::endl << jsonPayload << std::endl;
     }
-    
+
     restClient->setAuthorizationData(jiraUser, jiraPassword);
     rest_response response = restClient->doHttpPost(jiraUrl, "application/json", jsonPayload);
-    
+
     JsonParser *jsonParser = new JsonParser;
     issues parsedIssues = jsonParser->parseIssues(response.body);
 
     printAllIssues(parsedIssues);
 }
 
-void GetIssueAction::printAllIssues(issues &issuesToPrint)
-{
-    for (issues::iterator it = issuesToPrint.begin(); it != issuesToPrint.end(); it++) {
-        issue currentIssue = *it;
-        summary * summaryField = static_cast<summary *>(currentIssue.allFields["summary"]);
-        issue_type * issueType = static_cast<issue_type *>(currentIssue.allFields["issuetype"]);
-        std::cout << currentIssue.key << " - " << summaryField->summary << " <" << issueType->name << ">" << std::endl;
+void GetIssueAction::printAllIssues(issues &issuesToPrint) {
+    for (issue jiraIssue : issuesToPrint) {
+        summary *summaryField = static_cast<summary *>(jiraIssue.allFields["summary"]);
+        issue_type *issueType = static_cast<issue_type *>(jiraIssue.allFields["issuetype"]);
+        components *componentsInfo = static_cast<components *>(jiraIssue.allFields["components"]);
+
+        std::vector<std::string> componentsNames;
+        for (auto component : componentsInfo->components) {
+            componentsNames.push_back(component.name);
+        }
+
+        std::cout << jiraIssue.key
+        << " - "
+        << summaryField->summary
+        << " <"
+        << issueType->name
+        << ">"
+        << "["
+        << StringUtils::join(componentsNames, ',')
+        << "]"
+        << std::endl;
     }
+
 }
