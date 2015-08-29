@@ -53,8 +53,7 @@ issue IssueParser::parse(Json::Value& issueJsonDocument)
         if (foundItem) {
             FieldParser * fieldParser = static_cast<FieldParser *>(fieldsParserRegistry[*fieldsIterator]);
             field * issueField = fieldParser->parse(fieldsJsonDocument[*fieldsIterator]);
-            issueInfo.fieldsCollection.push_back(*issueField);
-            issueInfo.allFields[key] = issueField;
+            issueInfo.fields[key] = issueField;
         }
     }
     

@@ -23,12 +23,14 @@
 
 using namespace jippi;
 
-GetIssueAction::GetIssueAction() {
+GetIssueAction::GetIssueAction()
+{
 
 }
 
-GetIssueAction::~GetIssueAction() {
-
+GetIssueAction::~GetIssueAction()
+{
+    
 }
 
 void GetIssueAction::perform() {
@@ -68,26 +70,30 @@ void GetIssueAction::perform() {
 }
 
 void GetIssueAction::printAllIssues(issues &issuesToPrint) {
-    for (issue jiraIssue : issuesToPrint) {
-        summary *summaryField = static_cast<summary *>(jiraIssue.allFields["summary"]);
-        issue_type *issueType = static_cast<issue_type *>(jiraIssue.allFields["issuetype"]);
-        components *componentsInfo = static_cast<components *>(jiraIssue.allFields["components"]);
+    if (issuesToPrint.size() == 0) {
+        std::cout << "No issues found";
+    } else {
+        for (issue jiraIssue : issuesToPrint) {
+            summary *summaryField = static_cast<summary *>(jiraIssue.fields["summary"]);
+            issue_type *issueType = static_cast<issue_type *>(jiraIssue.fields["issuetype"]);
+            components *componentsInfo = static_cast<components *>(jiraIssue.fields["components"]);
 
-        std::vector<std::string> componentsNames;
-        for (auto component : componentsInfo->components) {
-            componentsNames.push_back(component.name);
+            std::vector<std::string> componentsNames;
+            for (auto component : componentsInfo->components) {
+                componentsNames.push_back(component.name);
+            }
+
+            std::cout << jiraIssue.key
+            << " - "
+            << summaryField->summary
+            << " <"
+            << issueType->name
+            << "> "
+            << "["
+            << StringUtils::join(componentsNames, ',')
+            << "]"
+            << std::endl;
         }
-
-        std::cout << jiraIssue.key
-        << " - "
-        << summaryField->summary
-        << " <"
-        << issueType->name
-        << ">"
-        << "["
-        << StringUtils::join(componentsNames, ',')
-        << "]"
-        << std::endl;
     }
 
 }

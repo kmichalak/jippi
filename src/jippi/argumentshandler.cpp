@@ -44,7 +44,7 @@ void ArgumentsHandler::handle() {
             switch (arg_char) {
                 case 0:
                     std::cout << long_options[option_index].name << std::endl;
-                case 'c':
+                case 'C':
                     std::cout << "Optarg: " << optarg << std::endl;
                     handleConfiguration();
                     break;
@@ -68,6 +68,9 @@ void ArgumentsHandler::handle() {
                     break;
                 case 'l':
                     action->withLabels(optarg);
+                    break;
+                case 'c':
+                    action->withComponents(optarg);
                     break;
                 case 'h':
                     printHelp();

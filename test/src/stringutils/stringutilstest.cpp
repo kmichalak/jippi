@@ -119,3 +119,46 @@ TEST(StringUtilsTest, SplitReturnsValidNumberOfResults)
     EXPECT_EQ(4, result.size());
     EXPECT_SEME_ORDER(result, strings);
 }
+
+//------------------------------------------------------------------------------
+// Cut to length
+//------------------------------------------------------------------------------
+
+TEST(StringUtilsTest, ShouldReturnTheSameStringWhenNotToLong)
+{
+    // given
+    const std::string testString = "some test string of length 29";
+
+    // when
+    std::string result = jippi::StringUtils::truncateToLength(testString, 30);
+
+    // then
+    EXPECT_EQ(testString, result);
+}
+
+TEST(StringUtilsTest, ShouldReturnStringTrimmedToExpectedLength)
+{
+    // given
+    const std::string testString = "some test string of length 29";
+    const size_t expectedSize = 10;
+
+    // when
+    std::string result = jippi::StringUtils::truncateToLength(testString, expectedSize);
+
+    // then
+    EXPECT_EQ(expectedSize, result.size());
+}
+
+TEST(StringUtilsTest, TrimmedStringShouldEndsWithTripleDot)
+{
+    // given
+    const std::string testString = "some test string of length 29";
+    const size_t expectedSize = 10;
+
+    // when
+    std::string result = jippi::StringUtils::truncateToLength(testString, expectedSize);
+    std::string stringEnding = result.substr(expectedSize - 3, expectedSize -1);
+
+    // then
+    EXPECT_EQ("...", stringEnding);
+}
