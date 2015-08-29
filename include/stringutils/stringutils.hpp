@@ -31,6 +31,8 @@ public:
     
     static std::vector<std::string> split(const std::string &s, char delimiter);
     static std::string join(const std::vector<std::string> &vec, char delimiter);
+    static std::string joinEscaped(const std::vector<std::string> &vec, char delimiter);
+    static std::string escapeStringValue(std::string value);
 
     static std::string truncateToLength(const std::string &stringToCut, size_t outputSize);
 private: 

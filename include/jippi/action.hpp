@@ -101,18 +101,21 @@ public:
         assertValidStringParam(issueType, "Issue type name cannot be an empty string!");
         // We have to escape issue type because some users set those values to something like "User Story",
         // "Story bug" or something similar...
-        appendToQuery("issueType = " + escapeStringValue(issueType));
-    }
-
-    inline std::string escapeStringValue(std::string issueType) {
-        return "\"" + issueType + "\"";
+        appendToQuery("issueType = " + StringUtils::escapeStringValue(issueType));
     }
 
     inline void withLabels(std::string labels)
     {
         const std::vector<std::string> &separatedLabels = StringUtils::split(labels, ',');
-        std::string result = StringUtils::join(separatedLabels, ',');
+        std::string result = StringUtils::joinEscaped(separatedLabels, ',');
         appendToQuery("labels in (" + result + ")");
+    }
+
+    inline void withComponents(std::string components)
+    {
+        const std::vector<std::string> &separatedComponents = StringUtils::split(components, ',');
+        std::string result = StringUtils::joinEscaped(separatedComponents, ',');
+        appendToQuery("component in (" + result+ ")");
     }
 
     // others 

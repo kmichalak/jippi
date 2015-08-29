@@ -56,7 +56,7 @@ TEST_F(RestClientTest, ResponseShouldContainValidResponseBodyWhenGetSucceed)
 TEST_F(RestClientTest, ResponseShouldContainValidResponseCodeWhenGetFails)
 {
     // when
-    jippi::rest_response response = client->doHttpGet("http://nonexisting.org");
+    jippi::rest_response response = client->doHttpGet("http://test.webpage.fake.org");
     // then
     EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
 }
@@ -92,7 +92,7 @@ TEST_F(RestClientTest, ResponseShouldContainValidCodeWhenPutFails)
     // given
     std::string data = "testdata";
     // when
-    jippi::rest_response response = client->doHttpPut("http://nonexisting.org", content_type, data);
+    jippi::rest_response response = client->doHttpPut("http://test.webpage.fake.org", content_type, data);
     // then
     EXPECT_EQ(CURLE_COULDNT_RESOLVE_HOST, response.code);
 }

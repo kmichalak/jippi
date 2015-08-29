@@ -15,7 +15,7 @@
  * 
  */
 #include <algorithm>
-#include <string>
+//#include <string>
 #include <sstream>
 
 #include "stringutils/stringutils.hpp"
@@ -52,9 +52,9 @@ bool StringUtils::isEmpty(const std::string & str)
 
 std::vector<std::string> StringUtils::split(const std::string &s, char delimiter) 
 {
-    std::vector<std::string> elems;
-    split(s, delimiter, elems);
-    return elems;
+    std::vector<std::string> elements;
+    split(s, delimiter, elements);
+    return elements;
 }
 
 std::vector<std::string> &StringUtils::split(const std::string &s, char delim, std::vector<std::string> &elems) 
@@ -86,4 +86,19 @@ std::string StringUtils::join(const std::vector<std::string> &vec, char delimite
         result << *i;
     }
     return result.str();
+}
+
+std::string StringUtils::joinEscaped(const std::vector<std::string> &vec, char delimiter) {
+    std::ostringstream result;
+    for (typename std::vector<std::string>::const_iterator i = vec.begin(); i < vec.end(); i++) {
+        if (i != vec.begin()) {
+            result << delimiter;
+        }
+        result << escapeStringValue(*i);
+    }
+    return result.str();
+}
+
+std::string StringUtils::escapeStringValue(std::string value) {
+    return "\"" + value + "\"";
 }
