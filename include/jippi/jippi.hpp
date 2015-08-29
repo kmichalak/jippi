@@ -74,6 +74,7 @@ typedef struct : field {
     std::string iconUrl;        /* status icon URL */
 } status;
 
+typedef std::vector<status> statuses;
 
 typedef struct : field {
     long progress;          /* isse reported progress */

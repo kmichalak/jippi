@@ -27,8 +27,10 @@
 #include <bits/stream_iterator.h>
 
 #include "stringutils/stringutils.hpp"
+#include "jippi/jippi.hpp"
 #include "jippi/config.hpp"
 #include "restclient/restclient.hpp"
+#include "jira.hpp"
 
 namespace jippi {
 
@@ -52,56 +54,64 @@ public:
         delete restClient;
         delete configuration;
     }
-    
+
     //-----------------------------------------------------------
     // JSON fields
     //-----------------------------------------------------------
-    
+
     inline void withStartAt(int startAt)
     {
         json["startAt"] = startAt;
     }
-    
+
     inline void withMaxResults(int maxResults)
     {
         assert(maxResults > 0 && "Max number of results should be greater than 0!");
         json["maxResults"] = maxResults;
     }
-    
+
     inline void withFields(std::string fields)
     {
         assertValidStringParam(fields, "List of fields cannot be an empty string!");
         json["fields"] = fields;
     }
-    
+
     //-----------------------------------------------------------
     // JSQL elements
     //-----------------------------------------------------------
-    
+
     inline void withProject(std::string project)
     {
         assertValidStringParam(project, "Project ID cannot be an empty string!");
         appendToQuery("project = " + project);
     }
-    
-    inline void withIssue(std::string issue) 
+
+    inline void withIssue(std::string issue)
     {
         assertValidStringParam(issue, "Issue ID cannot be an empty string!");
         appendToQuery("issue = " + issue);
     }
-        
+
     inline void withAssignee(std::string assignee)
     {
         assertValidStringParam(assignee, "Assignee ID cannot be an empty string!");
         appendToQuery("assignee = \"" + assignee + "\"");
     }
-    
-    inline void withIssueTypeName(std::string issueType) 
+
+    inline void withIssueTypeName(std::string issueType)
     {
         assertValidStringParam(issueType, "Issue type name cannot be an empty string!");
         // We have to escape issue type because some users set those values to something like "User Story",
         // "Story bug" or something similar...
         appendToQuery("issueType = " + StringUtils::escapeStringValue(issueType));
+    }
+
+    inline void withStatus(std::string statuses)
+    {
+        assertValidStringParam(statuses, "Statuses list cannot be an empty string!");
+        const std::vector<std::string> &separatedStatuses = StringUtils::split(statuses, ',');
+        std::string result = StringUtils::joinEscaped(separatedStatuses, ',');
+        appendToQuery("status in (" + result+ ")");
     }
 
     inline void withLabels(std::string labels)
@@ -118,19 +128,19 @@ public:
         appendToQuery("component in (" + result+ ")");
     }
 
-    // others 
-    
+    // others
+
     inline void debug(bool isInDebugMode)
     {
         this->isInDebugMode = isInDebugMode;
     }
-    
+
     virtual void perform() {}
-    
+
 protected:
     Config *configuration;
     RestClient *restClient;
-    std::string getJSONPayload()
+    inline std::string getJSONPayload()
     {
         if (Json::Value::null == json) {
             return "";
@@ -138,16 +148,73 @@ protected:
         std::string payload = jsonWriter.write(json);
         return payload;
     }
+
+    inline rest_response performHttpPostRequest()
+    {
+        const std::string jiraUrl =
+                configuration->getProperty(JIRA_GROUP, JIRA_URL) + SEARCH_URL_SUFFIX;
+        const std::string jiraUser = configuration->getProperty(JIRA_GROUP, JIRA_USER);
+        const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
+
+        if (StringUtils::isEmpty(jiraUrl)) {
+            throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_URL);
+        }
+
+        if (StringUtils::isEmpty(jiraUser)) {
+            throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_USER);
+        }
+
+        if (StringUtils::isEmpty(jiraPassword)) {
+            throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_PASSWORD);
+        }
+
+        std::string jsonPayload = getJSONPayload();
+        if (jsonPayload.empty()) {
+            throw InvalidQueryException("At least one query parameter must be specified.");
+        }
+
+        if (isInDebugMode) {
+            std::cout << std::endl << jsonPayload << std::endl;
+        }
+
+        restClient->setAuthorizationData(jiraUser, jiraPassword);
+        rest_response response = restClient->doHttpPost(jiraUrl, "application/json", jsonPayload);
+        return response;
+    }
+
+    inline rest_response performHttpGetRequest(std::string searchUrl)
+    {
+        const std::string jiraUrl = configuration->getProperty(JIRA_GROUP, JIRA_URL) + API_URL_SUFFIX;
+        const std::string jiraUser = configuration->getProperty(JIRA_GROUP, JIRA_USER);
+        const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
+
+        if (StringUtils::isEmpty(jiraUrl)) {
+            throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_URL);
+        }
+
+        if (StringUtils::isEmpty(jiraUser)) {
+            throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_USER);
+        }
+
+        if (StringUtils::isEmpty(jiraPassword)) {
+            throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_PASSWORD);
+        }
+
+        restClient->setAuthorizationData(jiraUser, jiraPassword);
+        rest_response response = restClient->doHttpGet(jiraUrl + searchUrl);
+        return response;
+    }
+
     bool isInDebugMode = false;
 private:
     Json::StyledWriter jsonWriter;
     Json::Value json;
-    
+
     inline void assertValidStringParam(std::string str, std::string msg)
     {
         assert(!jippi::StringUtils::isEmpty(str) && msg.c_str());
     }
-    
+
     inline void appendToQuery(std::string valueToAppend)
     {
         if (StringUtils::isEmpty(this->json["jql"].asString())) {

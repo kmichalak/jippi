@@ -22,6 +22,7 @@
 
 #include "jippi/jsonparser.hpp"
 #include "jsonparser/issue.hpp"
+#include "jsonparser/status.hpp"
 
 using namespace jippi;
 
@@ -43,7 +44,7 @@ issues JsonParser::fetchIssuesInfo(Json::Value& issuesJsonDocument)
 {
     issues issuesCollection;
     IssueParser *issueParser = new IssueParser();
-     issueParser->initialize();
+    issueParser->initialize();
     if (issuesJsonDocument.isArray()) {
         for (unsigned int index=0; index < issuesJsonDocument.size(); index++) {
             Json::Value issueJsonDocument = issuesJsonDocument[index];
@@ -65,3 +66,57 @@ issue JsonParser::fetchIssueInfo(Json::Value& issueJsonDocument)
         
     return issueContainer;
 }
+
+statuses JsonParser::parseStatuses(std::string &jsonDocument) {
+    Json::Value statusesJsonDocument;
+    Json::Reader jsonReader;
+    bool parseSuccess = jsonReader.parse(jsonDocument, statusesJsonDocument, false);
+
+    if (!parseSuccess) {}
+
+//    Json::Value statusesJsonDocument = root[""];
+    statuses statusesCollection = fetchStatusesInfo(statusesJsonDocument);
+    return statusesCollection;
+}
+
+
+
+statuses JsonParser::fetchStatusesInfo(Json::Value &statusesJsonDocument)
+{
+    statuses statusesCollection;
+    
+    StatusParser *parser = new StatusParser();
+    parser->initialize();
+    if (statusesJsonDocument.isArray()) {
+        for (auto statusJson : statusesJsonDocument) {
+            const status &statusInfo = parser->parse(statusJson);
+            statusesCollection.push_back(statusInfo);
+        }
+    }
+    return statusesCollection;
+}
+
+//[
+//{
+//"self": "http://localhost:8090/jira/rest/api/2.0/issueType/3",
+//"id": "3",
+//"name": "Task",
+//"subtask": false,
+//"statuses": [
+//{
+//"self": "http://localhost:8090/jira/rest/api/2.0/status/10000",
+//"description": "The issue is currently being worked on.",
+//"iconUrl": "http://localhost:8090/jira/images/icons/progress.gif",
+//"name": "In Progress",
+//"id": "10000"
+//},
+//{
+//"self": "http://localhost:8090/jira/rest/api/2.0/status/5",
+//"description": "The issue is closed.",
+//"iconUrl": "http://localhost:8090/jira/images/icons/closed.gif",
+//"name": "Closed",
+//"id": "5"
+//}
+//]
+//}
+//]

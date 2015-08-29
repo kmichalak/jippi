@@ -1,43 +1,38 @@
 /*
- * Copyright 2014 Kamil Michalak <kmichalak8@gmail.com>
- * 
+ * Copyright 2015 Kamil Michalak <kmichalak8@gmail.com>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
  */
 
-#ifndef JSONPARSER_H
-#define JSONPARSER_H
+#ifndef JIPPI_STATUS_HPP
+#define JIPPI_STATUS_HPP
 
-#include <string>
-
-#include <jsoncpp/json/value.h>
-#include "include/jippi/jippi.hpp"
+#include <unordered_map>
+#include "fieldparser.hpp"
 
 namespace jippi {
-    
-class JsonParser
+
+class StatusParser
 {
 public:
-    issues parseIssues(std::string &jsonDocument);
-    statuses parseStatuses(std::string &jsonDocument);
-    
+    virtual ~StatusParser() {}
+    virtual void initialize();
+    virtual status parse(Json::Value& statusJsonDocument);
 private:
-    issues fetchIssuesInfo(Json::Value &issuesJsonDocument);
-    issue fetchIssueInfo(Json::Value &issueJsonDocument);
-
-    statuses fetchStatusesInfo(Json::Value &statusesJsonDocument);
+    bool initialized;
+    std::unordered_map<std::string, FieldParser*> fieldsParserRegistry;
 };
 
-} // end of namespace
+}
 
-#endif // JSONPARSER_H
+#endif //JIPPI_STATUS_HPP

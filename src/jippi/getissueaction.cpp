@@ -34,34 +34,7 @@ GetIssueAction::~GetIssueAction()
 }
 
 void GetIssueAction::perform() {
-    const std::string jiraUrl =
-            configuration->getProperty(JIRA_GROUP, JIRA_URL) + SEARCH_URL_SUFFIX;
-    const std::string jiraUser = configuration->getProperty(JIRA_GROUP, JIRA_USER);
-    const std::string jiraPassword = configuration->getProperty(JIRA_GROUP, JIRA_PASSWORD);
-
-    if (StringUtils::isEmpty(jiraUrl)) {
-        throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_URL);
-    }
-
-    if (StringUtils::isEmpty(jiraUser)) {
-        throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_USER);
-    }
-
-    if (StringUtils::isEmpty(jiraPassword)) {
-        throw EmptyConfigurationValueException(JIRA_GROUP, JIRA_PASSWORD);
-    }
-
-    std::string jsonPayload = getJSONPayload();
-    if (jsonPayload.empty()) {
-        throw InvalidQueryException("At least one query parameter must be specified.");
-    }
-
-    if (isInDebugMode) {
-        std::cout << std::endl << jsonPayload << std::endl;
-    }
-
-    restClient->setAuthorizationData(jiraUser, jiraPassword);
-    rest_response response = restClient->doHttpPost(jiraUrl, "application/json", jsonPayload);
+    rest_response response = performHttpPostRequest();
 
     JsonParser *jsonParser = new JsonParser;
     issues parsedIssues = jsonParser->parseIssues(response.body);

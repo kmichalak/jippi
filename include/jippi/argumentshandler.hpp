@@ -24,6 +24,7 @@
 
 #include "jippi/action.hpp"
 #include "jippi/getissueaction.hpp"
+#include "jippi/getstatusesaction.hpp"
 
 namespace jippi {
 
@@ -65,7 +66,7 @@ private:
     char **argumentsVector;
     
     // Description of the long command line options.
-    const struct option long_options[12] = {
+    const struct option long_options[14] = {
         {"help",            no_argument,        0, 'h'},
         {"config",          optional_argument,  0, 'C'},
         {"action",          required_argument,  0, 'A'},
@@ -74,20 +75,25 @@ private:
         {"project",         required_argument,  0, 'p'},
         {"max-results",     required_argument,  0, 'r'},
         {"issue-type",      required_argument,  0, 't'},
+        {"issue-status",    required_argument,  0, 's'},
         {"debug",           no_argument,        0, 'd'},
         {"labels",          required_argument,  0, 'l'},
         {"components",      required_argument,  0, 'c'},
+
+        {"list-statuses",   required_argument,  0, 'S'},
+
         {NULL,              no_argument,        NULL, 0}
     };
     
     // Collection of short options
-    const char *short_args = "hC:A:i:a:p:r:t:l:c:d";
+    const char *short_args = "hC:A:i:a:p:r:t:s:l:c:d";
     
     // This map contains pairs ActionName->ActionImplementation.
     // It's used to create valid instance of the action based on the 
     // action name. 
     class_map_t actionToClassMap = {
-         {"getIssue", &createInstance<GetIssueAction>}
+         {"getIssue", &createInstance<GetIssueAction>},
+         {"getStatuses", &createInstance<GetStatusesAction>}
      };
     
     Action *action;
